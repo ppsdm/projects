@@ -9,6 +9,20 @@ use yii\widgets\DetailView;
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Setkab Activities'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+/*
+global $min;
+global $max;
+
+$min = 200;
+$max = 335;
+
+$saran_min = 200;
+$saran_max = 335;
+$exsum_min = 300;
+$exsum_max = 500;
+*/
+
+
 ?>
 <div class="setkab-activity-view">
 
@@ -17,22 +31,33 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><span>
         <?php
         
-        echo Html::img('@web/project-uploads/setkab/photos/'.$model->assessee->id.'.jpg', ['alt' => '--missing image--','style'=> 'max-width:200px;max-height:200px'
+        echo Html::img('@web/project-uploads/setkab/photos/'.$model->assessee->id.'.JPG', ['alt' => '--missing image--','style'=> 'max-width:200px;max-height:200px'
             ]);
         ?>
     </span><?= Html::encode($model->assessee->nama_lengkap) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-		        <?= Html::a(Yii::t('app', 'Print PDF'), ['pdf', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Submit Assessment'), ['submit', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to submit this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
+
+		       
+<?php
+ echo Html::a(Yii::t('app', 'Print PDF'), ['pdf', 'id' => $model->id], ['class' => 'btn btn-primary']);
+if (($model->status == 'submitted')) {
+
+        } elseif (($model->status == 'reviewed')) {
+
+
+        } else {
+            echo Html::a(Yii::t('app', 'Submit Assessment'), ['submit', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => Yii::t('app', 'Are you sure you want to submit this item?'),
+                    'method' => 'post',
+                ],
+            ]);
+        }
+        ?>
     </p>
+    <h3>Status laporan : <?= $model->status?></h3>
 <h3>Uraian</h3>
     <?= DetailView::widget([
         'model' => $model,
@@ -50,9 +75,21 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Executive Summary',
                 'format' => 'raw',
-                'value' => function($data)
+                'value' => function($data) use ($exsum_max, $exsum_min)
                 {
-                    return Html::a(Yii::t('app', 'Edit'), ['exsum', 'id' => $data->id], ['class' => 'btn btn-primary']);
+					$words = str_word_count(strip_tags($data->executive_summary));
+					$characters = strlen(str_replace(' ','',strip_tags($data->executive_summary)));
+                    
+                    if (($words <= $exsum_max) && ($words >= $exsum_min))
+                    {
+                        $btn_class = 'btn btn-success';
+                    } else {
+                        $btn_class = 'btn btn-warning';
+                    }
+
+					
+                    return Html::a(Yii::t('app', 'Edit'), ['exsum', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$exsum_min.', max = '.$exsum_max.')';
+               
                 }
 
             ],
@@ -60,27 +97,63 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Kekuatan',
                 'format' => 'raw',
-                'value' => function($data)
+                'value' => function($data) use ($saran_max, $saran_min)
                 {
-                    return Html::a(Yii::t('app', 'Edit'), ['kekuatan', 'id' => $data->id], ['class' => 'btn btn-primary']);
+                    $words = str_word_count(strip_tags($data->kekuatan));
+					$characters = strlen(str_replace(' ','',strip_tags($data->kekuatan)));
+                    
+                    if (($words <= $saran_max) && ($words >= $saran_min))
+                    {
+                        $btn_class = 'btn btn-success';
+                    } else {
+                        $btn_class = 'btn btn-warning';
+                    }
+
+					
+                    return Html::a(Yii::t('app', 'Edit'), ['kekuatan', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$saran_min.', max = '.$saran_max.')';
+               
                 }
 
             ],
             [
                 'label' => 'Kelemahan',
                 'format' => 'raw',
-                'value' => function($data)
+                'value' => function($data) use ($saran_max, $saran_min)
                 {
-                    return Html::a(Yii::t('app', 'Edit'), ['kelemahan', 'id' => $data->id], ['class' => 'btn btn-primary']);
+                    $words = str_word_count(strip_tags($data->kelemahan));
+					$characters = strlen(str_replace(' ','',strip_tags($data->kelemahan)));
+                    
+                    if (($words <= $saran_max) && ($words >= $saran_min))
+                    {
+                        $btn_class = 'btn btn-success';
+                    } else {
+                        $btn_class = 'btn btn-warning';
+                    }
+
+					
+                    return Html::a(Yii::t('app', 'Edit'), ['kelemahan', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$saran_min.', max = '.$saran_max.')';
+
                 }
 
             ],
             [
                 'label' => 'Saran Pengembangan',
                 'format' => 'raw',
-                'value' => function($data)
+                'value' => function($data) use ($saran_max, $saran_min)
                 {
-                    return Html::a(Yii::t('app', 'Edit'), ['saran', 'id' => $data->id], ['class' => 'btn btn-primary']);
+                    $words = str_word_count(strip_tags($data->saran));
+					$characters = strlen(str_replace(' ','',strip_tags($data->saran)));
+                    
+                    if (($words <= $saran_max) && ($words >= $saran_min))
+                    {
+                        $btn_class = 'btn btn-success';
+                    } else {
+                        $btn_class = 'btn btn-warning';
+                    }
+
+					
+                    return Html::a(Yii::t('app', 'Edit'), ['saran', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$saran_min.', max = '.$saran_max.')';
+
                 }
 
             ],
@@ -116,81 +189,177 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Integritas',
                 'format' => 'raw',
-                'value' => function($data)
+                'value' => function($data) use ($min, $max)
                 {
                     //check kalau textnya jumlah nya cukup
 					
 					$words = str_word_count(strip_tags($data->integritas_uraian));
 					$characters = strlen(str_replace(' ','',strip_tags($data->integritas_uraian)));
+                    
+                    if (($words <= $max) && ($words >= $min))
+                    {
+                        $btn_class = 'btn btn-success';
+                    } else {
+                        $btn_class = 'btn btn-warning';
+                    }
+
 					
-					$btn_class = 'btn btn-primary';
-					
-                    return Html::a(Yii::t('app', 'Edit'), ['integritas', 'id' => $data->id], ['class' => $btn_class]) . ' words = ' . $words;
+                    return Html::a(Yii::t('app', 'Edit'), ['integritas', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
                 }
 
             ],
             [
                 'label' => 'Kerjasama',
                 'format' => 'raw',
-                'value' => function($data)
+                'value' => function($data) use ($min, $max)
                 {
-                    return Html::a(Yii::t('app', 'Edit'), ['kerjasama', 'id' => $data->id], ['class' => 'btn btn-primary']);
+					$words = str_word_count(strip_tags($data->kerjasama_uraian));
+					$characters = strlen(str_replace(' ','',strip_tags($data->kerjasama_uraian)));
+                    
+                    if (($words <= $max) && ($words >= $min))
+                    {
+                        $btn_class = 'btn btn-success';
+                    } else {
+                        $btn_class = 'btn btn-warning';
+                    }
+
+					
+                    return Html::a(Yii::t('app', 'Edit'), ['kerjasama', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
                 }
             ],
             [
                 'label' => 'Komunikasi',
                 'format' => 'raw',
-                'value' => function($data)
+                'value' => function($data) use ($min, $max)
                 {
-                    return Html::a(Yii::t('app', 'Edit'), ['komunikasi', 'id' => $data->id], ['class' => 'btn btn-primary']);
+					$words = str_word_count(strip_tags($data->komunikasi_uraian));
+					$characters = strlen(str_replace(' ','',strip_tags($data->komunikasi_uraian)));
+                    
+                    if (($words <= $max) && ($words >= $min))
+                    {
+                        $btn_class = 'btn btn-success';
+                    } else {
+                        $btn_class = 'btn btn-warning';
+                    }
+
+					
+                    return Html::a(Yii::t('app', 'Edit'), ['komunikasi', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
                 }
             ],
             [
                 'label' => 'Orientasi pada hasil',
                 'format' => 'raw',
-                'value' => function($data)
+                'value' => function($data) use ($min, $max)
                 {
-                    return Html::a(Yii::t('app', 'Edit'), ['orientasihasil', 'id' => $data->id], ['class' => 'btn btn-primary']);
+					$words = str_word_count(strip_tags($data->orientasihasil_uraian));
+					$characters = strlen(str_replace(' ','',strip_tags($data->orientasihasil_uraian)));
+                    
+                    if (($words <= $max) && ($words >= $min))
+                    {
+                        $btn_class = 'btn btn-success';
+                    } else {
+                        $btn_class = 'btn btn-warning';
+                    }
+
+					
+                    return Html::a(Yii::t('app', 'Edit'), ['orientasihasil', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
                 }
             ],
             [
                 'label' => 'Pelayanan Publik',
                 'format' => 'raw',
-                'value' => function($data)
+                'value' => function($data) use ($min, $max)
                 {
-                    return Html::a(Yii::t('app', 'Edit'), ['pelayananpublik', 'id' => $data->id], ['class' => 'btn btn-primary']);
+					$words = str_word_count(strip_tags($data->pelayananpublik_uraian));
+					$characters = strlen(str_replace(' ','',strip_tags($data->pelayananpublik_uraian)));
+                    
+                    if (($words <= $max) && ($words >= $min))
+                    {
+                        $btn_class = 'btn btn-success';
+                    } else {
+                        $btn_class = 'btn btn-warning';
+                    }
+
+					
+                    return Html::a(Yii::t('app', 'Edit'), ['pelayananpublik', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
                 }
             ],
             [
                 'label' => 'Pengembangan Diri dan Orang Lain',
                 'format' => 'raw',
-                'value' => function($data)
+                'value' => function($data) use ($min, $max)
                 {
-                    return Html::a(Yii::t('app', 'Edit'), ['pengembangandiri', 'id' => $data->id], ['class' => 'btn btn-primary']);
+					$words = str_word_count(strip_tags($data->pengembangandiri_uraian));
+					$characters = strlen(str_replace(' ','',strip_tags($data->pengembangandiri_uraian)));
+                    
+                    if (($words <= $max) && ($words >= $min))
+                    {
+                        $btn_class = 'btn btn-success';
+                    } else {
+                        $btn_class = 'btn btn-warning';
+                    }
+
+					
+                    return Html::a(Yii::t('app', 'Edit'), ['pengembangandiri', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
                 }
             ],
             [
                 'label' => 'Mengelola Perubahan',
                 'format' => 'raw',
-                'value' => function($data)
+                'value' => function($data) use ($min, $max)
                 {
-                    return Html::a(Yii::t('app', 'Edit'), ['perubahan', 'id' => $data->id], ['class' => 'btn btn-primary']);
+					$words = str_word_count(strip_tags($data->pengelolaanperubahan_uraian));
+					$characters = strlen(str_replace(' ','',strip_tags($data->pengelolaanperubahan_uraian)));
+                    
+                    if (($words <= $max) && ($words >= $min))
+                    {
+                        $btn_class = 'btn btn-success';
+                    } else {
+                        $btn_class = 'btn btn-warning';
+                    }
+
+					
+                    return Html::a(Yii::t('app', 'Edit'), ['perubahan', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
                 }
             ],
             [
                 'label' => 'Pengambilan Keputusan',
                 'format' => 'raw',
-                'value' => function($data)
+                'value' => function($data) use ($min, $max)
                 {
-                    return Html::a(Yii::t('app', 'Edit'), ['pengambilankeputusan', 'id' => $data->id], ['class' => 'btn btn-primary']);
+					$words = str_word_count(strip_tags($data->pengambilankeputusan_uraian));
+					$characters = strlen(str_replace(' ','',strip_tags($data->pengambilankeputusan_uraian)));
+                    
+                    if (($words <= $max) && ($words >= $min))
+                    {
+                        $btn_class = 'btn btn-success';
+                    } else {
+                        $btn_class = 'btn btn-warning';
+                    }
+
+					
+                    return Html::a(Yii::t('app', 'Edit'), ['pengambilankeputusan', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
+
                 }
             ],
             [
                 'label' => 'Perekat Bangsa',
                 'format' => 'raw',
-                'value' => function($data)
+                'value' => function($data) use ($min, $max)
                 {
-                    return Html::a(Yii::t('app', 'Edit'), ['perekatbangsa', 'id' => $data->id], ['class' => 'btn btn-primary']);
+					$words = str_word_count(strip_tags($data->perekatbangsa_uraian));
+					$characters = strlen(str_replace(' ','',strip_tags($data->perekatbangsa_uraian)));
+                    
+                    if (($words <= $max) && ($words >= $min))
+                    {
+                        $btn_class = 'btn btn-success';
+                    } else {
+                        $btn_class = 'btn btn-warning';
+                    }
+
+					
+                    return Html::a(Yii::t('app', 'Edit'), ['perekatbangsa', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
+
                 }
             ],
             //'tanggal_test',

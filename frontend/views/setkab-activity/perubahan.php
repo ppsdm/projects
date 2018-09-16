@@ -18,38 +18,68 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="setkab-activity-update">
 
+    <h1>Aspek Kompetensi : Mengelola Perubahan</h1>
+<p>
+
+Kemampuan dalam menyesuaikan diri dengan situasi yang baru atau berubah dan tidak bergantung secara berlebihan pada metode dan proses lama, mengambil tindakan untuk mendukung dan melaksanakan insiatif perubahan, memimpin usaha perubahan, mengambil tanggung jawab pribadi untuk memastikan perubahan berhasil diimplementasikan secara efektif.
+
+</p>
     <?php $form = ActiveForm::begin(); ?>
 <?php
+$lki = $model->pengelolaanperubahan_lki;
+$uraian = $model->pengelolaanperubahan_uraian;
+$lkj_1 = $lkj->kompetensigram_pengelolaanperubahan;
+$indikator_1 = $model->pengelolaanperubahan_indikator;
 
-$keyvalue = 'pengelolaanperubahan_lki' . $model->integritas_lki;
+$model_lki = 'pengelolaanperubahan_lki';
+$model_uraian = 'pengelolaanperubahan_uraian';
+
+$keyvalue = 'pengelolaanperubahan' . $lki;
 $indikators = RefAssessmentDictionary::find()->andWhere(['key' => $keyvalue])->andWhere(['>', 'value',0])->asArray()->All();
 
 $indikator = [
-    ['id' => '123', 'name' => 'aaa', 'class' => 'x'],
-    ['id' => '124', 'name' => 'bbb', 'class' => 'x'],
-    ['id' => '345', 'name' => 'ccc', 'class' => 'y'],
+
 ];
 
-echo '<h3>LKJ = ' . $lkj->kompetensigram_pengelolaanperubahan . '</h3>';
-$gap = $model->pengelolaanperubahan_lki - $lkj->kompetensigram_pengelolaanperubahan;
+
+$gap = $lki - $lkj_1;
 if ($gap > 0) {
 	$gap = 0;
 	}
-$daftar_lki =  ['0' => '0','1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5'];
-//$daftar_lki = ArrayHelper::map($indikators, 'value', 'textvalue');
-echo    $form->field($model, 'pengelolaanperubahan_lki')->dropDownList($daftar_lki, ['prompt' => 'select...']);
-echo Html::submitButton(Yii::t('app', 'Simpan LKI & update daftar indikator'), ['class' =>'btn btn-primary', 'value' => 'refresh', 'name'=>'submit2']);
+
+
+
+$daftar_lki =  ['0' => '0','1' => '1 - Mengikuti perubahan dengan arahan', 
+		'2' => '2 - Proaktif beradaptasi mengikuti perubahan', 
+		'3' => '3 - Membantu orang lain mengikuti perubahan, mengantisipasi perubahan secara tepat',
+		 '4' => '4 - Memimpin perubahan pada unit kerja', 
+		 '5' => '5 - Memimpin, menggalang dan menggerakkan dukungan pemangku kepentingan untuk menjalankan perubahan secara berkelanjutan pada tingkat instansi/nasional'];
+
+echo    $form->field($model, $model_lki)->dropDownList($daftar_lki, ['prompt' => 'select...']);
+echo Html::submitButton(Yii::t('app', 'Simpan LKI'), ['class' =>'btn btn-primary', 'value' => 'refresh', 'name'=>'submit2']);
+echo '<h3>LKJ = ' . $lkj_1 . '</h3>';
 echo '<h3>GAP = ' . $gap . '</h3>';
 echo '<hr/>';
-//echo Html::a('Profile', ['', 'id' => $model->id], ['class' => 'btn btn-primary']);
 echo '<p>';
-				echo Html::label('Indikator Perilaku', 'pengelolaanperubahan_lki');
+				echo Html::label('Indikator Perilaku', $model_lki);
 				echo '</p>';
 				echo Html::activeCheckboxList($model, 'indikatorarray', ArrayHelper::map($indikators, 'value', 'textvalue'));
 				
-				echo '<hr/>';
+                                echo Html::submitButton(Yii::t('app', 'Tunjukkan usulan uraian'), ['class' =>'btn btn-primary', 'value' => 'refresh', 'name'=>'submit2']);
+                                echo '<hr/>';
 				echo '<p>';
-				$uraian_kamus = 'masuih kosong. mau diisi apa ya?';
+
+				$uraian_kamus = "";
+
+				$activeIndikators = explode(',', str_replace(['[', ']', '"'], '', $indikator_1));
+				foreach($activeIndikators as $activeIndikator) {
+					foreach($indikators as $indikator) {
+						if ($indikator['value'] == $activeIndikator) {
+							$uraian_kamus .= $indikator['textvalue'] . "\n";
+						}
+					}
+				}
+
 				echo Html::label('Uraian Kamus', 'uraian_kamus');
 				echo '</p>';
 echo '<p>';
@@ -62,43 +92,18 @@ echo '<p>';
 echo '<p>';
 
 
-	echo $form->field($model, 'pengelolaanperubahan_uraian')->widget(\yii\redactor\widgets\Redactor::className(), [
+	echo $form->field($model, $model_uraian)->widget(\yii\redactor\widgets\Redactor::className(), [
 
     'clientOptions' => [
 		'plugins' => ['clips', 'fontcolor','fullscreen', 'counter']
     ]
 ]);
-echo $hint_text = 'words : ' . str_word_count(strip_tags($model->integritas_uraian)) . ' , characters : ' . strlen(str_replace(' ','',strip_tags($model->integritas_uraian)));
+echo $hint_text = 'words : ' . str_word_count(strip_tags($uraian)) . ' , characters : ' . strlen(str_replace(' ','',strip_tags($uraian)));
 			echo '</p>';
 ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'value' => 'update', 'name' => 'submit2']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Simpan Uraian') : Yii::t('app', 'Update Uraian'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'value' => 'update', 'name' => 'submit2']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>
-
-
-
-
-
-<?php
-            
-			//echo '<pre>';
-//print_r($indikators);
-    
-
-			
-			$this->registerJs(
-    "$(function(){
-    $('#setkabactivity-integritas_lki').change(function(){
-		
-        
-    });
-});",
-    View::POS_READY,
-    'my-button-handler'
-);
-
-
-?>

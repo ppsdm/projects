@@ -18,45 +18,49 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="setkab-activity-update">
 
-    <h1>Aspek Kompetensi : Integritas</h1>
-	<p>Konsisten berperilaku selaras dengan nilai, norma dan/atau etika organisasi, dan jujur dalam hubungan dengan manajemen, rekan kerja, bawahan langsung, dan pemangku kepentingan, menciptakan budaya etika tinggi, bertanggungjawab atas tindakan atau keputusan beserta risiko yang menyertainya.</p>
+    <h1>Aspek Kompetensi : Perekat Bangsa</h1>
+<p>
+
+Kemampuan dalam mempromosikan sikap toleransi, keterbukaan, peka terhadap perbedaan individu/kelompok masyarakat; mampu menjadi perpanjangan tangan pemerintah dalam mempersatukan masyarakat dan membangun hubungan sosial psikologis dengan masyarakat di tengah kemajemukan Indonesia sehingga menciptakan kelekatan yang kuat antara ASN dan para pemangku kepentingan serta diantara para pemangku kepentingan itu sendiri; menjaga, mengembangkan, dan mewujudkan rasa persatuan dan kesatuan dalam kehidupan bermasyarakat, berbangsa dan bernegara Indonesia
+</p>
     <?php $form = ActiveForm::begin(); ?>
 <?php
+$lki = $model->perekatbangsa_lki;
+$uraian = $model->perekatbangsa_uraian;
+$lkj_1 = $lkj->kompetensigram_perekatbangsa;
+$indikator_1 = $model->perekatbangsa_indikator;
 
+$model_lki = 'perekatbangsa_lki';
+$model_uraian = 'perekatbangsa_uraian';
 
-$keyvalue = 'integritas' . $model->integritas_lki;
+$keyvalue = 'perekatbangsa' . $lki;
 $indikators = RefAssessmentDictionary::find()->andWhere(['key' => $keyvalue])->andWhere(['>', 'value',0])->asArray()->All();
 
 $indikator = [
-//    ['id' => '123', 'name' => 'aaa', 'class' => 'x'],
-  //  ['id' => '124', 'name' => 'bbb', 'class' => 'x'],
-    //['id' => '345', 'name' => 'ccc', 'class' => 'y'],
+
 ];
 
 
-$gap = $model->integritas_lki - $lkj->kompetensigram_integritas;
+$gap = $lki - $lkj_1;
 if ($gap > 0) {
 	$gap = 0;
 	}
 
 
 
-$daftar_lki =  ['0' => '0','1' => '1 - Mampu bertindak sesuai nilai, norma,etika organisasi dalam kapasitas pribadi', 
-		'2' => '2 - Mampu mengingatkan, mengajak rekan kerja untuk bertindak sesuai nilai, norma, dan etika organisasi', 
-		'3' => '3 - Mampu memastikan, menanamkan keyakinan bersama agar anggota yang dipimpin bertindak sesuai nilai, norma, dan etika organisasi, dalam lingkup formal',
-		 '4' => '4 - Mampu menciptakan situasi kerja yang mendorong kepatuhan pada nilai, norma, dan etika organisasi', 
-		 '5' => '5 - Mampu menjadi role model dalam penerapan standar keadilan dan etika di tingkat nasional'];
+$daftar_lki =  ['0' => '0','1' => '1 - Peka memahami dan menerima kemajemukan', 
+		'2' => '2 - Aktif mengembangkan sikap saling menghargai, menekankan persamaan dan persatuan', 
+		'3' => '3 - Mempromosikan, mengembangkan sikap toleransi dan persatuan',
+		 '4' => '4 - Mendayagunakan perbedaan secara konstruktif dan kreatif untuk meningkatkan efektifitas organisasi', 
+		 '5' => '5 - Wakil pemerintah untuk membangun hubungan sosial psikologis'];
 
-
-//$daftar_lki = ArrayHelper::map($indikators, 'value', 'textvalue');
-echo    $form->field($model, 'integritas_lki')->dropDownList($daftar_lki, ['prompt' => 'select...']);
+echo    $form->field($model, $model_lki)->dropDownList($daftar_lki, ['prompt' => 'select...']);
 echo Html::submitButton(Yii::t('app', 'Simpan LKI'), ['class' =>'btn btn-primary', 'value' => 'refresh', 'name'=>'submit2']);
-echo '<h3>LKJ = ' . $lkj->kompetensigram_integritas . '</h3>';
+echo '<h3>LKJ = ' . $lkj_1 . '</h3>';
 echo '<h3>GAP = ' . $gap . '</h3>';
 echo '<hr/>';
-//echo Html::a('Profile', ['', 'id' => $model->id], ['class' => 'btn btn-primary']);
 echo '<p>';
-				echo Html::label('Indikator Perilaku', 'integritas_lki');
+				echo Html::label('Indikator Perilaku', $model_lki);
 				echo '</p>';
 				echo Html::activeCheckboxList($model, 'indikatorarray', ArrayHelper::map($indikators, 'value', 'textvalue'));
 				
@@ -66,7 +70,7 @@ echo '<p>';
 
 				$uraian_kamus = "";
 
-				$activeIndikators = explode(',', str_replace(['[', ']', '"'], '', $model->integritas_indikator));
+				$activeIndikators = explode(',', str_replace(['[', ']', '"'], '', $indikator_1));
 				foreach($activeIndikators as $activeIndikator) {
 					foreach($indikators as $indikator) {
 						if ($indikator['value'] == $activeIndikator) {
@@ -87,13 +91,13 @@ echo '<p>';
 echo '<p>';
 
 
-	echo $form->field($model, 'integritas_uraian')->widget(\yii\redactor\widgets\Redactor::className(), [
+	echo $form->field($model, $model_uraian)->widget(\yii\redactor\widgets\Redactor::className(), [
 
     'clientOptions' => [
 		'plugins' => ['clips', 'fontcolor','fullscreen', 'counter']
     ]
 ]);
-echo $hint_text = 'words : ' . str_word_count(strip_tags($model->integritas_uraian)) . ' , characters : ' . strlen(str_replace(' ','',strip_tags($model->integritas_uraian)));
+echo $hint_text = 'words : ' . str_word_count(strip_tags($uraian)) . ' , characters : ' . strlen(str_replace(' ','',strip_tags($uraian)));
 			echo '</p>';
 ?>
 
@@ -102,23 +106,3 @@ echo $hint_text = 'words : ' . str_word_count(strip_tags($model->integritas_urai
     </div>
     <?php ActiveForm::end(); ?>
 </div>
-
-
-
-
-
-<?php
-			
-			$this->registerJs(
-    "$(function(){
-    $('#setkabactivity-integritas_lki').change(function(){
-		
-        
-    });
-});",
-    View::POS_READY,
-    'my-button-handler'
-);
-
-
-?>

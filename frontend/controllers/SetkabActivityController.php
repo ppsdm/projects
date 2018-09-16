@@ -64,8 +64,22 @@ class SetkabActivityController extends Controller
      */
     public function actionView($id)
     {
+
+        $kompetensi_min = 200;
+        $kompetensi_max = 335;
+		$saran_min = 200;
+		$saran_max = 335;
+		$exsum_min = 200;
+        $exsum_max = 400;
+        
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'min' => $kompetensi_min,
+            'max' => $kompetensi_max,
+            'saran_min' => $saran_min,
+            'saran_max' => $saran_max,
+            'exsum_min' => $exsum_min,
+            'exsum_max' => $exsum_max
         ]);
     }
 
@@ -148,35 +162,171 @@ class SetkabActivityController extends Controller
 	}
 
 
+    function submitValidation($id)
+    {
+        //echo 'validasi data laporan. kalua belum maka ditolak';
+		
+        $kompetensi_min = 200;
+        $kompetensi_max = 335;
+		$saran_min = 200;
+		$saran_max = 335;
+		$exsum_min = 200;
+		$exsum_max = 400;
+        //cek jumlah karakter tiap uraian
+        $model = $this->findModel($id);
+         $integritas_uraian = str_word_count(strip_tags($model->integritas_uraian));
+         $kerjasama_uraian = str_word_count(strip_tags($model->kerjasama_uraian));
+         $komunikasi_uraian = str_word_count(strip_tags($model->komunikasi_uraian));
+         $orientasihasil_uraian = str_word_count(strip_tags($model->orientasihasil_uraian));
+         $pelayananpublik_uraian = str_word_count(strip_tags($model->pelayananpublik_uraian));
+         $pengembangandiri_uraian = str_word_count(strip_tags($model->pengembangandiri_uraian));
+         $pengelolaanperubahan_uraian = str_word_count(strip_tags($model->pengelolaanperubahan_uraian));
+         $pengambilankeputusan_uraian = str_word_count(strip_tags($model->pengambilankeputusan_uraian));
+         $perekatbangsa_uraian = str_word_count(strip_tags($model->perekatbangsa_uraian));
+         $kekuatan = str_word_count(strip_tags($model->kekuatan));
+         $kelemahan = str_word_count(strip_tags($model->kelemahan));
+         $exsum = str_word_count(strip_tags($model->executive_summary));
+         $saran = str_word_count(strip_tags($model->saran));
 
+        $message = '';
+        $valid = true;
+
+        if($kekuatan >= $saran_max) {
+            $message = $message . ' uraian kekuatan diatas MAX; <br/>';
+            $valid = false;
+        }
+        if($kekuatan < $saran_min) {
+            $message = $message . ' uraian kekuatan dibawah MIN; <br/>';
+            $valid = false;
+        }
+        if($kelemahan >= $saran_max) {
+            $message = $message . ' uraian kelemahan diatas MAX; <br/>';
+            $valid = false;
+        }
+        if($kelemahan < $saran_min) {
+            $message = $message . ' uraian kelemahan dibawah MIN; <br/>';
+            $valid = false;
+        }
+        if($saran >= $saran_max) {
+            $message = $message . ' uraian saran diatas MAX; <br/>';
+            $valid = false;
+        }
+        if($saran < $saran_min) {
+            $message = $message . ' uraian saran dibawah MIN; <br/>';
+            $valid = false;
+        }
+        if($exsum >= $exsum_max) {
+            $message = $message . ' uraian executive summary diatas MAX; <br/>';
+            $valid = false;
+        }
+        if($exsum < $exsum_min) {
+            $message = $message . ' uraian executive summary dibawah MIN; <br/>';
+            $valid = false;
+        }
+
+            if($integritas_uraian >= $kompetensi_max) {
+                $message = $message . ' uraian integritas diatas MAX; <br/>';
+                $valid = false;
+            }
+            if($integritas_uraian < $kompetensi_min) {
+                $message = $message . ' uraian integritas dibawah MIN; <br/>';
+                $valid = false;
+            }
+
+            if($kerjasama_uraian >= $kompetensi_max) {
+                $message = $message . ' uraian kerjasama diatas MAX; <br/>';
+                $valid = false;
+            }
+            if($kerjasama_uraian < $kompetensi_min) {
+                $message = $message . ' uraian kerjasama dibawah MIN; <br/>';
+                $valid = false;
+            }
+
+            if($komunikasi_uraian >= $kompetensi_max) {
+                $message = $message . ' uraian komunikasi diatas MAX; <br/>';
+                $valid = false;
+            }
+            if($komunikasi_uraian < $kompetensi_min) {
+                $message = $message . ' uraian komunikasi dibawah MIN; <br/>';
+                $valid = false;
+            }
+            if($orientasihasil_uraian >= $kompetensi_max) {
+                $message = $message . ' uraian orientasi hasil diatas MAX; <br/>';
+                $valid = false;
+            }
+            if($orientasihasil_uraian < $kompetensi_min) {
+                $message = $message . ' uraian orientasi hasil dibawah MIN; <br/>';
+                $valid = false;
+            }
+
+            if($pelayananpublik_uraian >= $kompetensi_max) {
+                $message = $message . ' uraian pelayanan publik diatas MAX; <br/>';
+                $valid = false;
+            }
+            if($pelayananpublik_uraian < $kompetensi_min) {
+                $message = $message . ' uraian pelayanan publik dibawah MIN; <br/>';
+                $valid = false;
+            }
+
+            if($pengembangandiri_uraian >= $kompetensi_max) {
+                $message = $message . ' uraian pengembangan diri diatas MAX; <br/>';
+                $valid = false;
+            }
+            if($pengembangandiri_uraian < $kompetensi_min) {
+                $message = $message . ' uraian pengembangan diri dibawah MIN; <br/>';
+                $valid = false;
+            }
+            if($pengelolaanperubahan_uraian >= $kompetensi_max) {
+                $message = $message . ' uraian pengelolaan perubahan diatas MAX; <br/>';
+                $valid = false;
+            }
+            if($pengelolaanperubahan_uraian < $kompetensi_min) {
+                $message = $message . ' uraian pengelolaan perubahan dibawah MIN; <br/>';
+                $valid = false;
+            }
+
+            if($pengambilankeputusan_uraian >= $kompetensi_max) {
+                $message = $message . ' uraian pengambilan keputusan diatas MAX; <br/>';
+                $valid = false;
+            }
+            if($pengambilankeputusan_uraian < $kompetensi_min) {
+                $message = $message . ' uraian pengambilan keputusan dibawah MIN; <br/>';
+                $valid = false;
+            }
+
+            if($perekatbangsa_uraian >= $kompetensi_max) {
+                $message = $message . ' uraian perekat bangsa diatas MAX; <br/>';
+                $valid = false;
+            }
+            if($perekatbangsa_uraian < $kompetensi_min) {
+                $message = $message . ' uraian perekat bangsa dibawah MIN; <br/>';
+                $valid = false;
+            }
+
+            if ($valid) {
+                //echo 'ye';
+                return ($valid);
+            }
+            else {
+               // echo 'err';
+                return ($message);
+            }
+    }
 
 	public function actionSubmit($id)
 	{
-        echo 'validasi data laporan. kalua belum maka ditolak';
-		
-		$limit_kompetensi = 500;
-		$limit_kelemahan = 300;
-		$limit_kekuatan = 300;
-		$limit_saran = 300;
-		$limit_exsum = 1000;
-        //cek jumlah karakter tiap uraian
-        $model = $this->findModel($id);
-        echo $integritas_uraian = str_word_count(strip_tags($model->integritas_uraian));
-        echo $kerjasama_uraian = str_word_count(strip_tags($model->kerjasama_uraian));
-        echo $komunikasi_uraian = str_word_count(strip_tags($model->komunikasi_uraian));
-        echo $integritas_uraian = str_word_count(strip_tags($model->integritas_uraian));
-        echo $orientasihasil_uraian = str_word_count(strip_tags($model->orientasihasil_uraian));
-        echo $pelayananpublik_uraian = str_word_count(strip_tags($model->pelayananpublik_uraian));
-        echo $pengembangandiri_uraian = str_word_count(strip_tags($model->pengembangandiri_uraian));
-        echo $pengelolaanperubahan_uraian = str_word_count(strip_tags($model->pengelolaanperubahan_uraian));
-        echo $pengambilankeputusan_uraian = str_word_count(strip_tags($model->pengambilankeputusan_uraian));
-        echo $perekatbangsa_uraian = str_word_count(strip_tags($model->perekatbangsa_uraian));
-        echo $kekuatan = str_word_count(strip_tags($model->kekuatan));
-        echo $kelemahan = str_word_count(strip_tags($model->kelemahan));
-        echo $exsum = str_word_count(strip_tags($model->executive_summary));
-        echo $saran = str_word_count(strip_tags($model->saran));
 
-	
+    if ($result = $this->submitValidation($id))
+    {
+        $model = $this->findModel($id);
+        $model->status = 'submitted';
+        $model->save();
+        Yii::$app->session->setFlash('success', "Submit Success"); 
+    } else {
+        Yii::$app->session->setFlash('error', "ada yang belum komplit");
+    }
+
+    return $this->redirect(['view', 'id' => $id]);
 
 
 
@@ -326,11 +476,18 @@ class SetkabActivityController extends Controller
 
     public function actionIntegritas($id)
     {
-        $model = $this->findModel($id);
 
+
+        $model = $this->findModel($id);
+		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
+		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
+		if (sizeof($lkj) == 0) {
+			$lkj = new SetkabLkj;
+		}
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			if (Yii::$app->request->post('submit2') == 'refresh') {
 				            return $this->render('integritas', [
+                                'lkj' => $lkj,
                 'model' => $model,
             ]);
 			} else {
@@ -339,6 +496,7 @@ class SetkabActivityController extends Controller
 			}
         } else {
             return $this->render('integritas', [
+                'lkj' => $lkj,
                 'model' => $model,
             ]);
         }
@@ -346,13 +504,24 @@ class SetkabActivityController extends Controller
     }
 
 
-	    public function actionPerekatbangsa($id)
-    {
-        $model = $this->findModel($id);
 
+
+
+
+    public function actionKerjasama($id)
+    {
+
+
+        $model = $this->findModel($id);
+		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
+		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
+		if (sizeof($lkj) == 0) {
+			$lkj = new SetkabLkj;
+		}
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			if (Yii::$app->request->post('submit2') == 'refresh') {
-				            return $this->render('perekatbangsa', [
+				            return $this->render('kerjasama', [
+                                'lkj' => $lkj,
                 'model' => $model,
             ]);
 			} else {
@@ -360,20 +529,30 @@ class SetkabActivityController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
 			}
         } else {
-            return $this->render('perekatbangsa', [
+            return $this->render('kerjasama', [
+                'lkj' => $lkj,
                 'model' => $model,
             ]);
         }
 
     }
 
-	    public function actionPengambilankeputusan($id)
-    {
-        $model = $this->findModel($id);
 
+
+    public function actionKomunikasi($id)
+    {
+
+
+        $model = $this->findModel($id);
+		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
+		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
+		if (sizeof($lkj) == 0) {
+			$lkj = new SetkabLkj;
+		}
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			if (Yii::$app->request->post('submit2') == 'refresh') {
-				            return $this->render('pengambilankeputusan', [
+				            return $this->render('komunikasi', [
+                                'lkj' => $lkj,
                 'model' => $model,
             ]);
 			} else {
@@ -381,15 +560,106 @@ class SetkabActivityController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
 			}
         } else {
-            return $this->render('pengambilankeputusan', [
+            return $this->render('komunikasi', [
+                'lkj' => $lkj,
                 'model' => $model,
             ]);
         }
 
     }
 
-	    public function actionPerubahan($id)
+    public function actionOrientasihasil($id)
     {
+
+
+        $model = $this->findModel($id);
+		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
+		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
+		if (sizeof($lkj) == 0) {
+			$lkj = new SetkabLkj;
+		}
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			if (Yii::$app->request->post('submit2') == 'refresh') {
+				            return $this->render('orientasihasil', [
+                                'lkj' => $lkj,
+                'model' => $model,
+            ]);
+			} else {
+
+            return $this->redirect(['view', 'id' => $model->id]);
+			}
+        } else {
+            return $this->render('orientasihasil', [
+                'lkj' => $lkj,
+                'model' => $model,
+            ]);
+        }
+
+    }
+
+    public function actionPelayananpublik($id)
+    {
+
+
+        $model = $this->findModel($id);
+		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
+		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
+		if (sizeof($lkj) == 0) {
+			$lkj = new SetkabLkj;
+		}
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			if (Yii::$app->request->post('submit2') == 'refresh') {
+				            return $this->render('pelayananpublik', [
+                                'lkj' => $lkj,
+                'model' => $model,
+            ]);
+			} else {
+
+            return $this->redirect(['view', 'id' => $model->id]);
+			}
+        } else {
+            return $this->render('pelayananpublik', [
+                'lkj' => $lkj,
+                'model' => $model,
+            ]);
+        }
+
+    }
+
+
+    public function actionPengembangandiri($id)
+    {
+
+
+        $model = $this->findModel($id);
+		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
+		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
+		if (sizeof($lkj) == 0) {
+			$lkj = new SetkabLkj;
+		}
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			if (Yii::$app->request->post('submit2') == 'refresh') {
+				            return $this->render('pengembangandiri', [
+                                'lkj' => $lkj,
+                'model' => $model,
+            ]);
+			} else {
+
+            return $this->redirect(['view', 'id' => $model->id]);
+			}
+        } else {
+            return $this->render('pengembangandiri', [
+                'lkj' => $lkj,
+                'model' => $model,
+            ]);
+        }
+
+    }
+
+    public function actionPerubahan($id)
+    {
+
+
         $model = $this->findModel($id);
 		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
 		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
@@ -399,7 +669,7 @@ class SetkabActivityController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			if (Yii::$app->request->post('submit2') == 'refresh') {
 				            return $this->render('perubahan', [
-							'lkj' => $lkj,
+                                'lkj' => $lkj,
                 'model' => $model,
             ]);
 			} else {
@@ -408,14 +678,71 @@ class SetkabActivityController extends Controller
 			}
         } else {
             return $this->render('perubahan', [
-					'lkj' => $lkj,
+                'lkj' => $lkj,
                 'model' => $model,
             ]);
         }
 
-		//echo $assessee_model->level;
     }
 
+
+    public function actionPengambilankeputusan($id)
+    {
+
+
+        $model = $this->findModel($id);
+		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
+		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
+		if (sizeof($lkj) == 0) {
+			$lkj = new SetkabLkj;
+		}
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			if (Yii::$app->request->post('submit2') == 'refresh') {
+				            return $this->render('pengambilankeputusan', [
+                                'lkj' => $lkj,
+                'model' => $model,
+            ]);
+			} else {
+
+            return $this->redirect(['view', 'id' => $model->id]);
+			}
+        } else {
+            return $this->render('pengambilankeputusan', [
+                'lkj' => $lkj,
+                'model' => $model,
+            ]);
+        }
+
+    }
+
+    public function actionPerekatbangsa($id)
+    {
+
+
+        $model = $this->findModel($id);
+		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
+		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
+		if (sizeof($lkj) == 0) {
+			$lkj = new SetkabLkj;
+		}
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			if (Yii::$app->request->post('submit2') == 'refresh') {
+				            return $this->render('perekatbangsa', [
+                                'lkj' => $lkj,
+                'model' => $model,
+            ]);
+			} else {
+
+            return $this->redirect(['view', 'id' => $model->id]);
+			}
+        } else {
+            return $this->render('perekatbangsa', [
+                'lkj' => $lkj,
+                'model' => $model,
+            ]);
+        }
+
+    }
 
 
 
