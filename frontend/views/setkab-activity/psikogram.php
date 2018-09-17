@@ -346,6 +346,40 @@ pek Sikap Kerja</h3>
 </table>
 
 <?php
+
+$psikogram_total = 0;
+$psikogram_total += $model->psikogram_berpikiranalitis;
+$psikogram_total += $model->psikogram_empati;
+$psikogram_total += $model->psikogram_fleksibilitasberpikir;
+$psikogram_total += $model->psikogram_inteligensiumum;
+$psikogram_total += $model->psikogram_kemampuanbelajar;
+$psikogram_total += $model->psikogram_ketekunan;
+$psikogram_total += $model->psikogram_ketelitian;
+$psikogram_total += $model->psikogram_komunikasiefektif;
+$psikogram_total += $model->psikogram_konsepdiri;
+$psikogram_total += $model->psikogram_logikaberpikir;
+$psikogram_total += $model->psikogram_motivasi;
+$psikogram_total += $model->psikogram_pemahamansosial;
+$psikogram_total += $model->psikogram_pengaturandiri;
+$psikogram_total += $model->psikogram_sistematikakerja;
+$psikogram_total += $model->psikogram_tempokerja;
+
+?>
+
+<table class="table table-bordered table-responsive">
+    <tr>
+        <td align="right">
+            <span class="h4">TOTAL SKOR</span>
+        </td>
+        <td width="33%" align="center">
+            <span class="h4">
+                <span class="result-number"><?php echo $psikogram_total; ?></span> = <span class="result-percentage"><?php echo round($psikogram_total / 70 * 100); ?>%</span>
+            </span>
+        </td>
+    </tr>
+</table>
+
+<?php
 /*
     echo DetailView::widget([
         'model' => $model,
