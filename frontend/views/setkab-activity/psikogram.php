@@ -68,7 +68,7 @@ $this->registerCss("
         <tr>
             <th width="15%">Aspek Psikologis</th>
             <th>Keterangan</th>
-            <th width="28%">Penilaian</th>
+            <th width="33%">Penilaian</th>
         </tr>
     </thead>
     <tbody>
@@ -76,15 +76,13 @@ $this->registerCss("
             <td>Inteligensi umum</td>
             <td>Gabungan keseluruhan potensi kecerdasan sebagai perpaduan dari aspek-aspek pembentukan intelektualitas</td>
             <td><?= $form->field($model, 'psikogram_inteligensiumum')->radioList(
-                    [0=>'0',1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
+                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            $aspek = CatalogMeta::find()->andWhere(['type' => 'psikogram'])->andWhere(['key' => 'aspek'])->andWhere(['value' => $name])->One();
-                            $islkj = '';
-                            if ($index == 100) {
-                                return "<div class='RadioBox2'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox2']) .' '. $label)."</div>";
+                            if ($index == 5 - 1) {
+                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
-                                return "<div class='RadioBox'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox']) .' '. $label)."</div>";
+                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             }
                         },
                     ]
@@ -93,15 +91,14 @@ $this->registerCss("
         <tr>
             <td>Berpikir Analitis</td>
             <td>Kemampuan menguraikan masalah & melihat kaitan antara satu hal dg hal lainnya hingga menemukan kesimpulan</td>
-            <td><?= $form->field($model, 'psikogram_berpikiranalitis')->radioList([0=>'0',1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
+            <td><?= $form->field($model, 'psikogram_berpikiranalitis')->radioList(
+                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            $aspek = CatalogMeta::find()->andWhere(['type' => 'psikogram'])->andWhere(['key' => 'aspek'])->andWhere(['value' => $name])->One();
-                            $islkj = '';
-                            if ($index == 100) {
-                                return "<div class='RadioBox2'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox2']) .' '. $label)."</div>";
+                            if ($index == 5 - 1) {
+                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
-                                return "<div class='RadioBox'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox']) .' '. $label)."</div>";
+                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             }
                         },
                     ]
@@ -110,15 +107,14 @@ $this->registerCss("
         <tr>
             <td>Logika berpikir</td>
             <td>Kemampuan untuk mengorganisir proses berpikir yang menunjukkan adanya alur berpikir yang sistematis dan logis   </td>
-            <td><?= $form->field($model, 'psikogram_logikaberpikir')->radioList([0=>'0',1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
+            <td><?= $form->field($model, 'psikogram_logikaberpikir')->radioList(
+                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            $aspek = CatalogMeta::find()->andWhere(['type' => 'psikogram'])->andWhere(['key' => 'aspek'])->andWhere(['value' => $name])->One();
-                            $islkj = '';
-                            if ($index == 100) {
-                                return "<div class='RadioBox2'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox2']) .' '. $label)."</div>";
+                            if ($index == 5 - 1) {
+                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
-                                return "<div class='RadioBox'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox']) .' '. $label)."</div>";
+                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             }
                         },
                     ]
@@ -127,15 +123,14 @@ $this->registerCss("
         <tr>
             <td>Fleksibilitas berpikir</td>
             <td></td>
-            <td><?= $form->field($model, 'psikogram_fleksibilitasberpikir')->radioList([0=>'0',1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
+            <td><?= $form->field($model, 'psikogram_fleksibilitasberpikir')->radioList(
+                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            $aspek = CatalogMeta::find()->andWhere(['type' => 'psikogram'])->andWhere(['key' => 'aspek'])->andWhere(['value' => $name])->One();
-                            $islkj = '';
-                            if ($index == 100) {
-                                return "<div class='RadioBox2'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox2']) .' '. $label)."</div>";
+                            if ($index == 4 - 1) {
+                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
-                                return "<div class='RadioBox'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox']) .' '. $label)."</div>";
+                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             }
                         },
                     ]
@@ -144,15 +139,14 @@ $this->registerCss("
         <tr>
             <td>Kemampuan belajar</td>
             <td>Kemampuan menguasai dan meningkatkan pengetahuan dan ketrampilan kerja yang baru maupun yang telah dimiliki </td>
-            <td><?= $form->field($model, 'psikogram_kemampuanbelajar')->radioList([0=>'0',1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
+            <td><?= $form->field($model, 'psikogram_kemampuanbelajar')->radioList(
+                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            $aspek = CatalogMeta::find()->andWhere(['type' => 'psikogram'])->andWhere(['key' => 'aspek'])->andWhere(['value' => $name])->One();
-                            $islkj = '';
-                            if ($index == 100) {
-                                return "<div class='RadioBox2'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox2']) .' '. $label)."</div>";
+                            if ($index == 5 - 1) {
+                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
-                                return "<div class='RadioBox'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox']) .' '. $label)."</div>";
+                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             }
                         },
                     ]
@@ -169,22 +163,21 @@ pek Sikap Kerja</h3>
         <tr>
             <th width="15%">Aspek Psikologis</th>
             <th>Keterangan</th>
-            <th width="28%">Penilaian</th>
+            <th width="33%">Penilaian</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>Sistematika Kerja</td>
             <td>Kemampuan dan ketrampilan menyelesaikan suatu tugas secara runut, proporsional, sesuai dengan skala prioritas tertentu  </td>
-            <td><?= $form->field($model, 'psikogram_sistematikakerja')->radioList([0=>'0',1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
+            <td><?= $form->field($model, 'psikogram_sistematikakerja')->radioList(
+                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            $aspek = CatalogMeta::find()->andWhere(['type' => 'psikogram'])->andWhere(['key' => 'aspek'])->andWhere(['value' => $name])->One();
-                            $islkj = '';
-                            if ($index == 100) {
-                                return "<div class='RadioBox2'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox2']) .' '. $label)."</div>";
+                            if ($index == 5 - 1) {
+                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
-                                return "<div class='RadioBox'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox']) .' '. $label)."</div>";
+                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             }
                         },
                     ]
@@ -193,15 +186,14 @@ pek Sikap Kerja</h3>
         <tr>
             <td>Tempo Kerja</td>
             <td>Kecepatan dan kecekatan kerja, yang menunjukkan kemampuan menyelesaikan sejumlah tugas dalam batas waktu tertentu</td>
-            <td><?= $form->field($model, 'psikogram_tempokerja')->radioList([0=>'0',1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
+            <td><?= $form->field($model, 'psikogram_tempokerja')->radioList(
+                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            $aspek = CatalogMeta::find()->andWhere(['type' => 'psikogram'])->andWhere(['key' => 'aspek'])->andWhere(['value' => $name])->One();
-                            $islkj = '';
-                            if ($index == 100) {
-                                return "<div class='RadioBox2'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox2']) .' '. $label)."</div>";
+                            if ($index == 4 - 1) {
+                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
-                                return "<div class='RadioBox'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox']) .' '. $label)."</div>";
+                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             }
                         },
                     ]
@@ -210,15 +202,14 @@ pek Sikap Kerja</h3>
         <tr>
             <td>Ketelitian</td>
             <td>Kemampuan bekerja dengan sesedikit mungkin melakukan kesalahan atau kekeliruan  </td>
-            <td><?= $form->field($model, 'psikogram_ketelitian')->radioList([0=>'0',1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
+            <td><?= $form->field($model, 'psikogram_ketelitian')->radioList(
+                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            $aspek = CatalogMeta::find()->andWhere(['type' => 'psikogram'])->andWhere(['key' => 'aspek'])->andWhere(['value' => $name])->One();
-                            $islkj = '';
-                            if ($index == 100) {
-                                return "<div class='RadioBox2'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox2']) .' '. $label)."</div>";
+                            if ($index == 5 - 1) {
+                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
-                                return "<div class='RadioBox'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox']) .' '. $label)."</div>";
+                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             }
                         },
                     ]
@@ -227,15 +218,14 @@ pek Sikap Kerja</h3>
         <tr>
             <td>Ketekunan</td>
             <td>Daya tahan menghadapi dan menyelesaikan tugas sampai tuntas dalam waktu relatif lama dengan mencapai hasil yang optimal</td>
-            <td><?= $form->field($model, 'psikogram_ketekunan')->radioList([0=>'0',1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
+            <td><?= $form->field($model, 'psikogram_ketekunan')->radioList(
+                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            $aspek = CatalogMeta::find()->andWhere(['type' => 'psikogram'])->andWhere(['key' => 'aspek'])->andWhere(['value' => $name])->One();
-                            $islkj = '';
-                            if ($index == 100) {
-                                return "<div class='RadioBox2'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox2']) .' '. $label)."</div>";
+                            if ($index == 4 - 1) {
+                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
-                                return "<div class='RadioBox'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox']) .' '. $label)."</div>";
+                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             }
                         },
                     ]
@@ -244,15 +234,14 @@ pek Sikap Kerja</h3>
         <tr>
             <td>Komunikasi Efektif</td>
             <td>Kemampuan menyampaikan pendapat secara lancar, sehingga pendengar paham dan bersedia mengikuti pendapatnya</td>
-            <td><?= $form->field($model, 'psikogram_komunikasiefektif')->radioList([0=>'0',1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
+            <td><?= $form->field($model, 'psikogram_komunikasiefektif')->radioList(
+                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            $aspek = CatalogMeta::find()->andWhere(['type' => 'psikogram'])->andWhere(['key' => 'aspek'])->andWhere(['value' => $name])->One();
-                            $islkj = '';
-                            if ($index == 100) {
-                                return "<div class='RadioBox2'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox2']) .' '. $label)."</div>";
+                            if ($index == 5 - 1) {
+                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
-                                return "<div class='RadioBox'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox']) .' '. $label)."</div>";
+                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             }
                         },
                     ]
@@ -269,22 +258,21 @@ pek Sikap Kerja</h3>
         <tr>
             <th width="15%">Aspek Psikologis</th>
             <th>Keterangan</th>
-            <th width="28%">Penilaian</th>
+            <th width="33%">Penilaian</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>Motivasi</td>
             <td>Keinginan meningkatkan hasil kerja dan selalu berfokus pada profit opportunities</td>
-            <td><?= $form->field($model, 'psikogram_motivasi')->radioList([0=>'0',1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
+            <td><?= $form->field($model, 'psikogram_motivasi')->radioList(
+                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            $aspek = CatalogMeta::find()->andWhere(['type' => 'psikogram'])->andWhere(['key' => 'aspek'])->andWhere(['value' => $name])->One();
-                            $islkj = '';
-                            if ($index == 100) {
-                                return "<div class='RadioBox2'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox2']) .' '. $label)."</div>";
+                            if ($index == 5 - 1) {
+                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
-                                return "<div class='RadioBox'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox']) .' '. $label)."</div>";
+                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             }
                         },
                     ]
@@ -293,15 +281,14 @@ pek Sikap Kerja</h3>
         <tr>
             <td>Konsep Diri</td>
             <td>Pemahaman atas kelebihan dan kekurangan diri sendiri</td>
-            <td><?= $form->field($model, 'psikogram_konsepdiri')->radioList([0=>'0',1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
+            <td><?= $form->field($model, 'psikogram_konsepdiri')->radioList(
+                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            $aspek = CatalogMeta::find()->andWhere(['type' => 'psikogram'])->andWhere(['key' => 'aspek'])->andWhere(['value' => $name])->One();
-                            $islkj = '';
-                            if ($index == 100) {
-                                return "<div class='RadioBox2'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox2']) .' '. $label)."</div>";
+                            if ($index == 4 - 1) {
+                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
-                                return "<div class='RadioBox'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox']) .' '. $label)."</div>";
+                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             }
                         },
                     ]
@@ -310,15 +297,14 @@ pek Sikap Kerja</h3>
         <tr>
             <td>Empati</td>
             <td>Kemampuan memahami dan merasakan adanya permasalahan dan kondisi emosional orang lain   </td>
-            <td><?= $form->field($model, 'psikogram_empati')->radioList([0=>'0',1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
+            <td><?= $form->field($model, 'psikogram_empati')->radioList(
+                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            $aspek = CatalogMeta::find()->andWhere(['type' => 'psikogram'])->andWhere(['key' => 'aspek'])->andWhere(['value' => $name])->One();
-                            $islkj = '';
-                            if ($index == 100) {
-                                return "<div class='RadioBox2'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox2']) .' '. $label)."</div>";
+                            if ($index == 5 - 1) {
+                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
-                                return "<div class='RadioBox'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox']) .' '. $label)."</div>";
+                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             }
                         },
                     ]
@@ -327,15 +313,14 @@ pek Sikap Kerja</h3>
         <tr>
             <td>Pemahaman Sosial</td>
             <td>Kemampuan bereaksi dengan cepat terhadap kebutuhan orang lain atau tuntutan lingkungan, serta memahami norma sosial yang berlaku.   </td>
-            <td><?= $form->field($model, 'psikogram_pemahamansosial')->radioList([0=>'0',1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
+            <td><?= $form->field($model, 'psikogram_pemahamansosial')->radioList(
+                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            $aspek = CatalogMeta::find()->andWhere(['type' => 'psikogram'])->andWhere(['key' => 'aspek'])->andWhere(['value' => $name])->One();
-                            $islkj = '';
-                            if ($index == 100) {
-                                return "<div class='RadioBox2'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox2']) .' '. $label)."</div>";
+                            if ($index == 5 - 1) {
+                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
-                                return "<div class='RadioBox'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox']) .' '. $label)."</div>";
+                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             }
                         },
                     ]
@@ -344,15 +329,14 @@ pek Sikap Kerja</h3>
         <tr>
             <td>Pengaturan Diri</td>
             <td>Kemampuan mengendalikan diri dalam situasi-situasi sulit dan kemampuan melakukan perencanaan sebelum bertindak.</td>
-            <td><?= $form->field($model, 'psikogram_pengaturandiri')->radioList([0=>'0',1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
+            <td><?= $form->field($model, 'psikogram_pengaturandiri')->radioList(
+                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            $aspek = CatalogMeta::find()->andWhere(['type' => 'psikogram'])->andWhere(['key' => 'aspek'])->andWhere(['value' => $name])->One();
-                            $islkj = '';
-                            if ($index == 100) {
-                                return "<div class='RadioBox2'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox2']) .' '. $label)."</div>";
+                            if ($index == 4 - 1) {
+                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
-                                return "<div class='RadioBox'>".Html::Label(Html::Radio($name,$checked,['class' => 'RadioBox']) .' '. $label)."</div>";
+                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             }
                         },
                     ]
@@ -373,24 +357,24 @@ pek Sikap Kerja</h3>
             'tanggal_test',
             'tempat_test',
             'tujuan_pemeriksaan',
-			[
-				'label' => 'LKI',
-				'value' => function($data) {
-					//echo Html::activeRadioList($this->model, $this->attribute, $this->enum, $this->options);
-					return Html::radioList(array('1'=>'One',2=>'Two'));
+            [
+                'label' => 'LKI',
+                'value' => function($data) {
+                    //echo Html::activeRadioList($this->model, $this->attribute, $this->enum, $this->options);
+                    return Html::radioList(array('1'=>'One',2=>'Two'));
 
-					//return 'sasdada';
-				}
-			],
+                    //return 'sasdada';
+                }
+            ],
         ],
     ]);
-	*/
-	?>
+    */
+    ?>
 
 
-	    <div class="form-group">
+        <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'value' => 'update', 'name' => 'submit2']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 
-	</div>
+    </div>
