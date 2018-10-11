@@ -1,12 +1,12 @@
 <?php
 
 namespace frontend\models;
-	             			    
 
-   
+
+
 use Yii;
-   use common\modules\profile\models\Profile;  
-    use frontend\models\SetkabAssessee;  
+   use common\modules\profile\models\Profile;
+    use frontend\models\SetkabAssessee;
 
 /**
  * This is the model class for table "setkab_activity".
@@ -85,7 +85,15 @@ class SetkabActivity extends \yii\db\ActiveRecord
         return [
             [['assessee_id', 'assessor_id', 'second_opinion_id', 'integritas_lki', 'kerjasama_lki', 'komunikasi_lki', 'orientasihasil_lki', 'pelayananpublik_lki', 'pengembangandiri_lki', 'pengelolaanperubahan_lki', 'pengambilankeputusan_lki', 'perekatbangsa_lki', 'psikogram_berpikiranalitis', 'psikogram_empati', 'psikogram_inteligensiumum', 'psikogram_kemampuanbelajar', 'psikogram_ketekunan', 'psikogram_ketelitian', 'psikogram_komunikasiefektif', 'psikogram_konsepdiri', 'psikogram_logikaberpikir', 'psikogram_motivasi', 'psikogram_pemahamansosial', 'psikogram_pengaturandiri', 'psikogram_sistematikakerja', 'psikogram_tempokerja', 'psikogram_fleksibilitasberpikir'], 'integer'],
             [['tanggal_test'], 'safe'],
-			   [['indikatorarray'], 'safe'], 
+                [['indikatorarrayintegritas'], 'safe'],
+                [['indikatorarraykerjasama'], 'safe'],
+                [['indikatorarraykomunikasi'], 'safe'],
+                [['indikatorarrayorientasihasil'], 'safe'],
+                [['indikatorarraypelayananpublik'], 'safe'],
+                [['indikatorarraypengambilankeputusan'], 'safe'],
+                [['indikatorarraypengelolaanperubahan'], 'safe'],
+                [['indikatorarraypengembangandiri'], 'safe'],
+                [['indikatorarrayperekatbangsa'], 'safe'],
             [['saran', 'executive_summary', 'kekuatan', 'kelemahan', 'integritas_uraian', 'kerjasama_uraian', 'komunikasi_uraian', 'orientasihasil_uraian', 'pelayananpublik_uraian', 'pengembangandiri_uraian', 'pengelolaanperubahan_uraian', 'pengambilankeputusan_uraian', 'perekatbangsa_uraian'], 'string'],
             [['no_test', 'tempat_test', 'tujuan_pemeriksaan', 'integritas_indikator', 'kerjasama_indikator', 'komunikasi_indikator', 'orientasihasil_indikator', 'pelayananpublik_indikator', 'pengembangandiri_indikator', 'pengelolaanperubahan_indikator', 'pengambilankeputusan_indikator', 'perekatbangsa_indikator', 'status'], 'string', 'max' => 255],
         ];
@@ -163,26 +171,110 @@ class SetkabActivity extends \yii\db\ActiveRecord
     {
         return new SetkabActivityQuery(get_called_class());
     }
-	
+
 	public function getAssessee()
  {
 return $this->hasOne(SetkabAssessee::className(), ['id' => 'assessee_id']);
  }
- 
+
   	public function getAssessor()
  {
-return $this->hasOne(Profile::className(), ['id' => 'assessor_id']);
+return $this->hasOne(Profile::className(), ['user_id' => 'assessor_id']);
  }
- 
- 		public function getIndikatorarray() 
-{ 
-   return json_decode($this->integritas_indikator); 
+
+ public function getSecondopinion()
+ {
+return $this->hasOne(Profile::className(), ['user_id' => 'second_opinion_id']);
+ }
+
+    public function getIndikatorarrayintegritas()
+    {
+        return json_decode($this->integritas_indikator);
+    }
+
+    public function setIndikatorarrayintegritas($value)
+    {
+        $this->integritas_indikator = json_encode($value);
+    }
+
+    public function getIndikatorarraykerjasama()
+    {
+        return json_decode($this->kerjasama_indikator);
+    }
+
+    public function setIndikatorarraykerjasama($value)
+    {
+        $this->kerjasama_indikator = json_encode($value);
+    }
+
+    public function getIndikatorarraykomunikasi()
+    {
+        return json_decode($this->komunikasi_indikator);
+    }
+
+    public function setIndikatorarraykomunikasi($value)
+    {
+        $this->komunikasi_indikator = json_encode($value);
+    }
+
+    public function getIndikatorarrayorientasihasil()
+    {
+        return json_decode($this->orientasihasil_indikator);
+    }
+
+    public function setIndikatorarrayorientasihasil($value)
+    {
+        $this->orientasihasil_indikator = json_encode($value);
+    }
+
+    public function getIndikatorarraypelayananpublik()
+    {
+        return json_decode($this->pelayananpublik_indikator);
+    }
+
+    public function setIndikatorarraypelayananpublik($value)
+    {
+        $this->pelayananpublik_indikator = json_encode($value);
+    }
+
+    public function getIndikatorarraypengambilankeputusan()
+    {
+        return json_decode($this->pengambilankeputusan_indikator);
+    }
+
+    public function setIndikatorarraypengambilankeputusan($value)
+    {
+        $this->pengambilankeputusan_indikator = json_encode($value);
+    }
+
+    public function getIndikatorarraypengelolaanperubahan()
+    {
+        return json_decode($this->pengelolaanperubahan_indikator);
+    }
+
+    public function setIndikatorarraypengelolaanperubahan($value)
+    {
+        $this->pengelolaanperubahan_indikator = json_encode($value);
+    }
+
+    public function getIndikatorarraypengembangandiri()
+    {
+        return json_decode($this->pengembangandiri_indikator);
+    }
+
+    public function setIndikatorarraypengembangandiri($value)
+    {
+        $this->pengembangandiri_indikator = json_encode($value);
+    }
+
+    public function getIndikatorarrayperekatbangsa()
+    {
+        return json_decode($this->perekatbangsa_indikator);
+    }
+
+    public function setIndikatorarrayperekatbangsa($value)
+    {
+        $this->perekatbangsa_indikator = json_encode($value);
+    }
 }
-public function setIndikatorarray($value) 
-{ 
-   $this->integritas_indikator = json_encode($value); 
-} 
- 
- 
- 
-}
+

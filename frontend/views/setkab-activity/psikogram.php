@@ -65,10 +65,10 @@ $this->registerCss("
 <h3>Aspek Intelektual</h3>
 <table class="table table-bordered table-responsive table-hover">
     <thead>
-        <tr>
-            <th width="15%">Aspek Psikologis</th>
+        <tr class="bg-info">
+            <th width="15%">Aspek Intelektual</th>
             <th>Keterangan</th>
-            <th width="33%">Penilaian</th>
+            <th width="30%">Penilaian</th>
         </tr>
     </thead>
     <tbody>
@@ -122,7 +122,7 @@ $this->registerCss("
         </tr>
         <tr>
             <td>Fleksibilitas berpikir</td>
-            <td></td>
+            <td>Kemampuan mengalihkan perhatian dengan cepat dari satu masalah ke masalah lain</td>
             <td><?= $form->field($model, 'psikogram_fleksibilitasberpikir')->radioList(
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7'],
                     [
@@ -157,13 +157,13 @@ $this->registerCss("
 
 <hr/>
 
-pek Sikap Kerja</h3>
+<h3>Aspek Sikap Kerja</h3>
 <table class="table table-bordered table-responsive table-hover">
     <thead>
-        <tr>
-            <th width="15%">Aspek Psikologis</th>
+        <tr class="bg-info">
+            <th width="15%">Aspek Sikap Kerja</th>
             <th>Keterangan</th>
-            <th width="33%">Penilaian</th>
+            <th width="30%">Penilaian</th>
         </tr>
     </thead>
     <tbody>
@@ -255,10 +255,10 @@ pek Sikap Kerja</h3>
 <h3>Aspek Kepribadian</h3>
 <table class="table table-bordered table-responsive table-hover">
     <thead>
-        <tr>
-            <th width="15%">Aspek Psikologis</th>
+        <tr class="bg-info">
+            <th width="15%">Aspek Kepribadian</th>
             <th>Keterangan</th>
-            <th width="33%">Penilaian</th>
+            <th width="30%">Penilaian</th>
         </tr>
     </thead>
     <tbody>
@@ -364,20 +364,37 @@ $psikogram_total += $model->psikogram_pengaturandiri;
 $psikogram_total += $model->psikogram_sistematikakerja;
 $psikogram_total += $model->psikogram_tempokerja;
 
+$psikogram_total_persen = round($psikogram_total / 70 * 100);
+
 ?>
 
 <table class="table table-bordered table-responsive">
-    <tr>
+    <tr class="bg-info">
         <td align="right">
             <span class="h4">TOTAL SKOR</span>
         </td>
-        <td width="33%" align="center">
+        <td width="30%" align="center">
             <span class="h4">
-                <span class="result-number"><?php echo $psikogram_total; ?></span> = <span class="result-percentage"><?php echo round($psikogram_total / 70 * 100); ?>%</span>
+                <span class="result-number"><?php echo $psikogram_total; ?></span> = <span class="result-percentage"><?php echo $psikogram_total_persen ?>%</span>
             </span>
         </td>
     </tr>
 </table>
+
+<div class="row" style="margin-bottom: 2rem;">
+    <div class="col-sm-12">
+        <?php
+        if ($psikogram_total_persen >=100) {
+            echo "<img class='img-responsive center-block' style='width: 60%;' src=".Url::base()."/images/setkab-sumbuXtop.PNG>";
+        } else if ($psikogram_total_persen >= 80 && $psikogram_total_persen <= 99) {
+            echo "<img class='img-responsive center-block' style='width: 60%;' src=".Url::base()."/images/setkab-sumbuXmiddle.PNG>";
+        } else {
+            echo "<img class='img-responsive center-block' style='width: 60%;' src=".Url::base()."/images/setkab-sumbuXbot.PNG>";
+        }
+        ?>
+    </div>
+</div>
+
 
 <?php
 /*

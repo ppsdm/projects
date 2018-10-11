@@ -8,39 +8,38 @@ thead { display:table-header-group }
 tfoot { display:table-footer-group }
 
 .headerReport {
-	position:absolute; 
-	top: 5%;
-    left: 50%;  
+	position:absolute;
+	top: 3%;
+  left: 50%;
 	margin: auto;
-	transform: translate(-50%, -50%); 
+	transform: translate(-50%, -50%);
 	width:75%;
 	text-align: center;
-	
+
 }
 
 .footerReport{
-	position:absolute; 
+	position:absolute;
 	bottom: 0%;
-    left: 50%;  
+    left: 50%;
 	margin: auto;
-	transform: translate(-50%, -30%); 
+	transform: translate(-50%, -30%);
 	width:77%;
-	text-align: right;	
+	text-align: right;
 	font-size: 8pt ;
 }
 
 #pageFooter:after {
-	
 	counter-increment: section;
 	content:"Halaman " counter(section);
 	text-align: left;
 	font-size: 8pt ;
-  
+
   }
 
 .ninecell {
-    width: 500; height: 500; 
-    background-image: url('/images/ninecell.png'); 
+    width: 500; height: 500;
+    background-image: url('/images/ninecell.png');
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -54,7 +53,7 @@ tfoot { display:table-footer-group }
 	border: 1px solid #000000;
 	background-color:rgb(64, 224, 208);
 	width:100px;
-	
+
 
 }
 .cluster2 {
@@ -84,10 +83,39 @@ tfoot { display:table-footer-group }
 
 }
 
+.table-kompetensi {
+		font-size: 16px;
+		font-family: cambria;
+}
+
+.table-potensi {
+		font-family: cambria;
+}
+
+.td-kompetensi {
+	padding: 2px;
+	border: 2px solid #000;
+	text-align: center;
+}
+
+.td-sumbu-y{
+	border: 1px solid #000;
+	padding: 2px;
+	text-align:center;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.td-sumbu-x{
+	border: 1px solid #000;
+	padding: 2px;
+	text-align:center;
+	font-weight: 600;
+	font-size: 14px;
+}
 
 table.rekomendasi {
     border: 1px solid #000000;
-    
     width: 100%;
     text-align: left;
     border-collapse: collapse;
@@ -97,7 +125,7 @@ table.rekomendasi {
     padding: 2px 2px;
   }
   table.rekomendasi tbody td {
-    font-size: 12px;
+    font-size: 18px;
   }
 
   table.rekomendasi thead {
@@ -113,7 +141,7 @@ table.rekomendasi {
   table.rekomendasi thead th:first-child {
     border-left: none;
   }
-  
+
   table.rekomendasi tfoot {
     font-size: 12px;
     font-weight: bold;
@@ -143,22 +171,22 @@ table.rekomendasi {
 }
 
 .kananTandaTangan {
-  
+
     width: 250px;
     padding: 10px;
 }
 .kiriTandaTangan {
- 
+
     left: 20px;
-  
-    width: 250px;
+    width: 260px;
     padding: 10px;
+		margin-top: 2px;
 }
 
 .signatureRekomendasi {
 
     float:right;
-    width: 300px; 
+    width: 300px;
     padding: 10px;
   }
 table.cover {
@@ -174,7 +202,7 @@ table.cover th {
     padding: 15px 7px;
 }
 table.cover tbody td {
-    font-size: 14px;
+    font-size: 16px;
 }
 table.cover thead th {
     font-weight: bold;
@@ -246,7 +274,7 @@ table.klasifikasi thead th {
     font-family: Calibri, Candara, Segoe, Segoe UI, Arial, sans-serif;
 }
 .auto-style1 {
-    
+
     font-size: 10px;
     font-style: normal;
     text-decoration: none;
@@ -257,17 +285,17 @@ table.klasifikasi thead th {
     border-left: 1px solid;
     border-right-style: none;
     border-right-color: inherit;
-    
+
     border-top: 1px solid;
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 }
 .auto-style2 {
-    
+
     font-size: 10px;
     font-style: normal;
     text-decoration: none;
@@ -278,17 +306,17 @@ table.klasifikasi thead th {
     border-left: 1px solid ;
     border-right-style: none;
     border-right-color: inherit;
-    
+
     border-top: 1px solid;
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 }
 .auto-style3 {
-    
+
     font-size: 10px;
     font-style: normal;
     text-decoration: none;
@@ -299,15 +327,15 @@ table.klasifikasi thead th {
     border-left: 1px solid ;
     border-right-style: none;
     border-right-color: inherit;
-    
+
     border-top: 1px solid;
     border-bottom: 1px solid ;
-    
-    
-    
+
+
+
 }
 .auto-style4 {
-    
+
     font-size: 10px;
     font-style: normal;
     text-decoration: none;
@@ -322,7 +350,7 @@ table.klasifikasi thead th {
 
 }
 .auto-style5 {
-    
+
     font-size: 10px;
     font-style: normal;
     text-decoration: none;
@@ -334,10 +362,10 @@ table.klasifikasi thead th {
     border-right: 1px solid;
     border-top: 1px solid ;
     border-bottom: 1px solid;
- 
+
 }
 .auto-style6 {
-    
+
     font-size: 10px;
     font-style: normal;
     text-decoration: none;
@@ -348,15 +376,15 @@ table.klasifikasi thead th {
     border-left: 1px solid;
     border-right-style: none;
     border-right-color: inherit;
-    
+
     border-top: 1px solid;
-    
-    
-    
+
+
+
 
 }
 .auto-style7 {
-    
+
     font-size: 10px;
     font-style: normal;
     text-decoration: none;
@@ -366,14 +394,14 @@ table.klasifikasi thead th {
     white-space: nowrap;
     border-left-style: none;
     border-left-color: inherit;
-    
+
     border-right-style: none;
     border-right-color: inherit;
-    
+
     border-top: 1px solid;
-    
-    
-    
+
+
+
 
 }
 .auto-style8 {
@@ -390,16 +418,16 @@ table.klasifikasi thead th {
     border-right: 1px solid ;
     border-top-style: none;
     border-top-color: inherit;
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
 }
 .auto-style9 {
-    
+
     font-size: 10px;
     font-weight: 400;
     font-style: normal;
@@ -411,17 +439,17 @@ table.klasifikasi thead th {
     border-left: 1px solid ;
     border-right-style: none;
     border-right-color: inherit;
-    
+
     border-top: 1px solid ;
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 }
 .auto-style10 {
-    
+
     font-size: 10px;
     font-weight: 400;
     font-style: normal;
@@ -432,20 +460,20 @@ table.klasifikasi thead th {
     white-space: nowrap;
     border-left-style: none;
     border-left-color: inherit;
-    
+
     border-right-style: none;
     border-right-color: inherit;
-    
+
     border-top: 1px solid ;
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 }
 .auto-style11 {
-    
+
     font-size: 10px;
     font-weight: 400;
     font-style: normal;
@@ -457,17 +485,17 @@ table.klasifikasi thead th {
     border-left: 1px solid ;
     border-right-style: none;
     border-right-color: inherit;
-    
+
     border-top: 1px solid ;
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 }
 .auto-style12 {
-    
+
     font-size: 10px;
     font-style: normal;
     text-decoration: none;
@@ -478,15 +506,15 @@ table.klasifikasi thead th {
     border-left: 1px solid ;
     border-right: 1px solid ;
     border-top: 1px solid ;
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 }
 .auto-style13 {
-    
+
     font-size: 10px;
     font-style: normal;
     text-decoration: none;
@@ -497,16 +525,16 @@ table.klasifikasi thead th {
     border-left: 1px solid ;
     border-right: 1px solid ;
     border-top: 1px solid ;
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
     background: silver;
 }
 .auto-style14 {
-    
+
     font-size: 10px;
     font-style: normal;
     text-decoration: none;
@@ -517,15 +545,15 @@ table.klasifikasi thead th {
     border-left: 1px solid ;
     border-right: 1px solid;
     border-top: 1px solid ;
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 }
 .auto-style15 {
-    
+
     font-size: 10px;
     font-style: normal;
     text-decoration: none;
@@ -536,16 +564,16 @@ table.klasifikasi thead th {
     border-left: 1px solid ;
     border-right: 1px solid ;
     border-top: 1px solid ;
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
     background: #BFBFBF;
 }
 .auto-style16 {
-    
+
     font-size: 10px;
     font-weight: 400;
     font-style: normal;
@@ -556,13 +584,13 @@ table.klasifikasi thead th {
     white-space: nowrap;
     border-style: none;
     border-color: inherit;
-    
-    
-    
-    
+
+
+
+
 }
 .auto-style17 {
-    
+
     font-size: 10px;
     font-weight: 400;
     font-style: normal;
@@ -574,19 +602,19 @@ table.klasifikasi thead th {
     border-left: 1px solid ;
     border-right-style: none;
     border-right-color: inherit;
-    
+
     border-top-style: none;
     border-top-color: inherit;
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
 }
 .auto-style18 {
-    
+
     font-size: 10px;
     font-style: normal;
     text-decoration: none;
@@ -597,7 +625,7 @@ table.klasifikasi thead th {
     border-left: 1px solid;
     border-right-style: none;
     border-right-color: inherit;
-    
+
     border-top: 1px solid;
 
 }
@@ -1896,4 +1924,58 @@ padding-top: 1px;
 	padding-right: 1px;
 	padding-top: 1px;
 	background: #969696;
+}
+
+.exsum {
+	margin-bottom:70px !important ;
+	text-align:justify !important;
+	font-family: cambria !important;
+	font-size: 18px;
+}
+
+.pemeriksa {
+	float:right;
+	margin-top: 20px;
+	font-family: cambria;
+	font-size: 16px;
+}
+
+.rahasia{
+	color: #d5d5d5;
+	font-family:cambria;
+	font-size: 16px;
+}
+
+.jabatan{
+	color: #d5d5d5;
+	font-family:cambria;
+	font-size: 12px;
+}
+
+.judul{
+	font-family: cambria;
+}
+
+.sub-judul{
+	font-family: cambria;
+	font-size: 22px;
+}
+
+.kode{
+	font-size: 26px;
+	height: 50px;
+}
+
+.title{
+	font-size: 20px;
+	text-align: justify;
+}
+
+.sub-title{
+	font-size: 18px;
+	font-family: cambria;
+}
+
+.artikel{
+	font-size: 18px;
 }

@@ -12,12 +12,18 @@ html {
   -webkit-text-size-adjust: 100%; /* 2 */
 }
 
+@font-face {
+    font-family: cambria;
+    src: url(font/Cambria-Font.tff);
+}
+
+
 /**
  * Remove default margin.
  */
 
 body {
-  margin: 0;
+  margin: 3cm;
 }
 
 /* HTML5 display definitions
@@ -132,6 +138,9 @@ dfn {
  * Address variable `h1` font-size and margin within `section` and `article`
  * contexts in Firefox 4+, Safari, and Chrome.
  */
+article {
+  margin-top: -30px !important;
+}
 
 h1 {
   font-size: 2em;
@@ -173,6 +182,22 @@ sup {
 
 sub {
   bottom: -0.25em;
+}
+
+.table-td-left {
+  width: 20px;
+  background-color: #fff;
+  border-top: 1px solid #d5d5d5;
+  border-bottom: 1px solid #d5d5d5;
+  border-left: 1px solid #d5d5d5;
+}
+
+.table-td-right {
+  width: 20px;
+  background-color: #fff;
+  border-top: 1px solid #d5d5d5;
+  border-bottom: 1px solid #d5d5d5;
+  border-left: 1px solid #d5d5d5;
 }
 
 /* Embedded content

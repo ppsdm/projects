@@ -71,18 +71,30 @@ NotificationsWidget::widget([
        //'linkOptions' => ['style' => 'background-color: #F86D18;color: #ffffff;']]
 
     ];
+
+
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $isso = true;
+        if ($isso) {
+            $menuItems[] = ['label' => 'Panduan', 'url' => ['/setkab-activity/help']];
+            $menuItems[] = ['label' => 'Second Opinion', 'url' => ['/setkab-activity/soindex']];
+        }
 
-        $projectmodule = ProfileMeta::find()->andWhere(['profile_id' => Yii::$app->user->identity->profile->id])->andWhere(['type' => 'config'])
+        if (isset(Yii::$app->user->identity->profile->id)) {
+$profile_id = Yii::$app->user->identity->profile->id;
+        } else {
+            $profile_id = '';
+        }
+        $projectmodule = ProfileMeta::find()->andWhere(['profile_id' => $profile_id])->andWhere(['type' => 'config'])
         ->andWhere(['key' => 'module'])
         ->andWhere(['value' => 'project'])
         ->andWhere(['attribute_1' => 'active'])
         ->One();
         if(null !== $projectmodule){
-            $menuItems[] = ['label' => 'Projects', 'url' => ['/projects/project/select']];
+           // $menuItems[] = ['label' => 'Projects', 'url' => ['/projects/project/select']];
         }
 
         //$menuItems[] = ['label' => 'Profile', 'url' => ['/profile/profile']];
@@ -113,7 +125,7 @@ Html::a(Yii::t('app', 'You have <span class="notifications-header-count">0</span
 
 .Html::a(Yii::t('app', '<span class="glyphicon glyphicon-user"></span> ' . Yii::$app->user->identity->username ), [''], ['class'=>'dropdown-toggle', 'data-toggle'=>'dropdown']) .
        '<ul class="dropdown-menu">
-           <li>'.Html::a(Yii::t('app', 'Profile'), ['/profile/profile/update','id'=>Yii::$app->user->identity->profile->id], ['class'=>'']) .'</li>
+           <li>'.Html::a(Yii::t('app', 'Profile'), ['/profile/profile/update','id'=>$profile_id], ['class'=>'']) .'</li>
               <li class="divider"></li><li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

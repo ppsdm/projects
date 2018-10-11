@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\HtmlPurifier;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\SetkabActivity */
@@ -23,6 +24,52 @@ $exsum_max = 500;
 */
 
 
+function countWord($uraian)
+{
+
+    $dom = new DOMDocument;
+
+$li_count = 0;
+$word_count = 0;
+
+if (!empty($uraian)) {
+
+
+$dom->loadHTML(HtmlPurifier::process($uraian));
+
+$dom2 = new DOMDocument;
+
+$dom2->importNode($dom->documentElement, true);
+$new_element = $dom2->createElement('test', ' ');
+
+foreach($dom->getElementsByTagName('li') as $li) {
+    $li_count = $li_count + str_word_count(strip_tags($li->textContent));
+}
+
+    foreach($dom->getElementsByTagName('ul') as $ul) {
+        //$ul->parentNode->replaceChild($new_element,$ul);
+        $ul->textContent = ' ';
+        //$dom->saveHTML();
+
+    }
+    foreach($dom->getElementsByTagName('ol') as $ol) {
+        //$ol->parentNode->replaceChild($new_element,$ol);
+        $ol->textContent = ' ';
+        //$dom->saveHTML();
+
+    }
+
+
+   $replaced_dom = preg_replace('#\<(.+?)\>#', ' ', $dom->saveHTML());
+    $word_count = str_word_count(strip_tags($replaced_dom));
+    
+    
+}
+    $total_count = $word_count + $li_count;
+    
+   return $total_count; 
+
+}
 ?>
 <div class="setkab-activity-view">
 
@@ -40,9 +87,25 @@ $exsum_max = 500;
 
 		       
 <?php
- echo Html::a(Yii::t('app', 'Print PDF'), ['pdf', 'id' => $model->id], ['class' => 'btn btn-primary']);
-if (($model->status == 'submitted')) {
+ //echo Html::a(Yii::t('app', 'Print PDF'), ['pdf', 'id' => $model->id], ['class' => 'btn btn-primary']);
 
+if (($model->status == 'submitted')) {
+if ($role == 'secondopinion') {
+    echo Html::a(Yii::t('app', 'Selesai di review oleh SO'), ['reviewed', 'id' => $model->id], [
+        'class' => 'btn btn-success',
+        'data' => [
+            'confirm' => Yii::t('app', 'Are you sure?'),
+            'method' => 'post',
+        ],
+    ]);
+    echo Html::a(Yii::t('app', 'Dikembalikan ke assessor'), ['returned', 'id' => $model->id], [
+        'class' => 'btn btn-danger',
+        'data' => [
+            'confirm' => Yii::t('app', 'Are you sure?'),
+            'method' => 'post',
+        ],
+    ]);
+}
         } elseif (($model->status == 'reviewed')) {
 
 
@@ -77,8 +140,10 @@ if (($model->status == 'submitted')) {
                 'format' => 'raw',
                 'value' => function($data) use ($exsum_max, $exsum_min)
                 {
-					$words = str_word_count(strip_tags($data->executive_summary));
-					$characters = strlen(str_replace(' ','',strip_tags($data->executive_summary)));
+                    $words = countWord($data->executive_summary); 
+                    //$words = Yii::$app->runAction('actionCountword', ['uraian' => $data->executive_summary]);
+					//$words = str_word_count(strip_tags($data->executive_summary));
+				//	$characters = strlen(str_replace(' ','',strip_tags($data->executive_summary)));
                     
                     if (($words <= $exsum_max) && ($words >= $exsum_min))
                     {
@@ -99,8 +164,8 @@ if (($model->status == 'submitted')) {
                 'format' => 'raw',
                 'value' => function($data) use ($saran_max, $saran_min)
                 {
-                    $words = str_word_count(strip_tags($data->kekuatan));
-					$characters = strlen(str_replace(' ','',strip_tags($data->kekuatan)));
+                    $words = countWord($data->kekuatan); 
+				//	$characters = strlen(str_replace(' ','',strip_tags($data->kekuatan)));
                     
                     if (($words <= $saran_max) && ($words >= $saran_min))
                     {
@@ -115,13 +180,14 @@ if (($model->status == 'submitted')) {
                 }
 
             ],
+            
             [
                 'label' => 'Kelemahan',
                 'format' => 'raw',
                 'value' => function($data) use ($saran_max, $saran_min)
                 {
-                    $words = str_word_count(strip_tags($data->kelemahan));
-					$characters = strlen(str_replace(' ','',strip_tags($data->kelemahan)));
+                    $words = countWord($data->kelemahan); 
+				//	$characters = strlen(str_replace(' ','',strip_tags($data->kelemahan)));
                     
                     if (($words <= $saran_max) && ($words >= $saran_min))
                     {
@@ -141,8 +207,9 @@ if (($model->status == 'submitted')) {
                 'format' => 'raw',
                 'value' => function($data) use ($saran_max, $saran_min)
                 {
-                    $words = str_word_count(strip_tags($data->saran));
-					$characters = strlen(str_replace(' ','',strip_tags($data->saran)));
+                   // $words = str_word_count(strip_tags($data->saran));
+                    $words = countWord($data->saran); 
+				//	$characters = strlen(str_replace(' ','',strip_tags($data->saran)));
                     
                     if (($words <= $saran_max) && ($words >= $saran_min))
                     {
@@ -186,6 +253,7 @@ if (($model->status == 'submitted')) {
         'model' => $model,
         'attributes' => [
             //'id',
+            
             [
                 'label' => 'Integritas',
                 'format' => 'raw',
@@ -193,8 +261,8 @@ if (($model->status == 'submitted')) {
                 {
                     //check kalau textnya jumlah nya cukup
 					
-					$words = str_word_count(strip_tags($data->integritas_uraian));
-					$characters = strlen(str_replace(' ','',strip_tags($data->integritas_uraian)));
+					$words = countWord($data->integritas_uraian); 
+					//$characters = strlen(str_replace(' ','',strip_tags($data->integritas_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
                     {
@@ -208,12 +276,13 @@ if (($model->status == 'submitted')) {
                 }
 
             ],
+            
             [
                 'label' => 'Kerjasama',
                 'format' => 'raw',
                 'value' => function($data) use ($min, $max)
                 {
-					$words = str_word_count(strip_tags($data->kerjasama_uraian));
+					$words = countWord($data->kerjasama_uraian); 
 					$characters = strlen(str_replace(' ','',strip_tags($data->kerjasama_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
@@ -232,8 +301,8 @@ if (($model->status == 'submitted')) {
                 'format' => 'raw',
                 'value' => function($data) use ($min, $max)
                 {
-					$words = str_word_count(strip_tags($data->komunikasi_uraian));
-					$characters = strlen(str_replace(' ','',strip_tags($data->komunikasi_uraian)));
+					$words = countWord($data->komunikasi_uraian); 
+				//	$characters = strlen(str_replace(' ','',strip_tags($data->komunikasi_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
                     {
@@ -251,7 +320,7 @@ if (($model->status == 'submitted')) {
                 'format' => 'raw',
                 'value' => function($data) use ($min, $max)
                 {
-					$words = str_word_count(strip_tags($data->orientasihasil_uraian));
+					$words = countWord($data->orientasihasil_uraian); 
 					$characters = strlen(str_replace(' ','',strip_tags($data->orientasihasil_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
@@ -270,7 +339,7 @@ if (($model->status == 'submitted')) {
                 'format' => 'raw',
                 'value' => function($data) use ($min, $max)
                 {
-					$words = str_word_count(strip_tags($data->pelayananpublik_uraian));
+					$words = countWord($data->pelayananpublik_uraian); 
 					$characters = strlen(str_replace(' ','',strip_tags($data->pelayananpublik_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
@@ -289,7 +358,7 @@ if (($model->status == 'submitted')) {
                 'format' => 'raw',
                 'value' => function($data) use ($min, $max)
                 {
-					$words = str_word_count(strip_tags($data->pengembangandiri_uraian));
+					$words = countWord($data->pengembangandiri_uraian); 
 					$characters = strlen(str_replace(' ','',strip_tags($data->pengembangandiri_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
@@ -308,7 +377,7 @@ if (($model->status == 'submitted')) {
                 'format' => 'raw',
                 'value' => function($data) use ($min, $max)
                 {
-					$words = str_word_count(strip_tags($data->pengelolaanperubahan_uraian));
+					$words = countWord($data->pengelolaanperubahan_uraian); 
 					$characters = strlen(str_replace(' ','',strip_tags($data->pengelolaanperubahan_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
@@ -327,7 +396,7 @@ if (($model->status == 'submitted')) {
                 'format' => 'raw',
                 'value' => function($data) use ($min, $max)
                 {
-					$words = str_word_count(strip_tags($data->pengambilankeputusan_uraian));
+					$words = countWord($data->pengambilankeputusan_uraian); 
 					$characters = strlen(str_replace(' ','',strip_tags($data->pengambilankeputusan_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
@@ -347,7 +416,7 @@ if (($model->status == 'submitted')) {
                 'format' => 'raw',
                 'value' => function($data) use ($min, $max)
                 {
-					$words = str_word_count(strip_tags($data->perekatbangsa_uraian));
+					$words = countWord($data->perekatbangsa_uraian); 
 					$characters = strlen(str_replace(' ','',strip_tags($data->perekatbangsa_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
@@ -362,6 +431,7 @@ if (($model->status == 'submitted')) {
 
                 }
             ],
+            
             //'tanggal_test',
             //'tempat_test',
             //'tujuan_pemeriksaan',

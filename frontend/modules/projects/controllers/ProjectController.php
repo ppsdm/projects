@@ -48,16 +48,23 @@ class ProjectController extends \yii\web\Controller
                 echo 'you have to login first!';
             }
             else {
-    	$profile_model = Yii::$app->user->identity->profile->id;
+
+                if ($id == 5) {
+				
+                    $this->redirect(['../setkab-activity/index']);
+                }
+                
+                if (isset(Yii::$app->user->identity->profile->id)) {
+                        $profile_model = Yii::$app->user->identity->profile->id;
+                } else {
+                    $profile_model = null;
+                }
         //Profile::find()->andWhere(['user_id' => Yii::$app->user->id])->One();
         
 
     	if (null !== $profile_model) {
 			
-			if ($id == 5) {
-				
-				$this->redirect(['../setkab-activity/index']);
-			}
+
     		$project_meta_model = ProfileMeta::find()
     			->andWhere(['type' => 'project-role'])
                 ->andWhere(['profile_id' => Yii::$app->user->identity->profile->id])
@@ -72,8 +79,6 @@ class ProjectController extends \yii\web\Controller
                 }
                 else echo "no project";
 				
-				
-
     	} else {
     		echo 'NO PROFILE YET ASSOCIATED WITH THIS USER!';
     	   }

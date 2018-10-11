@@ -6,6 +6,7 @@ use yii\redactor\widgets\Redactor as Redactor;
 use yii\web\View;
 use yii\helpers\ArrayHelper;
 use common\modules\catalog\models\RefAssessmentDictionary;
+use yii\helpers\HtmlPurifier;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\SetkabActivity */
 
@@ -41,25 +42,35 @@ if ($gap > 0) {
 
 
 
-$daftar_lki =  ['0' => '0','1' => '1 - Mampu bertindak sesuai nilai, norma,etika organisasi dalam kapasitas pribadi', 
-		'2' => '2 - Mampu mengingatkan, mengajak rekan kerja untuk bertindak sesuai nilai, norma, dan etika organisasi', 
+$daftar_lki =  ['0' => '0','1' => '1 - Mampu bertindak sesuai nilai, norma,etika organisasi dalam kapasitas pribadi',
+		'2' => '2 - Mampu mengingatkan, mengajak rekan kerja untuk bertindak sesuai nilai, norma, dan etika organisasi',
 		'3' => '3 - Mampu memastikan, menanamkan keyakinan bersama agar anggota yang dipimpin bertindak sesuai nilai, norma, dan etika organisasi, dalam lingkup formal',
-		 '4' => '4 - Mampu menciptakan situasi kerja yang mendorong kepatuhan pada nilai, norma, dan etika organisasi', 
+		 '4' => '4 - Mampu menciptakan situasi kerja yang mendorong kepatuhan pada nilai, norma, dan etika organisasi',
 		 '5' => '5 - Mampu menjadi role model dalam penerapan standar keadilan dan etika di tingkat nasional'];
+
+
 
 
 //$daftar_lki = ArrayHelper::map($indikators, 'value', 'textvalue');
 echo    $form->field($model, 'integritas_lki')->dropDownList($daftar_lki, ['prompt' => 'select...']);
 echo Html::submitButton(Yii::t('app', 'Simpan LKI'), ['class' =>'btn btn-primary', 'value' => 'refresh', 'name'=>'submit2']);
+echo '<h3>LKI = ' . $model->integritas_lki . '</h3>';
 echo '<h3>LKJ = ' . $lkj->kompetensigram_integritas . '</h3>';
 echo '<h3>GAP = ' . $gap . '</h3>';
 echo '<hr/>';
+$uraian_aspek = $model->integritas_lki;
+if (isset($daftar_lki[$uraian_aspek] )) {
+	echo '<h3>' . $daftar_lki[$uraian_aspek] . '</h3>';
+} else {
+
+}
+
 //echo Html::a('Profile', ['', 'id' => $model->id], ['class' => 'btn btn-primary']);
 echo '<p>';
 				echo Html::label('Indikator Perilaku', 'integritas_lki');
 				echo '</p>';
-				echo Html::activeCheckboxList($model, 'indikatorarray', ArrayHelper::map($indikators, 'value', 'textvalue'));
-				
+				echo Html::activeCheckboxList($model, 'indikatorarrayintegritas', ArrayHelper::map($indikators, 'value', 'textvalue'));
+
                                 echo Html::submitButton(Yii::t('app', 'Tunjukkan usulan uraian'), ['class' =>'btn btn-primary', 'value' => 'refresh', 'name'=>'submit2']);
                                 echo '<hr/>';
 				echo '<p>';
@@ -83,7 +94,7 @@ echo '<p>';
 				echo Html::textArea('uraian_kamus', $uraian_kamus,['readonly' => true, 'rows' => '6', 'cols' => '100', 'disable' => true]);
 				echo '</p>';
 
-				
+
 echo '<p>';
 
 
@@ -93,7 +104,38 @@ echo '<p>';
 		'plugins' => ['clips', 'fontcolor','fullscreen', 'counter']
     ]
 ]);
-echo $hint_text = 'words : ' . str_word_count(strip_tags($model->integritas_uraian)) . ' , characters : ' . strlen(str_replace(' ','',strip_tags($model->integritas_uraian)));
+
+$dom = new DOMDocument;
+$li_count = 0;
+$word_count = 0;
+
+if (!empty($model->integritas_uraian)) {
+$dom->loadHTML(HtmlPurifier::process($model->integritas_uraian));
+
+$new_element = $dom->createElement('test', ' ');
+    foreach($dom->getElementsByTagName('li') as $li) {
+        $li_count = $li_count + str_word_count(strip_tags($li->textContent));
+    }
+
+        foreach($dom->getElementsByTagName('ul') as $ul) {
+            $ul->parentNode->replaceChild($new_element,$ul);
+            $dom->saveHTML();
+    
+        }
+        foreach($dom->getElementsByTagName('ol') as $ol) {
+            $ol->parentNode->replaceChild($new_element,$ol);
+            $dom->saveHTML();
+    
+        }
+
+
+       $replaced_dom = preg_replace('#\<(.+?)\>#', ' ', $dom->saveHTML());
+        $word_count = str_word_count(strip_tags($replaced_dom));
+}
+		$total_count = $word_count + $li_count;
+		
+
+echo $hint_text = 'words : ' . $total_count. ' , characters : ' . strlen(str_replace(' ','',strip_tags($model->integritas_uraian)));
 			echo '</p>';
 ?>
 
@@ -108,12 +150,12 @@ echo $hint_text = 'words : ' . str_word_count(strip_tags($model->integritas_urai
 
 
 <?php
-			
+
 			$this->registerJs(
     "$(function(){
     $('#setkabactivity-integritas_lki').change(function(){
-		
-        
+
+
     });
 });",
     View::POS_READY,

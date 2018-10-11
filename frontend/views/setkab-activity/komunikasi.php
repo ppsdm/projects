@@ -6,6 +6,7 @@ use yii\redactor\widgets\Redactor as Redactor;
 use yii\web\View;
 use yii\helpers\ArrayHelper;
 use common\modules\catalog\models\RefAssessmentDictionary;
+use yii\helpers\HtmlPurifier;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\SetkabActivity */
 
@@ -44,22 +45,29 @@ if ($gap > 0) {
 
 
 
-$daftar_lki =  ['0' => '0','1' => '1 - Menyampaikan informasi dengan jelas, lengkap, pemahaman yang sama', 
-		'2' => '2 - Aktif menjalankan komunikasi secara formal dan informal; Bersedia mendengarkan orang lain, menginterpretasikan pesan dengan respon yang sesuai, mampu menyusun materi presentasi, pidato, naskah, laporan, dll', 
+$daftar_lki =  ['0' => '0','1' => '1 - Menyampaikan informasi dengan jelas, lengkap, pemahaman yang sama',
+		'2' => '2 - Aktif menjalankan komunikasi secara formal dan informal; Bersedia mendengarkan orang lain, menginterpretasikan pesan dengan respon yang sesuai, mampu menyusun materi presentasi, pidato, naskah, laporan, dll',
 		'3' => '3 - Berkomunikasi secara asertif, terampil berkomunikasi lisan/ tertulis untuk menyampaikan informasi yang sensitif/ rumit/ kompleks',
-		 '4' => '4 - Mampu mengemukakan pemikiran multidimensi secara lisan dan tertulis untuk mendorong kesepakatan dengan tujuan meningkatkan kinerja secara keseluruhan', 
+		 '4' => '4 - Mampu mengemukakan pemikiran multidimensi secara lisan dan tertulis untuk mendorong kesepakatan dengan tujuan meningkatkan kinerja secara keseluruhan',
 		 '5' => '5 - Menggagas sistem komunikasi yang terbuka secara strategis untuk mencari solusi dengan tujuan meningkatkan kinerja'];
 
 echo    $form->field($model, 'komunikasi_lki')->dropDownList($daftar_lki, ['prompt' => 'select...']);
 echo Html::submitButton(Yii::t('app', 'Simpan LKI'), ['class' =>'btn btn-primary', 'value' => 'refresh', 'name'=>'submit2']);
+echo '<h3>LKI = ' . $model->komunikasi_lki . '</h3>';
 echo '<h3>LKJ = ' . $lkj_1 . '</h3>';
 echo '<h3>GAP = ' . $gap . '</h3>';
 echo '<hr/>';
+$uraian_aspek = $model->komunikasi_lki;
+if (isset($daftar_lki[$uraian_aspek] )) {
+	echo '<h3>' . $daftar_lki[$uraian_aspek] . '</h3>';
+} else {
+
+}
 echo '<p>';
 				echo Html::label('Indikator Perilaku', 'komunikasi_lki');
 				echo '</p>';
-				echo Html::activeCheckboxList($model, 'indikatorarray', ArrayHelper::map($indikators, 'value', 'textvalue'));
-				
+				echo Html::activeCheckboxList($model, 'indikatorarraykomunikasi', ArrayHelper::map($indikators, 'value', 'textvalue'));
+
                                 echo Html::submitButton(Yii::t('app', 'Tunjukkan usulan uraian'), ['class' =>'btn btn-primary', 'value' => 'refresh', 'name'=>'submit2']);
                                 echo '<hr/>';
 				echo '<p>';
@@ -83,7 +91,7 @@ echo '<p>';
 				echo Html::textArea('uraian_kamus', $uraian_kamus,['readonly' => true, 'rows' => '6', 'cols' => '100', 'disable' => true]);
 				echo '</p>';
 
-				
+
 echo '<p>';
 
 
@@ -93,7 +101,38 @@ echo '<p>';
 		'plugins' => ['clips', 'fontcolor','fullscreen', 'counter']
     ]
 ]);
-echo $hint_text = 'words : ' . str_word_count(strip_tags($uraian)) . ' , characters : ' . strlen(str_replace(' ','',strip_tags($uraian)));
+
+$dom = new DOMDocument;
+$li_count = 0;
+$word_count = 0;
+
+if (!empty($model->komunikasi_uraian)) {
+$dom->loadHTML(HtmlPurifier::process($model->komunikasi_uraian));
+
+$new_element = $dom->createElement('test', ' ');
+    foreach($dom->getElementsByTagName('li') as $li) {
+        $li_count = $li_count + str_word_count(strip_tags($li->textContent));
+    }
+
+        foreach($dom->getElementsByTagName('ul') as $ul) {
+            $ul->parentNode->replaceChild($new_element,$ul);
+            $dom->saveHTML();
+    
+        }
+        foreach($dom->getElementsByTagName('ol') as $ol) {
+            $ol->parentNode->replaceChild($new_element,$ol);
+            $dom->saveHTML();
+    
+        }
+
+
+       $replaced_dom = preg_replace('#\<(.+?)\>#', ' ', $dom->saveHTML());
+        $word_count = str_word_count(strip_tags($replaced_dom));
+	}
+	
+		$total_count = $word_count + $li_count;
+		
+echo $hint_text = 'words : ' .  $total_count. ' , characters : ' . strlen(str_replace(' ','',strip_tags($uraian)));
 			echo '</p>';
 ?>
 

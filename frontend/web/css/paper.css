@@ -1,11 +1,14 @@
-@page {  margin: 0 
+@page {
+  margin: 0px;
  }
 
 
-body { 
+body {
   counter-reset: section;
-  font: 12pt "Arial";
-  margin: 0 }
+  font: 12pt "cambria";
+  margin: 10mm
+}
+
 .sheet {
   margin: 0;
   overflow: hidden;
@@ -20,8 +23,15 @@ body {
 /** Paper sizes **/
 body.A3           .sheet { width: 297mm; height: 419mm }
 body.A3.landscape .sheet { width: 420mm; height: 296mm }
-body.A4 .sheet { width: 210mm; height: 296mm }
-body.A4.landscape .sheet { width: 297mm; height: 209mm }
+body.A4 .sheet {
+  width: 210mm;
+  height: 296mm;
+}
+
+body.A4.landscape .sheet {
+  width: 297mm;
+  height: 209mm;
+}
 body.A5           .sheet { width: 148mm; height: 209mm }
 body.A5.landscape .sheet { width: 210mm; height: 147mm }
 
@@ -29,7 +39,12 @@ body.A5.landscape .sheet { width: 210mm; height: 147mm }
 .sheet.padding-10mm { padding: 10mm }
 .sheet.padding-15mm { padding: 15mm }
 .sheet.padding-20mm { padding: 20mm }
-.sheet.padding-25mm { padding: 25mm }
+.sheet.padding-25mm {
+  padding-left: 25mm;
+  padding-top: 30mm;
+  /* padding-bottom: 30mm; */
+  padding-right: 25mm;
+}
 
 /** For screen preview **/
 @media screen {
@@ -44,10 +59,16 @@ body.A5.landscape .sheet { width: 210mm; height: 147mm }
 /** Fix for Chrome issue #273306 **/
 @media print {
            body.A3.landscape { width: 420mm }
-  body.A3, body.A4.landscape { width: 297mm }
-  body.A4, body.A5.landscape { width: 210mm }
+  body.A3, body.A4.landscape {
+    width: 297mm;
+  }
+  body.A4, body.A5.landscape {
+     width: 210mm;
+     height: 296mm;
+  }
+
   body.A5                    { width: 148mm }
   html, body {
-    height: 99%;    
-}
+    height: 99%;
+  }
 }
