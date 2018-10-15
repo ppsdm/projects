@@ -117,23 +117,13 @@ $new_element = $dom->createElement('test', ' ');
         $li_count = $li_count + str_word_count(strip_tags($li->textContent));
     }
 
-        foreach($dom->getElementsByTagName('ul') as $ul) {
-            $ul->parentNode->replaceChild($new_element,$ul);
-            $dom->saveHTML();
-    
-        }
-        foreach($dom->getElementsByTagName('ol') as $ol) {
-            $ol->parentNode->replaceChild($new_element,$ol);
-            $dom->saveHTML();
-    
-        }
 
 
        $replaced_dom = preg_replace('#\<(.+?)\>#', ' ', $dom->saveHTML());
         $word_count = str_word_count(strip_tags($replaced_dom));
 	}
 	
-		$total_count = $word_count + $li_count;
+		$total_count = $word_count;
 		
 
 

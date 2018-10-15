@@ -15,7 +15,8 @@ tfoot { display:table-footer-group }
 	transform: translate(-50%, -50%);
 	width:75%;
 	text-align: center;
-
+	color: #2b2222;
+	font-family: cambria;
 }
 
 .footerReport{
@@ -106,10 +107,33 @@ tfoot { display:table-footer-group }
 	font-size: 14px;
 }
 
+.td-sumbu-y-kualifikasi{
+	border: 1px solid #000;
+	padding: 2px;
+	text-align: left;
+	font-weight: 600;
+	font-size: 14px;
+}
+
 .td-sumbu-x{
 	border: 1px solid #000;
 	padding: 2px;
 	text-align:center;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.td-sumbu-x-potensi{
+	border: 1px solid #000;
+	padding: 2px;
+	text-align: left;
+	font-size: 13px;
+}
+
+.td-sumbu-x-kualifikasi{
+	border: 1px solid #000;
+	padding: 2px;
+	text-align: left;
 	font-weight: 600;
 	font-size: 14px;
 }
@@ -119,12 +143,14 @@ table.rekomendasi {
     width: 100%;
     text-align: left;
     border-collapse: collapse;
+		font-family: cambria;
   }
   table.rekomendasi td, table.rekomendasi th {
     border: 1px solid #000000;
     padding: 2px 2px;
   }
   table.rekomendasi tbody td {
+		font-family: cambria;
     font-size: 18px;
   }
 
@@ -133,7 +159,7 @@ table.rekomendasi {
     border-bottom: 2px solid #000000;
   }
   table.rekomendasi thead th {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;
     color: #FFFFFF;
     border-left: 2px solid #000000;
@@ -1941,13 +1967,13 @@ padding-top: 1px;
 }
 
 .rahasia{
-	color: #d5d5d5;
+	color: #2b2222;
 	font-family:cambria;
 	font-size: 16px;
 }
 
 .jabatan{
-	color: #d5d5d5;
+	color: #2b2222;
 	font-family:cambria;
 	font-size: 12px;
 }
@@ -1975,7 +2001,20 @@ padding-top: 1px;
 	font-size: 18px;
 	font-family: cambria;
 }
+.uraian{
+	font-size: 18px;
+	font-family: cambria;
+	padding: 1mm 2mm 1mm 2mm;
+	text-align: justify;
+}
 
 .artikel{
 	font-size: 18px;
+}
+
+.left{
+	color: #2b2222;
+    margin-top: -20px;
+    font-family: cambria;
+    font-size: 12px;
 }

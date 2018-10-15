@@ -1,4 +1,4 @@
-<?php
+2250<?php
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
@@ -6,6 +6,7 @@ use yii\widgets\DetailView;
 use yii\web\View;
 use app\assets\AppAsset;
 use yii\helpers\ArrayHelper;
+use yii\helpers\HtmlPurifier;
 
 $monthUS = array("","January","February","March","April","May","June","July","August","September","October","November","December");
 $monthID = ["","Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
@@ -18,7 +19,7 @@ $monthTest = $monthID[(int)$month];
 $yearTest = date("Y",strtotime($date_test));
 
 $dateActivityAssesse = $dayTest." ".$monthTest." ".$yearTest;
-
+$dom = new DOMDocument();
 /**
 * Psikogram ( Potensi )
 */
@@ -150,7 +151,7 @@ $footerReport='
       <td style="text-align:left;border-right: solid  1px #000000; padding-left:10px; width: 80px; font-family:cambria;" valign="top">
         <div style="font-weight: bold; padding-bottom: -10px;" id="pageFooter" class="totalPage"></div>
       </td>
-      <td style="padding-left:5px; text-align:left; font-size: 12px font-weight: 700; padding-bottom: 2px; ">
+      <td style="padding-left:5px; text-align:left; font-size: 12px font-weight: 700; padding-bottom: 2px; font-family: cambria; ">
         <i>Laporan Uji Kompetensi</i>
       </td>
     </tr>
@@ -162,33 +163,60 @@ $footerReport='
         <i>Republik Indonesia, Tahun 2018</i></div>
       </td>
     </tr>
-  </table>';
+  </table></div>';
 
 $pagebreak = $footerReport.'</b></p></article>
   </section>
     <section class="sheet padding-25mm" style="background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
-      <div class="headerReport" style="color:#969696; font-family:cambria; font-size: 16px; ">
+      <div class="headerReport">
         <h2>RAHASIA</h2>
       </div>
-      <div class="left" style="color: #969696; margin-top: -20px; font-family:cambria; font-size: 12px ">
+
+      <article style="font-size: 18px; font-family: cambria;">      <div class="left">
+      <h6>
+      <b>'.$assesseeModel->nama_lengkap.'</b><br/>
+      '.$assesseeModel->jabatan_saat_ini.'</h6>
+    </div><br/>';
+
+    $pagebreak_1 = $footerReport.'</b></p></article>
+  </section>
+    <section class="sheet padding-25mm" style="background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
+      <div class="headerReport">
+        <h2>RAHASIA</h2>
+      </div>
+
+      <article style="font-size: 18px; font-family: cambria;">      <div class="left">
+      <h6>
+      <b>'.$assesseeModel->nama_lengkap.'</b><br/>
+      '.$assesseeModel->jabatan_saat_ini.'</h6>
+    </div>';
+
+
+    $pagebreak_perekatbangsa = '</td></tr></tbody></table></article>' .$footerReport.'</section>
+      <section class="sheet padding-25mm" style="background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
+        <div class="headerReport">
+          <h2>RAHASIA</h2>
+        </div>
+    
+        <article style="font-size: 18px; font-family: cambria;">      <div class="left">
         <h6>
         <b>'.$assesseeModel->nama_lengkap.'</b><br/>
         '.$assesseeModel->jabatan_saat_ini.'</h6>
-      </div>
-      <article style="font-size: 18px; font-family: cambria;"><br/>';
+      </div><br/><table width="100%" class="rekomendasi" style="font-family: cambria;"><tbody><tr><td>';
 
   $pagebreakResume = $footerReport.'</b></p></article>
     </section>
       <section class="sheet padding-25mm" style="background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
-        <div class="headerReport" style="color:#969696; font-family:cambria;font-size: 16px; ">
+        <div class="headerReport">
           <h2>RAHASIA</h2>
         </div>
-        <div class="left" style="color: #969696; margin-top: -20px; font-family:cambria; font-size: 12px">
-          <h6>
-          <b>'.$assesseeModel->nama_lengkap.'</b><br/>
-          '.$assesseeModel->jabatan_saat_ini.'</h6>
-        </div>
-        <article style="font-size: 18px; font-family: cambria;"></br><ul>';
+
+        <article style="font-size: 18px; font-family: cambria;">
+        <div class="left">
+        <h6>
+        <b>'.$assesseeModel->nama_lengkap.'</b><br/>
+        '.$assesseeModel->jabatan_saat_ini.'</h6>
+      </div></br>';
 
 function upperCase($data){
   return strtoupper($data);
@@ -243,7 +271,7 @@ function SplitStringToParts($sourceInput, &$first, &$rest, $countWordsInFirst = 
       <div style="width:60%; height:0%; border: 1px solid #2e2e2e; position:absolute; right: 65px; top: 595px;"></div>
 
       <div style="font-size: 12pt; position:absolute; right: 65px; top: 665px;"><b>PENGAMBILAN DATA: </b></div>
-      <div style="font-size: 18pt;position:absolute; right: 65px; top: 685px;"><b><?php echo $dateTest; ?></b></div>
+      <div style="font-size: 18pt;position:absolute; right: 65px; top: 685px;"><b><?php echo strtoupper($dateTest); ?></b></div>
       <div style="width:60%; height:0%; border: 1px solid #2e2e2e; position:absolute; right: 65px; top: 716px;"></div>
     </div>
     <div style= "width: 210mm; height: 296mm; margin-top:30px; color: #2e2e2e;" >
@@ -257,11 +285,11 @@ function SplitStringToParts($sourceInput, &$first, &$rest, $countWordsInFirst = 
 
   <section class="sheet padding-25mm" style= "font-family:cambria;');
 background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
-    <div class="headerReport" style="color: #d5d5d5; font-size:16px;">
+    <div class="headerReport">
       <h2>RAHASIA</h2>
     </div>
     <article style="margin-top: -20px;">
-      <div class='left' style="color: #d5d5d5; ">
+      <div class='left'>
         <h6>
         <b><?php echo $assesseeModel->nama_lengkap; ?></b><br/>
         <?php echo $assesseeModel->jabatan_saat_ini; ?></h6>
@@ -281,7 +309,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
       <tr>
         <td style="width: 120px;">Nomor Test</td>
         <td>:</td>
-        <td><b></b><?php echo upperCase($noTest); ?></td>
+        <td><b></b><?php echo upperCase($noTest); ?></b></td>
         <td colspan="2" rowspan="3" style="padding:2px 0px 0px 0px; text-align: right;"> <?php echo Html::img('@web/project-uploads/setkab/photos/'.$assesseeModel->id.'.JPG', ['alt' => '--missing image--','style'=> 'width:120px; height:150px' ]);?> </td>
       </tr>
       <tr><td>Nama Lengkap</td><td>:</td><td colspan="2"><b><?php echo upperCase($assesseeModel->nama_lengkap); ?></b></td></tr>
@@ -314,7 +342,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
             <div class='kiriTandaTangan'>
               <div class='center'>
       	         Penanggung jawab<br/>
-      	         <strong>Drs. BUDIMAN SANUSI, M.Psi.
+      	         <strong>DRS. BUDIMAN SANUSI, M.Psi.
       	         <br/>
       	         PSIKOLOG</strong>
               </div>
@@ -327,16 +355,16 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
   </section>
 
   <section class="sheet padding-25mm">
-      <div class="headerReport" style="color: #d5d5d5; font-family:cambria; font-size: 16px">
+      <div class="headerReport">
         <h2>RAHASIA</h2>
       </div>
       <article style="margin-top: -20px;">
-        <div class='left' style="color: #d5d5d5; font-family:cambria; font-size: 12px;">
+        <div class='left'>
           <h6>
           <b><?php echo $assesseeModel->nama_lengkap; ?></b><br/>
           <?php echo $assesseeModel->jabatan_saat_ini; ?></h6>
         </div>
-        <div class='center'>
+        <div class='center judul'>
           <h3 style="font-size: 20px;">DIAGRAM KOMPETENSI</H3>
           <div class="radarChart" style="background-image: url('<?php echo Url::base(); ?>/images/setkab/LINGKARAN.png'); background-position: center; background-repeat: no-repeat;background-size: 320px 340px; height: 340px;"></div>
           <script src="<?=Url::to('@web/js/radarChart.js');?>"></script>
@@ -620,50 +648,51 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
                 <th style="padding: 2px; width: 20px;"></th>
               </tr>
               <tr style="height: 40px;">
-                <th style="border: 2px solid #000; padding: 2px; text-align: center;" colspan="30"> KOMPETENSI / SUMBU Y</th>
+                <th style="border: 2px solid #000; padding: 2px; text-align: center; background-color: #fdf409; " colspan="30"> KOMPETENSI / SUMBU Y</th>
               </tr>
-              <tr bgcolor="#B8CCE4" style=" height: 20px; border-bottom: 1px solid #ffffff; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;">
+              <tr bgcolor="#d6dce5" style=" height: 25px; border-bottom: 1px solid #ffffff; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;">
                 <td colspan="8" class="td-sumbu-y">KUALIFIKASI</td>
                 <td colspan="14" class="td-sumbu-y">REKOMENDASI</td>
                 <td colspan="8" class="td-sumbu-y">SKALA</td>
               </tr>
               <?php
-                $hasilSumbuY = round($PArk / $sumC, 2) * 100;
+                // $hasilSumbuY = round($PArk / $sumC, 2) * 100;
+                $hasilSumbuY = 70;
                 if ($hasilSumbuY >=100) {
-                    $backgroundK1 = '#C4D79B';
-                    $backgroundK2 = '#FFFFFF';
-                    $backgroundK3 = '#FFFFFF';
+                  $backgroundK1 = '#6495ED';
+                  $backgroundK2 = '#d6dce5';
+                  $backgroundK3 = '#d6dce5';
                 }
                 elseif ($hasilSumbuY >= 80 && $hasilSumbuY <= 99) {
-                  $backgroundK1 = '#FFFFFF';
-                  $backgroundK2 = '#C4D79B';
-                  $backgroundK3 = '#FFFFFF';
+                  $backgroundK1 = '#d6dce5';
+                  $backgroundK2 = '#6495ED';
+                  $backgroundK3 = '#d6dce5';
                 }
                 else {
-                  $backgroundK1 = '#FFFFFF';
-                  $backgroundK2 = '#FFFFFF';
-                  $backgroundK3 = '#C4D79B';
+                  $backgroundK1 = '#d6dce5';
+                  $backgroundK2 = '#d6dce5';
+                  $backgroundK3 = '#6495ED';
                 }
               ?>
-              <tr bgcolor="<?php echo $backgroundK1; ?>" style=" height: 20px; border-bottom: 1px solid #ffffff; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;">
+              <tr bgcolor="<?php echo $backgroundK1; ?>" style=" height: 22px; border-bottom: 1px solid #ffffff; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;">
                 <td colspan="3" class="td-sumbu-y">K-1</td>
-                <td colspan="5" class="td-sumbu-y">Baik</td>
+                <td colspan="5" class="td-sumbu-y-kualifikasi">TINGGI</td>
                 <td colspan="14" class="td-sumbu-y">Strong</td>
                 <td colspan="2" class="td-sumbu-y">100%</td>
                 <td colspan="1" class="td-sumbu-y"></td>
                 <td colspan="5" class="td-sumbu-y">Ke Atas</td>
               </tr>
-              <tr bgcolor="<?php echo $backgroundK2; ?>" style=" height: 20px; border-bottom: 1px solid #ffffff; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;">
+              <tr bgcolor="<?php echo $backgroundK2; ?>" style=" height: 22px; border-bottom: 1px solid #ffffff; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;">
                 <td colspan="3" class="td-sumbu-y">K-2</td>
-                <td colspan="5" class="td-sumbu-y">Cukup</td>
+                <td colspan="5" class="td-sumbu-y-kualifikasi">SEDANG</td>
                 <td colspan="14" class="td-sumbu-y">Effective</td>
                 <td colspan="2" class="td-sumbu-y">80%</td>
                 <td colspan="1" class="td-sumbu-y"> - </td>
                 <td colspan="5" class="td-sumbu-y">99%</td>
               </tr>
-              <tr bgcolor="<?php echo $backgroundK3; ?>" style=" height: 20px; border-bottom: 1px solid #ffffff; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;">
+              <tr bgcolor="<?php echo $backgroundK3; ?>" style=" height: 22px; border-bottom: 1px solid #ffffff; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;">
                 <td colspan="3" class="td-sumbu-y">K-3</td>
-                <td colspan="5" class="td-sumbu-y">Kurang</td>
+                <td colspan="5" class="td-sumbu-y-kualifikasi">KURANG</td>
                 <td colspan="14" class="td-sumbu-y">Development needed</td>
                 <td colspan="2" class="td-sumbu-y">79%</td>
                 <td colspan="1" class="td-sumbu-y"> - </td>
@@ -677,20 +706,20 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
   </section>
 
   <section class="sheet padding-25mm">
-    <div class="headerReport" style="color: #d5d5d5; font-family:cambria; font-size: 16px">
+    <div class="headerReport">
       <h2>RAHASIA</h2>
     </div>
     <article>
-      <div class='left' style="color: #d5d5d5; font-family:cambria; font-size: 12px">
+      <div class='left' style="color: #2b2222; font-family:cambria; font-size: 12px">
         <h6>
         <b><?php echo $assesseeModel->nama_lengkap; ?></b><br/>
         <?php echo $assesseeModel->jabatan_saat_ini; ?></h6>
       </div>
-      <div class='center'>
+      <div class='center judul'>
         <h3 style="font-size: 20px;">PSIKOGRAM POTENSI</H3>
       </div>
     <div class='center'>
-      <table border="3" cellpadding="0" cellspacing="0" style="border-collapse:collapse;width:100%">
+      <table border="3" cellpadding="0" cellspacing="0" style="border-collapse:collapse;width:98.7%">
          <colgroup>
            <col span="1"><col span="3"  width="64">
            <col  width="30">
@@ -709,7 +738,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
            ASPEK PSIKOLOGIS</td>
            <td class="psikogramtable2" colspan="6" rowspan="2" >
            KETERANGAN</td>
-           <td class="psikogramtable3" colspan="7" >P E  N I L A I A N</td>
+           <td class="psikogramtable3" colspan="7" >P E N I L A I A N</td>
          </tr>
          <tr bgcolor="yellow">
            <td class="psikogramtable4" >1</td>
@@ -1002,56 +1031,56 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
       </table>
     <br/>
 
-    <table width="100%" class="table-potensi">
+    <table width="98.7%" class="table-potensi">
       <thead>
-        <tr style="height:40px;">
-          <td style="border: 2px solid #000; padding: 2px; text-align: center;" colspan="7"><center><strong>POTENSI / SUMBU X : </strong></center></td>
+        <tr style="height:30px;">
+          <td bgcolor="#fdf409" style="border: 2px solid #000; padding: 2px; text-align: center;" colspan="7"><center><strong>POTENSI / SUMBU X : </strong></center></td>
         </tr>
       </thead>
       <tbody>
-      <tr bgcolor="#B8CCE4" style=" height: 20px; border-bottom: 1px solid #ffffff; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;">
-      <th class="td-sumbu-x" colspan="2" rowspan="1" scope="col">KUALIFIKASI</th>
-      <th class="td-sumbu-x" colspan="1" rowspan="1" scope="col">REKOMENDASI</th>
-      <th class="td-sumbu-x" colspan="3" rowspan="1" scope="col">SKALA</th>
+      <tr bgcolor="#d6dce5" style=" height: 25px; border-bottom: 1px solid #ffffff; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;">
+        <th class="td-sumbu-x" colspan="2" rowspan="1" scope="col">KUALIFIKASI</th>
+        <th class="td-sumbu-x" colspan="1" rowspan="1" scope="col">REKOMENDASI</th>
+        <th class="td-sumbu-x" colspan="4" rowspan="1" scope="col">SKALA</th>
       </tr>
       <?php
         $hasil = round($dataSumbuX/$pembagiSumbuX*100);
         if ($hasil >=100) {
-            $backgroundK1 = '#C4D79B';
-            $backgroundK2 = '#ffffff';
-            $backgroundK3 = '#ffffff';
+            $backgroundK1 = '#6495ED';
+            $backgroundK2 = '#d6dce5';
+            $backgroundK3 = '#d6dce5';
         }
         else if ($hasil >= 80 && $hasil <= 99) {
-            $backgroundK1 = '#ffffff';
-            $backgroundK2 = '#C4D79B';
-            $backgroundK3 = '#ffffff';
+            $backgroundK1 = '#d6dce5';
+            $backgroundK2 = '#6495ED';
+            $backgroundK3 = '#d6dce5';
         }
         else {
-        	$backgroundK1 = '#ffffff';
-          $backgroundK2 = '#ffffff';
-          $backgroundK3 = '#C4D79B';
+        	$backgroundK1 = '#d6dce5';
+          $backgroundK2 = '#d6dce5';
+          $backgroundK3 = '#6495ED';
         }
       ?>
       <tr bgcolor="<?php echo $backgroundK1;?>" style=" height: 20px; border-bottom: 1px solid #ffffff; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;">
         <td class="td-sumbu-x">K-1</td>
-        <td class="td-sumbu-x">Baik</td>
-        <td class="td-sumbu-x">Mampu berkembang secara wajar</td>
-        <td class="td-sumbu-x">100%</td>
-        <td class="td-sumbu-x">-</td>
-        <td class="td-sumbu-x">ke atas</td>
+        <td class="td-sumbu-x-kualifikasi">Baik</td>
+        <td class="td-sumbu-x-potensi">Memiliki potensi psikologik yang baik sehingga ia mampu berkembang secara luas dan wajar</td>
+        <td class="td-sumbu-x" style="width: 70px;">100%</td>
+        <td class="td-sumbu-x" style="width: 20px;">-</td>
+        <td class="td-sumbu-x" style="width: 70px;">ke atas</td>
       </tr>
       <tr bgcolor="<?php echo $backgroundK2;?>" style=" height: 20px; border-bottom: 1px solid #ffffff; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;">
         <td class="td-sumbu-x">K-2</td>
-        <td class="td-sumbu-x">Cukup</td>
-        <td class="td-sumbu-x">Mampu berkembang spesifik</td>
+        <td class="td-sumbu-x-kualifikasi">Cukup</td>
+        <td class="td-sumbu-x-potensi">Memiliki potensi psikologik yang cukup sehingga ia berkembang spesifik</td>
         <td class="td-sumbu-x">80%</td>
         <td class="td-sumbu-x">-</td>
         <td class="td-sumbu-x">99%</td>
       </tr>
       <tr bgcolor="<?php echo $backgroundK3;?>" style=" height: 20px; border-bottom: 1px solid #ffffff; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;">
         <td class="td-sumbu-x">K-3</td>
-        <td class="td-sumbu-x">Kurang</td>
-        <td class="td-sumbu-x">Kemampuan perkembangannya terbatas</td>
+        <td class="td-sumbu-x-kualifikasi">Kurang</td>
+        <td class="td-sumbu-x-potensi">Memiliki potensi psikologik yang kurang sehingga ia agak sulit mengembangkan prestasi kerja yang optimal</td>
         <td class="td-sumbu-x">79%</td>
         <td class="td-sumbu-x">-</td>
         <td class="td-sumbu-x">ke bawah</td>
@@ -1064,16 +1093,16 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
 </section>
 
 <section class="sheet padding-25mm">
-  <div class="headerReport" style="color: #d5d5d5;font-family:cambria; font-size: 16px;">
+  <div class="headerReport">
     <h2>RAHASIA</h2>
   </div>
   <article style="margin-top: -20px;">
-    <div class='left' style="color: #d5d5d5;font-family:cambria; font-size:12px">
+    <div class='left' style="color: #2b2222;font-family:cambria; font-size:12px; height: 20px;">
       <h6>
       <b><?php echo $assesseeModel->nama_lengkap; ?></b><br/>
       <?php echo $assesseeModel->jabatan_saat_ini; ?></h6>
     </div>
-    <div class='center'>
+    <div class='center judul'>
       <h3 style="font-size: 20px;">GAMBARAN POSISI 9-CELL (KOMPETENSI DAN POTENSI)</h3>
     </div>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -1121,18 +1150,21 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
             $sumbuY = round($dataSumbuY/$pembagiSumbuY*100);
             $sumbuX = round($dataSumbuX/$pembagiSumbuX*100);
             if ($sumbuY >=100) {
-                echo "<img height='400' width='133' src=".Url::base()."/images/setkab-sumbuYtop.PNG>";
+                echo "<img height='400' width='133' src=".Url::base()."/images/setkab/sumbu-y-K1.png>";
             }
 
             else if ($sumbuY >= 80 && $sumbuY <= 99) {
-                echo "<img height='400' width='133' src=".Url::base()."/images/setkab-sumbuYmiddle.PNG>";
+                echo "<img height='400' width='133' src=".Url::base()."/images/setkab/sumbu-y-K2.png>";
 
             }
             else {
-            	echo "<img height='400' width='133' src=".Url::base()."/images/setkab-sumbuYbot.PNG>";
+            	echo "<img height='400' width='133' src=".Url::base()."/images/setkab/sumbu-y-K3.png>";
             }
           ?>
         </td>
+        <!-- <td rowspan="2">
+          <div id="chart_div" style=" margin-left: -90px; margin-top: -30px; width: 696px; height: 509px; background-image: url('<?=Url::base()?>/images/setkab/bg-color-9-cell.png'); background-repeat: no-repeat; background-position: 50% 50%; background-size: 430px 435px; "></div>
+        </td> -->
       </tr>
       <tr>
         <td>
@@ -1182,72 +1214,76 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
           <td align="left" colspan="2">
               <?php
               if ($sumbuX >=100) {
-                  echo "<img height='125' width='472' src=".Url::base()."/images/setkab-sumbuXtop.PNG>";
+                  echo "<img height='135' width='472' src=".Url::base()."/images/setkab/sumbu-x-K1.png>";
               }
 
               else if ($sumbuX >= 80 && $sumbuX<= 99) {
-                  echo "<img height='125' width='472' src=".Url::base()."/images/setkab-sumbuXmiddle.PNG>";
+                  echo "<img height='135' width='472' src=".Url::base()."/images/setkab/sumbu-x-K2.png>";
 
               }
 
               else {
-                  echo "<img height='125' width='472' src=".Url::base()."/images/setkab-sumbuXbot.PNG>";
+                  echo "<img height='135' width='472' src=".Url::base()."/images/setkab/sumbu-x-K3.png>";
               }
               ?>
           </td>
         </tr>
        </table>
        <!-- 9 Cell -->
-       <div id="chart_div" style="position: absolute; bottom: 31.8%; left:17%; width: 698px; height: 705px; background-image: url('<?=Url::base()?>/images/setkab/bg-9-cell.png'); background-repeat: no-repeat; background-position: 50% 50%; background-size: 435px 435px; "></div>
+       <div id="chart_div" style="position: absolute; bottom: 32.2%; left:17%; width: 696px; height: 709px; background-image: url('<?=Url::base()?>/images/setkab/bg-color-9-cell.png'); background-repeat: no-repeat; background-position: 50% 50%; background-size: 430px 435px; "></div>
        <br/>
        <table>
 
        </table>
-       <table width="100%" class="rekomendasi">
+       <table class="rekomendasi">
          <thead>
            <tr>
-             <td bgcolor="#eeaa65" style='font-size: 16px; height: 17px; padding: 1mm; text-align: justify;' colspan="7"><center><strong>REKOMENDASI PENERIMAAN</strong></center></td>
+             <td bgcolor="#fdf409" style='font-size: 16px; height: 17px; padding: 1mm; text-align: justify;' colspan="7"><center><strong>KLASIFIKASI PROSPEK PENGEMBANGAN</strong></center></td>
            </tr>
          </thead>
          <tbody>
-         <tr bgcolor="#eeaa65">
+         <tr bgcolor="#fdf409">
            <th colspan="2" rowspan="1" scope="col">KUALIFIKASI</th>
-           <th colspan="1" rowspan="1" scope="col">REKOMENDASI</th>
-           <th colspan="3" rowspan="1" scope="col">POSISI DALAM SELL <?php echo $ninecellScore; ?></th>
+           <th colspan="1" rowspan="1" scope="col">PROSPEK/REKOMENDASI</th>
+           <th colspan="3" rowspan="1" scope="col">POSISI DALAM SELL</th>
          </tr>
          <?php
-             $backgroundK1 = '#ffffff';
-             $backgroundK2 = '#C4D79B';
+             $backgroundCell = 'background-color:#6495ED; font-weight: 700; font-style: italic;';
+             $backgroundK1 = 'background-color:#d6dce5;';
+             $backgroundK2 = 'background-color:#92d050;';
+             $backgroundK3 = 'background-color:#fdf409;';
+             $backgroundK4 = 'background-color:#f8bf17;';
+             $backgroundK5 = 'background-color:#ee6226;';
          ?>
-         <tr bgcolor="<?php echo $ninecellScore == 9 ? $backgroundK2 : $backgroundK1;?>">
+         <tr style="<?php echo $ninecellScore == 9 ? $backgroundCell : $backgroundK1;?>">
            <td>K-1</td>
-           <td>SANGAT BAIK</td>
-           <td>Prioritas disarankan</td>
+           <td>ISTIMEWA</td>
+           <td>Berkembang Luas</td>
            <td>SEL 9</td>
          </tr>
-         <tr bgcolor="<?php if($ninecellScore == 7 || $ninecellScore == 8) { echo $backgroundK2; } else { echo $backgroundK1; } ?>">
+         <tr style="<?php if($ninecellScore == 7 || $ninecellScore == 8) { echo $backgroundCell; } else { echo $backgroundK2; } ?>">
            <td>K-2</td>
            <td>BAIK</td>
-           <td>Dapat disarankan</td>
-           <td>SEL 7 atau 8</td>
+           <td>Berkembang Wajar</td>
+           <td>SEL 7 DAN 8</td>
          </tr>
-         <tr bgcolor="<?php echo $ninecellScore == 5 ? $backgroundK2 : $backgroundK1;?>">
+         <tr style="<?php if($ninecellScore == 5 || $ninecellScore == 6) { echo $backgroundCell; } else { echo $backgroundK3; } ?>">
            <td>K-3</td>
            <td>CUKUP</td>
-           <td>Masih dapat di sarankan</td>
-           <td>SEL 5</td>
+           <td>Berkembang Spesifik</td>
+           <td>SEL 5 DAN 6</td>
          </tr>
-         <tr bgcolor="<?php echo $ninecellScore == 4 ? $backgroundK2 : $backgroundK1;?>">
+         <tr style="<?php if($ninecellScore == 3 || $ninecellScore == 4) { echo $backgroundCell; } else { echo $backgroundK4; } ?>">
            <td>K-4</td>
            <td>KURANG</td>
-           <td>Kurang dapat disarankan</td>
-           <td>SEL 4 atau 6</td>
+           <td>Berkembang Terbatas</td>
+           <td>SEL 3 DAN 4</td>
          </tr>
-         <tr bgcolor="<?php if($ninecellScore == 1 || $ninecellScore == 2 || $ninecellScore == 3) { echo $backgroundK2; } else { echo $backgroundK1; }?>">
+         <tr style="<?php if($ninecellScore == 1 || $ninecellScore == 2) { echo $backgroundCell; } else { echo $backgroundK5; } ?>">
            <td>K-5</td>
            <td>BURUK</td>
-           <td>Tidak dapat disarankan</td>
-           <td>SEL 1,2 atau 3</td>
+           <td>Berkembang Sangat Terbatas/Plafon</td>
+           <td>SEL 1 DAN 2</td>
          </tr>
          </tbody>
        </table>
@@ -1258,11 +1294,11 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
 </section>
 
 <section class="sheet padding-25mm">
-  <div class="headerReport" style="color: #d5d5d5; font-family:cambria; font-size: 16px;">
+  <div class="headerReport">
     <h2>RAHASIA</h2>
   </div>
   <article style="margin-top: -20px; font-family:cambria; font-size: 12px;">
-    <div class='left' style="color: #d5d5d5;">
+    <div class='left' style="color: #2b2222;">
       <h6>
       <b><?php echo $assesseeModel->nama_lengkap; ?></b><br/>
       <?php echo $assesseeModel->jabatan_saat_ini; ?></h6>
@@ -1277,14 +1313,14 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
       $htmlesc   = array('<ul>','</ul>');
     ?>
     <div class="exsum";>
-      <?php echo wordwrap(str_replace($htmltag, $htmlesc, $activityModel->executive_summary), 2850,  $pagebreak, true);?>
+      <?php echo wordwrap(str_replace($htmltag, $htmlesc, $activityModel->executive_summary), 2600,  $pagebreak, true);?>
     </div>
     <div class="pemeriksa">
-      <div class='center' style="font-size: 18px;">
+      <div class='center' style="font-size: 18px;"><b>
         <?php echo $activityModel->tempat_test.", 5 November 2018"; ?></br>
-         a.n Psikolog Pemeriksa,<br/>
+         a.n Psikolog Pemeriksa,</b><br/>
          <?php echo Html::img('@web/images/setkab/ttd.png', ['alt' => '--missing image--','style'=> 'max-width:200px; max-height:200px; text-align: right;' ]);?></br>
-         <strong>( DRS. BUDIMAN SANUSI, M.Psi. Psikolog )</strong>
+         <strong>( DRS. BUDIMAN SANUSI, M.Psi. PSIKOLOG )</strong>
       </div>
     </div>
     <?php echo $footerReport;?>
@@ -1306,17 +1342,13 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
       <div style="width:100%; height:0%; border: 2px solid #000;"></div>
       <div style="width:100%; height:0%; border: 1px solid #000; margin-top: 2px;"></div>
     </div>
-    <?php
-      $htmltag = array('<p style="text-align: justify;">','<p></p>');
-      $htmlesc   = array('<p>','');
-    ?>
-    </br>
+
     <h3 class="sub-judul">A. KOMPETENSI MANAGERIAL</h3>
     <table width="100%" class="rekomendasi" style="font-family: cambria;">
       <thead>
         <tr bgcolor="#dadada">
           <td class="kode" rowspan="2"><center><strong><h2>M-01</h2></strong></center></td>
-          <td class="title" style="height: 20px;	padding: 3mm;" colspan="7"><strong>INTEGRITAS</stron></td>
+          <td class="title" style="height: 20px;	padding: 3mm;" colspan="7"><strong>INTEGRITAS</strong></td>
         </tr>
         <tr bgcolor="#dadada">
           <td  class="sub-title" style='height: 20px; padding: 3mm 2mm 2mm 2mm;' colspan="7">Konsisten berperilaku selaras dengan nilai, norma dan/atau etika
@@ -1352,7 +1384,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
             }
           }
         ?>
-        <td ><center><?php echo $resultIntegritasLKI; ?></center></td>
+        <td><center><?php echo $resultIntegritasLKI; ?></center></td>
       </tr>
       <tr>
         <td bgcolor="#44b2ef" style="height: 30px; padding-left: 3mm;" ><strong>Fit (%)</strong></td>
@@ -1393,7 +1425,11 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td ><center><?php echo $resultIntegritasFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7"  style="font-family: cambria; padding: 1mm 2mm 1mm 2mm; text-align: justify;"><?php echo $resultIntegritasUraian; ?></td>
+        <td colspan="7" class="uraian">
+        <?php 
+             echo wordwrap(str_replace($htmltag, $htmlesc, $resultIntegritasUraian), 1450,  $pagebreak_perekatbangsa, true);
+      //  echo $resultIntegritasUraian; 
+        ?></td>
       </tr>
       </tbody>
     </table>
@@ -1479,7 +1515,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td><center><?php echo $resultKerjasamaFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7" style="font-family: cambria; padding: 1mm 2mm 1mm 2mm; text-align: justify;"><?php echo $resultKerjasamaUraian; ?></td>
+        <td colspan="7" class="uraian"><?php echo $resultKerjasamaUraian; ?></td>
       </tr>
       </tbody>
     </table>
@@ -1565,7 +1601,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td><center><?php echo $resultKomunikasiFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7" style="font-family: cambria; padding: 1mm 2mm 1mm 2mm; text-align: justify;"><?php echo $resultKomunikasiUraian; ?></td>
+        <td colspan="7" class="uraian"><?php echo $resultKomunikasiUraian; ?></td>
       </tr>
       </tbody>
     </table>
@@ -1651,7 +1687,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td><center><?php echo $resultOrientasiHasilFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7" style="font-family: cambria; padding: 1mm 2mm 1mm 2mm; text-align: justify;"><?php echo $resultOrientasiHasilUraian; ?></td>
+        <td colspan="7" class="uraian"><?php echo $resultOrientasiHasilUraian; ?></td>
       </tr>
       </tbody>
     </table>
@@ -1737,7 +1773,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td><center><?php echo $resultPelayananPublikFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7" style="font-family: cambria; padding: 1mm 2mm 1mm 2mm; text-align: justify;"><?php echo $resultPelayananPublikUraian; ?></td>
+        <td colspan="7" class="uraian"><?php echo $resultPelayananPublikUraian; ?></td>
       </tr>
       </tbody>
     </table>
@@ -1825,7 +1861,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td><center><?php echo $resultPengembanganDiriFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7" style="font-family: cambria; padding: 1mm 2mm 1mm 2mm; text-align: justify;"><?php echo $resultPengembanganDiriUraian; ?></td>
+        <td colspan="7" class="uraian"><?php echo $resultPengembanganDiriUraian; ?></td>
       </tr>
       </tbody>
     </table>
@@ -1912,7 +1948,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td><center><?php echo $resultPengelolaanPerubahanFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7" style="font-family: cambria; padding: 1mm 2mm 1mm 2mm; text-align: justify;"><?php echo $resultPengelolaanPerubahanUraian; ?></td>
+        <td colspan="7" class="uraian"><?php echo $resultPengelolaanPerubahanUraian; ?></td>
       </tr>
       </tbody>
     </table>
@@ -1999,18 +2035,18 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td><center><?php echo $resultPengambilanKeputusanFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7" style="font-family: cambria; padding: 1mm 2mm 1mm 2mm; text-align: justify;"><?php echo $resultPengambilanKeputusanUraian; ?></td>
+        <td colspan="7" class="uraian"><?php echo $resultPengambilanKeputusanUraian; ?></td>
       </tr>
       </tbody>
     </table>
 
-    <?php echo $pagebreak; ?>
-    <h3 style="font-family: cambria; font-size: 20px;">B. KOMPETENSI SOSIAL KULTURAL</h3>
+    <?php echo $pagebreak_1; ?>
+    <h3 style="font-family: cambria; font-size: 20px; margin-top: 0mm;">B. KOMPETENSI SOSIAL KULTURAL</h3>
     <table width="100%" class="rekomendasi" style="font-family: cambria;">
       <thead>
         <tr bgcolor="#dadada">
           <td class="kode" style='height: 50px;' rowspan="2"><center><strong><h2>SK-01</h2></strong></center></td>
-          <td class="title" style='height: 20px; padding: 3mm; text-align: justify;' colspan="7"><strong>PEREKAT BANGSA</stron></td>
+          <td class="title" style='height: 20px; padding: 1mm; text-align: justify;' colspan="7"><strong>PEREKAT BANGSA</stron></td>
         </tr>
         <tr bgcolor="#dadada">
           <td class="sub-title" style='font-family: cambria; height: 20px; padding: 3mm 2mm 2mm 2mm;' colspan="7">Kemampuan dalam mempromosikan sikap toleransi, keterbukaan,
@@ -2091,7 +2127,14 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td><center><?php echo $resultPerekatBangsaFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7" style="font-family: cambria; padding: 1mm 2mm 1mm 2mm; text-align: justify;"><?php echo $resultPerekatBangsaUraian; ?></td>
+        <td colspan="7" class="uraian">
+        <?php
+        //echo $resultPerekatBangsaUraian;
+         echo wordwrap(str_replace($htmltag, $htmlesc, $resultPerekatBangsaUraian), 1250,  $pagebreak_perekatbangsa, true);
+
+        ?>
+
+        </td>
       </tr>
       </tbody>
     </table>
@@ -2099,86 +2142,205 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
   </article>
 </section>
 <section class="sheet padding-25mm">
-  <div class="headerReport" style="color: #d5d5d5; font-family:cambria; font-size: 16px;">
-    <h2>RAHASIA</h2>
-  </div>
-  <article>
-    <div class='left' style="color: #d5d5d5; font-family:cambria; font-size: 12px">
-      <h6>
-      <b><?php echo $assesseeModel->nama_lengkap; ?></b><br/>
-      <?php echo $assesseeModel->jabatan_saat_ini; ?></h6>
-    </div>
-    <div class='center' style="font-family: cambria;">
-      <h2 class="judul">KESIMPULAN</h2>
-      <div style="width:100%; height:0%; border: 2px solid #000;"></div>
-      <div style="width:100%; height:0%; border: 1px solid #000; margin-top: 2px;"></div>
-    </div>
-    <?php
-      $htmltag = array('<p style="text-align: justify;">','<p></p>');
-      $htmlesc   = array('<p>','');
-    ?>
-    <div style="font-size: 18px; font-family: cambria; font-weight: 700; margin-top: 10px;">
-      <span class="sub-judul">HAL HAL POSITIF YANG MENUNJANG TAMPILNYA KINERJA YANG OPTIMAL :</span>
-    </div>
-    <div style="margin-bottom:20px;text-align:justify;text-justify:inter-word;font-size: 18; font-family: cambria;";>
-      <p><?php echo $activityModel->kekuatan; ?></p>
-    </div>
 
-    <div style="width:100%; height:0%; border: 2px solid #000;"></div>
-    <div style="width:100%; height:0%; border: 1px solid #000; margin-top: 2px;"></div>
-    <div style="font-size: 18px; font-family: cambria; font-weight: 700; margin-top: 10px;">
-      <span class="sub-judul">HAL HAL NEGATIF YANG MENGHAMBAT TAMPILNYA KINERJA YANG OPTIMAL :</span>
-    </div>
-    <?php
-      $htmltag = array('<p style="text-align: justify;">','<p></p>');
-      $htmlesc   = array('<p>','');
-    ?>
-    <div style="margin-bottom:10px;text-align:justify;text-justify:inter-word;font-size: 18; font-family: cambria;";>
-      <p><?php
-        // $totalWordNegatif = strlen($activityModel->kelemahan);
-        $totalWordPositif = strlen($activityModel->kekuatan);
-        // $stringNegatif = $activityModel->kelemahan;
-        // // 1141 + 1035 = 3087 strlen
-        // $totalWord = $totalWordNegatif + $totalWordPositif;
-        //
-        $splitWord = 2475 - $totalWordPositif;
-        // $stringSplit = str_split($stringNegatif, $splitWord);
-        // if(count($stringSplit) <= 1){
-        //   echo $stringSplit[0];
-        // } else {
-        //   echo $stringSplit[0];
-        //   echo $pagebreakResume;
-        //   echo $stringSplit[1];
-        // }
-        echo wordwrap(str_replace($htmltag, $htmlesc, $activityModel->kelemahan), $splitWord,  $pagebreakResume, true);
-      ?></p>
-    </div>
+<?php
+
+
+echo $headerReport = '<div class="headerReport" style="color:#2b2222; font-family:cambria;font-size: 16px; ">
+<h2>RAHASIA</h2>
+</div>
+<article>
+<div class="left" style="color: #2b2222; margin-top: -20px; font-family:cambria; font-size: 12px">
+<h6>
+<b>'.$assesseeModel->nama_lengkap.'</b><br/>
+'.$assesseeModel->jabatan_saat_ini.'</h6>
+</div>';
+
+echo $header_print = '<div class="center" style="font-family: cambria;">
+<h2 class="judul">KESIMPULAN</h2>
+<div style="width:100%; height:0%; border: 2px solid #000;"></div>
+<div style="width:100%; height:0%; border: 1px solid #000; margin-top: 2px;"></div>
+</div>
+<div style="font-size: 18px; font-family: cambria; font-weight: 700; margin-top: 10px;">
+<span class="sub-judul">HAL HAL POSITIF YANG MENUNJANG TAMPILNYA KINERJA YANG OPTIMAL :</span>
+</div>
+<div style="margin-bottom:20px;text-align:justify;text-justify:inter-word;font-size: 18px; font-family: cambria;">
+<p>';
+
+//echo strlen(strip_tags($activityModel->kekuatan));
+$header_print_cont = '</p>
+</div>    <div style="width:100%; height:0%; border: 2px solid #000;"></div>
+<div style="width:100%; height:0%; border: 1px solid #000; margin-top: 2px;"></div>
+<div style="font-size: 18px; font-family: cambria; font-weight: 700; margin-top: 10px;">
+  <span class="sub-judul">HAL HAL NEGATIF YANG MENGHAMBAT TAMPILNYA KINERJA YANG OPTIMAL :</span>
+</div>
+
+<div style="margin-bottom:10px;text-align:justify;text-justify:inter-word; font-size: 18px; font-family: cambria;">
+  <p>';
+  echo '<ul>';
+    $kekuatan_items = getListitem($dom, HtmlPurifier::process($activityModel->kekuatan));
+    $total_len = 0;
+    $break_1 = 0;
+
+    foreach ($kekuatan_items as $kekuatan_item){
+
+      $total_len = $total_len + strlen($kekuatan_item);
+      echo '<li>' . $kekuatan_item. '</li>';
+    }
+  echo '</ul>';
+
+  if ($total_len > 1450)
+  {
+    echo $pagebreakResume;
+    $break_1 = 1;
+  }
+
+  echo $header_print_cont;
+  echo '<ul>';
+    $kelemahan_items = getListitem($dom,HtmlPurifier::process($activityModel->kelemahan));
+
+    foreach ($kelemahan_items as $kelemahan_item){
+      $total_len = $total_len + strlen($kelemahan_item);
+      if (($total_len > 2100) && ($break_1 == 0))
+        {
+          echo $pagebreakResume;
+          $break_1 = 1;
+          echo '<ul>';
+        }
+        echo '<li>' . $kelemahan_item. '</li>';
+    }
+
+
+  //echo wordwrap($activityModel->kelemahan, 65, "<br>\n");
+  //echo wordwrap(str_replace($htmltag, $htmlesc, $activityModel->kelemahan), 200,  $pagebreakResume, true);
+
+  echo '</ul></p>
+  </div>';
+
+?>
+
     <?php echo $footerReport;?>
   </article>
 </section>
 <section class="sheet padding-25mm">
-  <div class="headerReport judul">
-    <h2>RAHASIA</h2>
-  </div>
-  <article style="margin-top: -20px;">
-    <div class='left' style="color: #d5d5d5; font-family:cambria; font-size: 12px;">
-      <h6>
-      <b><?php echo $assesseeModel->nama_lengkap; ?></b><br/>
-      <?php echo $assesseeModel->jabatan_saat_ini; ?></h6>
+
+<?php
+
+
+
+echo $headerReport_saran = '  <div class="headerReport judul">
+<h2>RAHASIA</h2>
+</div>
+<article style="margin-top: -20px;">
+<div class="left" style="color: #2b2222; font-family:cambria; font-size: 12px;">
+<h6>
+<b>'.$assesseeModel->nama_lengkap.'</b><br/>
+'.$assesseeModel->jabatan_saat_ini.'</h6>
+</div>';
+
+echo $header_print_saran = '<div class="center" style="font-family: cambria;">
+<h3 class="sub-judul">SARAN PENGEMBANGAN</h3>
+<div style="width:100%; height:0%; border: 2px solid #000;"></div>
+<div style="width:100%; height:0%; border: 1px solid #000; margin-top: 2px;"></div>
+</div>
+
+<div style="margin-bottom:60px;text-align:justify;text-justify:inter-word; font-size: 18px; font-family: cambria;">';
+
+
+$pagebreak_saran = $footerReport.'</b></p></article>
+</section>
+  <section class="sheet padding-25mm" style="background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
+    <div class="headerReport">
+      <h2>RAHASIA</h2>
     </div>
-    <div class='center' style="font-family: cambria;">
-      <h3 class="sub-judul">SARAN PENGEMBANGAN</h3>
-      <div style="width:100%; height:0%; border: 2px solid #000;"></div>
-      <div style="width:100%; height:0%; border: 1px solid #000; margin-top: 2px;"></div>
-    </div>
-    <?php
-      $htmltag = array('<p style="text-align: justify;">','<p></p>');
-      $htmlesc   = array('<p>','');
-    ?>
-    <div style="margin-bottom:60px;text-align:justify;text-justify:inter-word; font-size: 18px; font-family: cambria;";>
-      <?php echo wordwrap(str_replace($htmltag, $htmlesc, $activityModel->saran), 2500,  $pagebreak, false);?>
-    </div>
+
+    <article style="font-size: 18px; font-family: cambria;">      <div class="left">
+    <h6>
+    <b>'.$assesseeModel->nama_lengkap.'</b><br/>
+    '.$assesseeModel->jabatan_saat_ini.'</h6>
+  </div><br/>';
+
+  $dom = new DOMDocument();
+  $dom->loadHTML('<?xml encoding="utf-8" ?>' . HtmlPurifier::process($activityModel->saran));
+  $uls = $dom->getElementsByTagName('ul');
+  $total_len_saran = 0;
+  $k = 0;
+  $break_2 = 0;
+  /*
+    echo '<pre>';
+  print_r($uls[0]->nodeValue);
+  echo '</pre>';
+  */
+  foreach ($uls as $ul)
+  {
+
+    if ($k == 0) {
+      echo '<h3>UNTUK PENUGASAN</h3>';
+    } else {
+      echo '<h3>UNTUK PENGEMBANGAN DIRI</h3>';
+    }
+    echo '<ul>';
+     $lis = $ul->getElementsByTagName('li');
+     foreach ($lis as $li){
+      $total_len_saran = $total_len_saran + strlen($li->textContent);
+      if (($total_len_saran > 1800) && ($break_2 == 0))
+        {
+          echo '</ul>';
+          echo $pagebreak_saran;
+          $break_2 = 1;
+          echo '<ul>';
+
+        }
+
+      if (($total_len_saran > 3800) && ($break_2 == 1))
+      {
+        echo '</ul>';
+        echo $pagebreak_saran;
+        $break_2 = 2;
+        echo '<ul>';
+
+      }
+
+      echo '<li>' . $li->textContent . '</li>';
+   }
+
+   echo '</ul>';
+   $k++;
+    //$i++;
+  }
+
+
+
+//echo $activityModel->saran;
+echo '</div>';
+
+
+//echo wordwrap(str_replace($htmltag, $htmlesc, $header_print_saran), 2500,  $pagebreak_saran, false);
+//echo str_replace($htmltag, $htmlesc, $header_print_saran);
+?>
     <?php echo $footerReport;?>
   </article>
 </section>
 </body>
+
+<?php
+
+
+
+function getListitem($dom, $string)
+{
+
+  $dom->loadHTML('<?xml encoding="utf-8" ?>' . $string);
+  //$return
+  $listItems = $dom->getElementsByTagName('li');
+  $i = 0;
+  foreach ($listItems as $listItem)
+  {
+    $return[$i] = $listItem->textContent;
+    $i++;
+  }
+
+    return $return;
+}
+
+?>

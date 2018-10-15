@@ -1,4 +1,4 @@
-/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css
 
 /**
  * 1. Set default font family to sans-serif.
@@ -11,12 +11,6 @@ html {
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
-
-@font-face {
-    font-family: cambria;
-    src: url(font/Cambria-Font.tff);
-}
-
 
 /**
  * Remove default margin.

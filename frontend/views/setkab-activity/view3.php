@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\HtmlPurifier;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\SetkabActivity */
@@ -22,38 +23,50 @@ $exsum_min = 300;
 $exsum_max = 500;
 */
 
-function countWord($uraian)
+$dom = new DOMDocument;
+
+function countWord($dom, $uraian)
 {
 
-    $dom = new DOMDocument;
+    
+
 $li_count = 0;
 $word_count = 0;
 
 if (!empty($uraian)) {
-$dom->loadHTML($uraian);
 
-$new_element = $dom->createElement('test', ' ');
+   
+$dom->loadHTML(HtmlPurifier::process($uraian));
+
+
 foreach($dom->getElementsByTagName('li') as $li) {
     $li_count = $li_count + str_word_count(strip_tags($li->textContent));
 }
 
-    foreach($dom->getElementsByTagName('ul') as $ul) {
-        $ul->parentNode->replaceChild($new_element,$ul);
-        $dom->saveHTML();
+ /*   foreach($dom->getElementsByTagName('ul') as $ul) {
+        //$ul->parentNode->replaceChild($new_element,$ul);
+        $ul->textContent = ' ';
+        //$dom->saveHTML();
 
     }
     foreach($dom->getElementsByTagName('ol') as $ol) {
-        $ol->parentNode->replaceChild($new_element,$ol);
-        $dom->saveHTML();
+        //$ol->parentNode->replaceChild($new_element,$ol);
+        $ol->textContent = ' ';
+        //$dom->saveHTML();
 
     }
-
+*/
 
    $replaced_dom = preg_replace('#\<(.+?)\>#', ' ', $dom->saveHTML());
     $word_count = str_word_count(strip_tags($replaced_dom));
-}
-    $total_count = $word_count + $li_count;
     
+    
+}
+
+
+    $total_count = $word_count + $li_count;
+    //$dom->clear();
+//unset($dom);
    return $total_count; 
 
 }
@@ -122,15 +135,16 @@ if ($role == 'secondopinion') {
                 }
 
             ],
+            
             [
                 'label' => 'Executive Summary',
                 'format' => 'raw',
-                'value' => function($data) use ($exsum_max, $exsum_min)
+                'value' => function($data) use ($exsum_max, $exsum_min, $dom)
                 {
-                    //$words = $this->context->countWord($data->executive_summary); 
+                    $words = countWord($dom, $data->executive_summary); 
                     //$words = Yii::$app->runAction('actionCountword', ['uraian' => $data->executive_summary]);
-					$words = str_word_count(strip_tags($data->executive_summary));
-					$characters = strlen(str_replace(' ','',strip_tags($data->executive_summary)));
+					//$words = str_word_count(strip_tags($data->executive_summary));
+				//	$characters = strlen(str_replace(' ','',strip_tags($data->executive_summary)));
                     
                     if (($words <= $exsum_max) && ($words >= $exsum_min))
                     {
@@ -149,10 +163,10 @@ if ($role == 'secondopinion') {
             [
                 'label' => 'Kekuatan',
                 'format' => 'raw',
-                'value' => function($data) use ($saran_max, $saran_min)
+                'value' => function($data) use ($dom, $saran_max, $saran_min)
                 {
-                    $words = str_word_count(strip_tags($data->kekuatan));
-					$characters = strlen(str_replace(' ','',strip_tags($data->kekuatan)));
+                    $words = countWord($dom, $data->kekuatan); 
+				//	$characters = strlen(str_replace(' ','',strip_tags($data->kekuatan)));
                     
                     if (($words <= $saran_max) && ($words >= $saran_min))
                     {
@@ -167,13 +181,14 @@ if ($role == 'secondopinion') {
                 }
 
             ],
+            
             [
                 'label' => 'Kelemahan',
                 'format' => 'raw',
-                'value' => function($data) use ($saran_max, $saran_min)
+                'value' => function($data) use ($dom, $saran_max, $saran_min)
                 {
-                    $words = str_word_count(strip_tags($data->kelemahan));
-					$characters = strlen(str_replace(' ','',strip_tags($data->kelemahan)));
+                    $words = countWord($dom,$data->kelemahan); 
+				//	$characters = strlen(str_replace(' ','',strip_tags($data->kelemahan)));
                     
                     if (($words <= $saran_max) && ($words >= $saran_min))
                     {
@@ -188,13 +203,16 @@ if ($role == 'secondopinion') {
                 }
 
             ],
+            
             [
                 'label' => 'Saran Pengembangan',
                 'format' => 'raw',
-                'value' => function($data) use ($saran_max, $saran_min)
+                'value' => function($data) use ($dom, $saran_max, $saran_min)
                 {
-                    $words = str_word_count(strip_tags($data->saran));
-					$characters = strlen(str_replace(' ','',strip_tags($data->saran)));
+                    $words = 8;
+                   // $words = str_word_count(strip_tags($data->saran));
+                    $words = countWord($dom,$data->saran); 
+				//	$characters = strlen(str_replace(' ','',strip_tags($data->saran)));
                     
                     if (($words <= $saran_max) && ($words >= $saran_min))
                     {
@@ -209,7 +227,6 @@ if ($role == 'secondopinion') {
                 }
 
             ],
-
 
 //            'tanggal_test',
   //          'tempat_test',
@@ -241,12 +258,12 @@ if ($role == 'secondopinion') {
             [
                 'label' => 'Integritas',
                 'format' => 'raw',
-                'value' => function($data) use ($min, $max)
+                'value' => function($data) use ($min, $max, $dom)
                 {
                     //check kalau textnya jumlah nya cukup
 					
-					$words = str_word_count(strip_tags($data->integritas_uraian));
-					$characters = strlen(str_replace(' ','',strip_tags($data->integritas_uraian)));
+					$words = countWord($dom, $data->integritas_uraian); 
+					//$characters = strlen(str_replace(' ','',strip_tags($data->integritas_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
                     {
@@ -260,12 +277,13 @@ if ($role == 'secondopinion') {
                 }
 
             ],
+            
             [
                 'label' => 'Kerjasama',
                 'format' => 'raw',
-                'value' => function($data) use ($min, $max)
+                'value' => function($data) use ($dom, $min, $max)
                 {
-					$words = str_word_count(strip_tags($data->kerjasama_uraian));
+					$words = countWord($dom, $data->kerjasama_uraian); 
 					$characters = strlen(str_replace(' ','',strip_tags($data->kerjasama_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
@@ -282,10 +300,10 @@ if ($role == 'secondopinion') {
             [
                 'label' => 'Komunikasi',
                 'format' => 'raw',
-                'value' => function($data) use ($min, $max)
+                'value' => function($data) use ($dom, $min, $max)
                 {
-					$words = str_word_count(strip_tags($data->komunikasi_uraian));
-					$characters = strlen(str_replace(' ','',strip_tags($data->komunikasi_uraian)));
+					$words = countWord($dom, $data->komunikasi_uraian); 
+				//	$characters = strlen(str_replace(' ','',strip_tags($data->komunikasi_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
                     {
@@ -301,9 +319,9 @@ if ($role == 'secondopinion') {
             [
                 'label' => 'Orientasi pada hasil',
                 'format' => 'raw',
-                'value' => function($data) use ($min, $max)
+                'value' => function($data) use ($dom, $min, $max)
                 {
-					$words = str_word_count(strip_tags($data->orientasihasil_uraian));
+					$words = countWord($dom, $data->orientasihasil_uraian); 
 					$characters = strlen(str_replace(' ','',strip_tags($data->orientasihasil_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
@@ -320,9 +338,9 @@ if ($role == 'secondopinion') {
             [
                 'label' => 'Pelayanan Publik',
                 'format' => 'raw',
-                'value' => function($data) use ($min, $max)
+                'value' => function($data) use ($dom, $min, $max)
                 {
-					$words = str_word_count(strip_tags($data->pelayananpublik_uraian));
+					$words = countWord($dom, $data->pelayananpublik_uraian); 
 					$characters = strlen(str_replace(' ','',strip_tags($data->pelayananpublik_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
@@ -339,9 +357,9 @@ if ($role == 'secondopinion') {
             [
                 'label' => 'Pengembangan Diri dan Orang Lain',
                 'format' => 'raw',
-                'value' => function($data) use ($min, $max)
+                'value' => function($data) use ($dom, $min, $max)
                 {
-					$words = str_word_count(strip_tags($data->pengembangandiri_uraian));
+					$words = countWord($dom, $data->pengembangandiri_uraian); 
 					$characters = strlen(str_replace(' ','',strip_tags($data->pengembangandiri_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
@@ -358,9 +376,9 @@ if ($role == 'secondopinion') {
             [
                 'label' => 'Mengelola Perubahan',
                 'format' => 'raw',
-                'value' => function($data) use ($min, $max)
+                'value' => function($data) use ($dom, $min, $max)
                 {
-					$words = str_word_count(strip_tags($data->pengelolaanperubahan_uraian));
+					$words = countWord($dom, $data->pengelolaanperubahan_uraian); 
 					$characters = strlen(str_replace(' ','',strip_tags($data->pengelolaanperubahan_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
@@ -377,9 +395,9 @@ if ($role == 'secondopinion') {
             [
                 'label' => 'Pengambilan Keputusan',
                 'format' => 'raw',
-                'value' => function($data) use ($min, $max)
+                'value' => function($data) use ($dom, $min, $max)
                 {
-					$words = str_word_count(strip_tags($data->pengambilankeputusan_uraian));
+					$words = countWord($dom, $data->pengambilankeputusan_uraian); 
 					$characters = strlen(str_replace(' ','',strip_tags($data->pengambilankeputusan_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
@@ -397,9 +415,9 @@ if ($role == 'secondopinion') {
             [
                 'label' => 'Perekat Bangsa',
                 'format' => 'raw',
-                'value' => function($data) use ($min, $max)
+                'value' => function($data) use ($dom, $min, $max)
                 {
-					$words = str_word_count(strip_tags($data->perekatbangsa_uraian));
+					$words = countWord($dom, $data->perekatbangsa_uraian); 
 					$characters = strlen(str_replace(' ','',strip_tags($data->perekatbangsa_uraian)));
                     
                     if (($words <= $max) && ($words >= $min))
@@ -414,6 +432,7 @@ if ($role == 'secondopinion') {
 
                 }
             ],
+            
             //'tanggal_test',
             //'tempat_test',
             //'tujuan_pemeriksaan',

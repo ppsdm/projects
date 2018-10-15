@@ -14,8 +14,9 @@ use \yii\helpers\VarDumper;
 use yii\data\SqlDataProvider;
 use app\modules\projects\models\ProjectAssessment;
 use yii2tech\html2pdf\Manager;
-use kartik\mpdf\Pdf;
+//use kartik\mpdf\Pdf;
 use yii\helpers\HtmlPurifier;
+use Mpdf\Mpdf;
 // use mPDF;
 
 /**
@@ -42,7 +43,7 @@ class SetkabActivityController extends Controller
 
                     // allow authenticated users
                     [
-                        'actions' => ['pdf', 'pdf2'],
+                        'actions' => ['pdf', 'pdf2', 'mpdf'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -123,76 +124,34 @@ class SetkabActivityController extends Controller
      * @param string $id
      * @return mixed
      */
-    public function actionView3($id)
-    {
-        if ($role = $this->checkRole($id)) {
-        $kompetensi_min = 140;
-        $kompetensi_max = 200;
-		$saran_min = 130;
-		$saran_max = 700;
-		$exsum_min = 600;
-        $exsum_max = 700;
-
-$allowedit = true;
-        //readonlyview
-        $model = $this->findModel($id);
-        if ($role == 'secondopinion')
-        {
-            if ($model->status == 'reviewed'){
-            $allowedit = false;
-            }
-        } elseif ($role == 'assessor'){
-            if ($model->status == 'reviewed'){
-                $allowedit = false;
-                } elseif ($model->status == 'submitted'){
-                    $allowedit = false;
-                }
-        }
-        if ($allowedit) {
-
-
-        return $this->render('view3', [
-            'model' => $this->findModel($id),
-            'min' => $kompetensi_min,
-            'max' => $kompetensi_max,
-            'saran_min' => $saran_min,
-            'saran_max' => $saran_max,
-            'exsum_min' => $exsum_min,
-            'exsum_max' => $exsum_max,
-            'role' => $role
-        ]);
-        } else {
-            return $this->render('readonlyview', [
-                'model' => $this->findModel($id),
-                'min' => $kompetensi_min,
-                'max' => $kompetensi_max,
-                'saran_min' => $saran_min,
-                'saran_max' => $saran_max,
-                'exsum_min' => $exsum_min,
-                'exsum_max' => $exsum_max,
-                'role' => $role
-            ]);
-        }
-
-    } else {
-            echo 'not allowed';
-        }
-    }
 
 
     public function actionView($id)
     {
         if ($role = $this->checkRole($id)) {
-        $kompetensi_min = 140;
-        $kompetensi_max = 200;
-		$saran_min = 130;
-		$saran_max = 700;
-		$exsum_min = 600;
-        $exsum_max = 700;
+
 
 $allowedit = true;
         //readonlyview
         $model = $this->findModel($id);
+        $assesseeModel = SetkabAssessee::findOne($model->assessee_id);
+        if (strtolower($assesseeModel->level) == 'pelaksana')
+        {
+            $kompetensi_min = 100;
+            $kompetensi_max = 200;
+            $saran_min = 130;
+            $saran_max = 700;
+            $exsum_min = 550;
+            $exsum_max = 700;
+        } else {
+            $kompetensi_min = 140;
+            $kompetensi_max = 200;
+            $saran_min = 130;
+            $saran_max = 700;
+            $exsum_min = 600;
+            $exsum_max = 700;
+        }
+
         if ($role == 'secondopinion')
         {
             if ($model->status == 'reviewed'){
@@ -218,6 +177,7 @@ $allowedit = true;
             'exsum_max' => $exsum_max,
             'role' => $role
         ]);
+        
         } else {
             return $this->render('readonlyview', [
                 'model' => $this->findModel($id),
@@ -230,6 +190,7 @@ $allowedit = true;
                 'role' => $role
             ]);
         }
+        
 
     } else {
             echo 'not allowed';
@@ -359,14 +320,30 @@ $new_element = $dom->createElement('test', ' ');
     {
         //echo 'validasi data laporan. kalua belum maka ditolak';
 
-        $kompetensi_min = 140;
-        $kompetensi_max = 200;
-		$saran_min = 130;
-		$saran_max = 700;
-		$exsum_min = 600;
-		$exsum_max = 700;
+
         //cek jumlah karakter tiap uraian
         $model = $this->findModel($id);
+
+        $assesseeModel = SetkabAssessee::findOne($model->assessee_id);
+        if (strtolower($assesseeModel->level) == 'pelaksana')
+        {
+            $kompetensi_min = 100;
+            $kompetensi_max = 200;
+            $saran_min = 130;
+            $saran_max = 700;
+            $exsum_min = 550;
+            $exsum_max = 700;
+        } else {
+            $kompetensi_min = 140;
+            $kompetensi_max = 200;
+            $saran_min = 130;
+            $saran_max = 700;
+            $exsum_min = 600;
+            $exsum_max = 700;
+        }
+
+
+
          $integritas_uraian = $this->countWord($model->integritas_uraian);
          $kerjasama_uraian = $this->countWord($model->kerjasama_uraian);
          $komunikasi_uraian = $this->countWord($model->komunikasi_uraian);
@@ -656,6 +633,125 @@ $new_element = $dom->createElement('test', ' ');
 
 	}
 
+    public function actionMpdf($id)
+    {
+        //$content = $this->renderPartial('mpdf');
+    
+        $mpdf = new Mpdf();
+        $mpdf->DefHTMLHeaderByName(
+            'Chapter2Header',
+            '<div style="text-align: right; border-bottom: 1px solid #000000; 
+            font-weight: bold; font-size: 10pt;">Chapter 2</div>'
+          );
+          
+          $mpdf->DefHTMLFooterByName(
+            'Chapter2Footer',
+            '<div style="text-align: right; font-weight: bold; font-size: 8pt; 
+            font-style: italic;">Chapter 2 Footer</div>'
+          );
+          
+          $mpdf->SetHTMLHeaderByName('Chapter2Header');
+          $html = '
+<html>
+<head>
+<style>
+    @page {
+        size: auto;
+        odd-header-name: html_myHeader1;
+        even-header-name: html_myHeader2;
+        odd-footer-name: html_myFooter1;
+        even-footer-name: html_myFooter2;
+    }
+    @page chapter2 {
+        odd-header-name: html_Chapter2HeaderOdd;
+        even-header-name: html_Chapter2HeaderEven;
+        odd-footer-name: html_Chapter2FooterOdd;
+        even-footer-name: html_Chapter2FooterEven;
+    }
+    @page noheader {
+        odd-header-name: _blank;
+        even-header-name: _blank;
+        odd-footer-name: _blank;
+        even-footer-name: _blank;
+    }
+    div.chapter2 {
+        page-break-before: right;
+        page: chapter2;
+    }
+    div.noheader {
+        page-break-before: right;
+        page: noheader;
+    }
+</style>
+</head>
+
+<body>
+    
+    <htmlpageheader name="myHeader1" style="display:none">
+        <div style="text-align: right; border-bottom: 1px solid #000000; font-weight: bold; font-size: 10pt;">
+            My document
+        </div>
+    </htmlpageheader>
+    
+    <htmlpageheader name="myHeader2" style="display:none">
+        <div style="border-bottom: 1px solid #000000; font-weight: bold;  font-size: 10pt;">
+            My document
+        </div>
+    </htmlpageheader>
+    
+    <htmlpagefooter name="myFooter1" style="display:none">
+        <table width="100%">
+            <tr>
+                <td width="33%">
+                    <span style="font-weight: bold; font-style: italic;">{DATE j-m-Y}</span>
+                </td>
+                <td width="33%" align="center" style="font-weight: bold; font-style: italic;">
+                    {PAGENO}/{nbpg}
+                </td>
+                <td width="33%" style="text-align: right;">
+                    My document
+                </td>
+            </tr>
+        </table>
+    </htmlpagefooter>
+    
+    <htmlpagefooter name="myFooter2" style="display:none">
+        <table width="100%">
+            <tr>
+                <td width="33%">My document</td>
+                <td width="33%" align="center">{PAGENO}/{nbpg}</td>
+                <td width="33%" style="text-align: right;">{DATE j-m-Y}</td>
+            </tr>
+        </table>
+    </htmlpagefooter>
+    
+    <htmlpageheader name="Chapter2HeaderOdd" style="display:none">
+        <div style="text-align: right;">Chapter 2</div>
+    </htmlpageheader>
+    
+    <htmlpageheader name="Chapter2HeaderEven" style="display:none">
+        <div>Chapter 2</div>
+    </htmlpageheader>
+    
+    <htmlpagefooter name="Chapter2FooterOdd" style="display:none">
+        <div style="text-align: right;">Chapter 2 Footer</div>
+    </htmlpagefooter>
+    
+    <htmlpagefooter name="Chapter2FooterEven" style="display:none">
+        <div>Chapter 2 Footer</div>
+    </htmlpagefooter>
+    
+    Hello World
+    
+    <div class="chapter2">Text of Chapter 2</div>
+    
+    <div class="noheader">No-Header page</div>
+    
+</body>
+</html>';
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+    }
 
     public function actionPdf2($id)
     {
@@ -1606,6 +1702,25 @@ file_put_contents('content.pdf',$result);
         }
         $dataProvider = $searchModel->search($params);
         $dataProvider->query->andWhere('id >= 198')->andWhere('id <= 225');
+        $dataProvider->pagination = ['pageSize' => 50,];
+
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionIndex9()
+    {
+
+        $searchModel = new SetkabActivitySearch();
+        $params = Yii::$app->request->queryParams;
+        if (Yii::$app->user->id != 1) { // IF NON ADMIN
+        $params['SetkabActivitySearch']['assessor_id'] = Yii::$app->user->id;
+        }
+        $dataProvider = $searchModel->search($params);
+        $dataProvider->query->andWhere('id >= 226')->andWhere('id <= 253');
         $dataProvider->pagination = ['pageSize' => 50,];
 
 
