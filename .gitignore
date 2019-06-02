@@ -36,9 +36,4 @@ phpunit.phar
 /frontend/web/project-uploads
 /frontend/web/assets/
 /frontend/runtime/
-/frontend/config/main-local.php
-/common/config/main-local.php
-/common/config/params-local.php
-/frontend/config/params-local.php
-/frontend/config/main-local.php
 
