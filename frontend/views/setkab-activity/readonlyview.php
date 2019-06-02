@@ -74,6 +74,10 @@ if ($role == 'secondopinion') {
         ?>
     </p>
     <h3>Status laporan : <?= $model->status?></h3>
+    <?php
+
+echo Html::a(Yii::t('app', 'LIHAT LAPORAN'), ['pdf', 'id' => $model->id], ['class' => 'btn btn-primary']);
+?>
 <h3>Uraian</h3>
     <?= DetailView::widget([
         'model' => $model,
@@ -84,7 +88,8 @@ if ($role == 'secondopinion') {
                 'format' => 'raw',
                 'value' => function($data)
                 {
-                    return Html::a(Yii::t('app', 'Edit'), ['', 'id' => $data->id], ['class' => 'btn btn-primary']);
+                    return '';
+                    //return Html::a(Yii::t('app', 'Edit'), ['', 'id' => $data->id], ['class' => 'btn btn-primary']);
                 }
 
             ],
@@ -104,7 +109,7 @@ if ($role == 'secondopinion') {
                     }
 
 					
-                    return Html::a(Yii::t('app', 'Edit'), ['', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$exsum_min.', max = '.$exsum_max.')';
+                    return ' #words = ' . $words . ' (min = '.$exsum_min.', max = '.$exsum_max.')';
                
                 }
 
@@ -126,7 +131,7 @@ if ($role == 'secondopinion') {
                     }
 
 					
-                    return Html::a(Yii::t('app', 'Edit'), ['', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$saran_min.', max = '.$saran_max.')';
+                    return  ' #words = ' . $words . ' (min = '.$saran_min.', max = '.$saran_max.')';
                
                 }
 
@@ -147,7 +152,7 @@ if ($role == 'secondopinion') {
                     }
 
 					
-                    return Html::a(Yii::t('app', 'Edit'), ['', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$saran_min.', max = '.$saran_max.')';
+                    return ' #words = ' . $words . ' (min = '.$saran_min.', max = '.$saran_max.')';
 
                 }
 
@@ -168,7 +173,7 @@ if ($role == 'secondopinion') {
                     }
 
 					
-                    return Html::a(Yii::t('app', 'Edit'), ['', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$saran_min.', max = '.$saran_max.')';
+                    return ' #words = ' . $words . ' (min = '.$saran_min.', max = '.$saran_max.')';
 
                 }
 
@@ -189,7 +194,8 @@ if ($role == 'secondopinion') {
                 'format' => 'raw',
                 'value' => function($data)
                 {
-                    return Html::a(Yii::t('app', 'Edit'), ['', 'id' => $data->id], ['class' => 'btn btn-primary']);
+                    return '';
+                    //return Html::a(Yii::t('app', 'Edit'), ['', 'id' => $data->id], ['class' => 'btn btn-primary']);
                 }
 
             ],
@@ -220,7 +226,7 @@ if ($role == 'secondopinion') {
                     }
 
 					
-                    return Html::a(Yii::t('app', 'Edit'), ['', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
+                    return  ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
                 }
 
             ],
@@ -240,7 +246,7 @@ if ($role == 'secondopinion') {
                     }
 
 					
-                    return Html::a(Yii::t('app', 'Edit'), ['', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
+                    return' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
                 }
             ],
             [
@@ -259,7 +265,7 @@ if ($role == 'secondopinion') {
                     }
 
 					
-                    return Html::a(Yii::t('app', 'Edit'), ['', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
+                    return ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
                 }
             ],
             [
@@ -278,7 +284,7 @@ if ($role == 'secondopinion') {
                     }
 
 					
-                    return Html::a(Yii::t('app', 'Edit'), ['', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
+                    return  ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
                 }
             ],
             [
@@ -297,7 +303,7 @@ if ($role == 'secondopinion') {
                     }
 
 					
-                    return Html::a(Yii::t('app', 'Edit'), ['', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
+                    return ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
                 }
             ],
             [
@@ -316,7 +322,7 @@ if ($role == 'secondopinion') {
                     }
 
 					
-                    return Html::a(Yii::t('app', 'Edit'), ['', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
+                    return  ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
                 }
             ],
             [
@@ -335,7 +341,7 @@ if ($role == 'secondopinion') {
                     }
 
 					
-                    return Html::a(Yii::t('app', 'Edit'), ['', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
+                    return ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
                 }
             ],
             [
@@ -354,7 +360,7 @@ if ($role == 'secondopinion') {
                     }
 
 					
-                    return Html::a(Yii::t('app', 'Edit'), ['', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
+                    return ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
 
                 }
             ],
@@ -374,7 +380,7 @@ if ($role == 'secondopinion') {
                     }
 
 					
-                    return Html::a(Yii::t('app', 'Edit'), ['', 'id' => $data->id], ['class' => $btn_class]) . ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
+                    return ' #words = ' . $words . ' (min = '.$min.', max = '.$max.')';
 
                 }
             ],

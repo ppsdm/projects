@@ -319,7 +319,7 @@ $sumC += $lkjmodel->kompetensigram_perekatbangsa;
                                                 if ($sumbuX < 80 && $sumbuY < 80) {$ninecellScore = 1;}
                                                 else if ($sumbuX < 80 && $sumbuY < 100 && $sumbuY > 79 && $sumbuY < 100) {$ninecellScore = 2;}
                                                 else if ($sumbuX >= 80 && $sumbuX < 100 && $sumbuY < 80) {$ninecellScore = 3;}
-                                                else if ($sumbuX < 80 && $sumbuY < 99) {$ninecellScore = 4;}
+                                                else if ($sumbuX < 80 && $sumbuY >= 100) {$ninecellScore = 4;}
                                                 else if ($sumbuX >= 80 && $sumbuX < 100 && $sumbuY > 79 && $sumbuY < 100) {$ninecellScore = 5;}
                                                 else if ($sumbuX >= 100 && $sumbuY < 80) {$ninecellScore = 6;}
                                                 else if ($sumbuX >= 80 && $sumbuX < 100 && $sumbuY >= 100) {$ninecellScore = 7;}

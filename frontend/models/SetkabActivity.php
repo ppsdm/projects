@@ -6,6 +6,7 @@ namespace frontend\models;
 
 use Yii;
    use common\modules\profile\models\Profile;
+   use app\models\ProfileAssessor;
     use frontend\models\SetkabAssessee;
 
 /**
@@ -182,6 +183,11 @@ return $this->hasOne(SetkabAssessee::className(), ['id' => 'assessee_id']);
 return $this->hasOne(Profile::className(), ['user_id' => 'assessor_id']);
  }
 
+ public function getassessorName()
+ {
+    return $this->hasOne(ProfileAssessor::className(), ['id' => 'no_test']);
+ }
+
  public function getSecondopinion()
  {
 return $this->hasOne(Profile::className(), ['user_id' => 'second_opinion_id']);
@@ -277,4 +283,3 @@ return $this->hasOne(Profile::className(), ['user_id' => 'second_opinion_id']);
         $this->perekatbangsa_indikator = json_encode($value);
     }
 }
-

@@ -107,8 +107,9 @@ class SetkabActivityController extends Controller
 		$params['SetkabActivitySearch']['second_opinion_id'] = Yii::$app->user->id;
         $dataProvider = $searchModel->search($params);
 
+        $dataProvider->pagination = ['pageSize' => 200,];
 
-        return $this->render('index', [
+        return $this->render('soindex', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -177,7 +178,7 @@ $allowedit = true;
             'exsum_max' => $exsum_max,
             'role' => $role
         ]);
-        
+
         } else {
             return $this->render('readonlyview', [
                 'model' => $this->findModel($id),
@@ -190,7 +191,7 @@ $allowedit = true;
                 'role' => $role
             ]);
         }
-        
+
 
     } else {
             echo 'not allowed';
@@ -636,20 +637,20 @@ $new_element = $dom->createElement('test', ' ');
     public function actionMpdf($id)
     {
         //$content = $this->renderPartial('mpdf');
-    
+
         $mpdf = new Mpdf();
         $mpdf->DefHTMLHeaderByName(
             'Chapter2Header',
-            '<div style="text-align: right; border-bottom: 1px solid #000000; 
+            '<div style="text-align: right; border-bottom: 1px solid #000000;
             font-weight: bold; font-size: 10pt;">Chapter 2</div>'
           );
-          
+
           $mpdf->DefHTMLFooterByName(
             'Chapter2Footer',
-            '<div style="text-align: right; font-weight: bold; font-size: 8pt; 
+            '<div style="text-align: right; font-weight: bold; font-size: 8pt;
             font-style: italic;">Chapter 2 Footer</div>'
           );
-          
+
           $mpdf->SetHTMLHeaderByName('Chapter2Header');
           $html = '
 <html>
@@ -686,19 +687,19 @@ $new_element = $dom->createElement('test', ' ');
 </head>
 
 <body>
-    
+
     <htmlpageheader name="myHeader1" style="display:none">
         <div style="text-align: right; border-bottom: 1px solid #000000; font-weight: bold; font-size: 10pt;">
             My document
         </div>
     </htmlpageheader>
-    
+
     <htmlpageheader name="myHeader2" style="display:none">
         <div style="border-bottom: 1px solid #000000; font-weight: bold;  font-size: 10pt;">
             My document
         </div>
     </htmlpageheader>
-    
+
     <htmlpagefooter name="myFooter1" style="display:none">
         <table width="100%">
             <tr>
@@ -714,7 +715,7 @@ $new_element = $dom->createElement('test', ' ');
             </tr>
         </table>
     </htmlpagefooter>
-    
+
     <htmlpagefooter name="myFooter2" style="display:none">
         <table width="100%">
             <tr>
@@ -724,29 +725,29 @@ $new_element = $dom->createElement('test', ' ');
             </tr>
         </table>
     </htmlpagefooter>
-    
+
     <htmlpageheader name="Chapter2HeaderOdd" style="display:none">
         <div style="text-align: right;">Chapter 2</div>
     </htmlpageheader>
-    
+
     <htmlpageheader name="Chapter2HeaderEven" style="display:none">
         <div>Chapter 2</div>
     </htmlpageheader>
-    
+
     <htmlpagefooter name="Chapter2FooterOdd" style="display:none">
         <div style="text-align: right;">Chapter 2 Footer</div>
     </htmlpagefooter>
-    
+
     <htmlpagefooter name="Chapter2FooterEven" style="display:none">
         <div>Chapter 2 Footer</div>
     </htmlpagefooter>
-    
+
     Hello World
-    
+
     <div class="chapter2">Text of Chapter 2</div>
-    
+
     <div class="noheader">No-Header page</div>
-    
+
 </body>
 </html>';
         $mpdf->WriteHTML($html);
@@ -845,7 +846,6 @@ $new_element = $dom->createElement('test', ' ');
 
 	public function actionPdf($id)
 	{
-
     $activityModel = $this->findModel($id);
     $assesseeModel = SetkabAssessee::findOne($activityModel->assessee_id);
     $lkjModel = SetkabLkj::find()->andWhere(['level' => $activityModel->assessee->level])->One();
@@ -973,17 +973,146 @@ $new_element = $dom->createElement('test', ' ');
         // exit;
 	}
 
+  public function actionPdf3($id)
+	{
+    $activityModel = $this->findModel($id);
+    $assesseeModel = SetkabAssessee::findOne($activityModel->assessee_id);
+    $lkjModel = SetkabLkj::find()->andWhere(['level' => $activityModel->assessee->level])->One();
+    $sumbuY = 0;
+    $sumbuY = $sumbuY + $activityModel->integritas_lki; #1
+    $sumbuY = $sumbuY + $activityModel->kerjasama_lki; #2
+    $sumbuY = $sumbuY + $activityModel->komunikasi_lki; #3
+    $sumbuY = $sumbuY + $activityModel->orientasihasil_lki; #4
+    $sumbuY = $sumbuY + $activityModel->pelayananpublik_lki; #5
+    $sumbuY = $sumbuY + $activityModel->pengembangandiri_lki; #6
+    $sumbuY = $sumbuY + $activityModel->pengelolaanperubahan_lki; #7
+    $sumbuY = $sumbuY + $activityModel->pengambilankeputusan_lki; #8
+    $sumbuY = $sumbuY + $activityModel->perekatbangsa_lki; #9
+
+    $pembagiSumbuY = $lkjModel->kompetensigram_integritas * 9;
+
+
+
+    $sumbuX = 0;
+    $sumbuX = $sumbuX + $activityModel->psikogram_berpikiranalitis;
+    $sumbuX = $sumbuX + $activityModel->psikogram_empati;
+    $sumbuX = $sumbuX + $activityModel->psikogram_inteligensiumum;
+    $sumbuX = $sumbuX + $activityModel->psikogram_kemampuanbelajar;
+    $sumbuX = $sumbuX + $activityModel->psikogram_ketekunan;
+    $sumbuX = $sumbuX + $activityModel->psikogram_ketelitian;
+    $sumbuX = $sumbuX + $activityModel->psikogram_komunikasiefektif;
+    $sumbuX = $sumbuX + $activityModel->psikogram_konsepdiri;
+    $sumbuX = $sumbuX + $activityModel->psikogram_logikaberpikir;
+    $sumbuX = $sumbuX + $activityModel->psikogram_motivasi;
+    $sumbuX = $sumbuX + $activityModel->psikogram_pemahamansosial;
+    $sumbuX = $sumbuX + $activityModel->psikogram_pengaturandiri;
+    $sumbuX = $sumbuX + $activityModel->psikogram_sistematikakerja;
+    $sumbuX = $sumbuX + $activityModel->psikogram_tempokerja;
+    $sumbuX = $sumbuX + $activityModel->psikogram_fleksibilitasberpikir;
+
+    $pembagiSumbuX = 70;
+
+    $date =  date_create($activityModel->tanggal_test);
+
+    //echo date_format($date,"Y/m/d H:i:s");
+    $month =  date_format($date,"n");
+    $day = date_format($date,"j");
+    $romawi  = $this->numberToRomawi($month);
+
+    $level_jabatan = '';
+    switch (strtolower($assesseeModel->level)) {
+        case "iia":
+        $level_jabatan = 'es 2';;
+            break;
+        case "iiia":
+        $level_jabatan = 'es 3';
+            break;
+        case "iva":
+            $level_jabatan = 'es 4';
+            break;
+        case "jft3":
+            $level_jabatan = 'jft';
+            break;
+        case "jft4":
+            $level_jabatan = 'jft';
+            break;
+        case "pelaksana":
+            $level_jabatan = 'pelaksana';
+            break;
+        default:
+            $level_jabatan = '';
+    }
+
+    $notest = $activityModel->no_test . '/EVA/' . $level_jabatan.'/SETKAB/'.$romawi.'/18';
+
+    $dateTest =  $day . ' - ' . ($day + 2) . ' ' . date_format($date,"F") . ' 2018';
+
+		$content =  $this->renderPartial('pdf',[
+            'activityModel' => $activityModel,
+            'assesseeModel' => $assesseeModel,
+            'lkjModel' => $lkjModel,
+            'dataSumbuY' => $sumbuY,
+            'pembagiSumbuY' => $pembagiSumbuY ,
+            'dataSumbuX' => $sumbuX,
+            'pembagiSumbuX' => $pembagiSumbuX ,
+            'asessorName' => $activityModel->assessorName->assessor_name,
+            'noTest' => $notest,
+            'dateTest' => $dateTest,
+            ]);
+
+    return $content;
+    // // use kartik\mpdf\Pdf;
+    // $pdf = new pdf([
+    //   // set to use core fonts only
+    //   // 'mode' => Pdf::MODE_CORE,
+    //   'mode' => Pdf::MODE_UTF8,
+    //   // LETTER paper format
+    //   'format' => Pdf::FORMAT_A4,
+    //   // portrait orientation
+    //   'orientation' => Pdf::ORIENT_PORTRAIT,
+    //   // stream to browser inline
+    //   'destination' => Pdf::DEST_BROWSER,
+    //   // your html content input
+    //   'content' => $content,
+    //   // format content from your own css file if needed or use the
+    //   // enhanced bootstrap css built by Krajee for mPDF formatting
+    //   // 'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+    //   'cssFile' => '@web/css/psikogramTable.css',
+    //   'cssFile' => '@web/css/paper.css',
+    //   'cssFile' => '@web/js/d3.min.js',
+    //   'cssFile' => '@web/css/normalize.css',
+    //   // any css to be embedded if required
+    //   // 'cssInline' => '.kv-heading-1{font-size:18px}',
+    //    // set mPDF properties on the fly
+    //   'options' => ['title' => $assesseeModel->nama_lengkap],
+    //    // call mPDF methods on the fly
+    //
+    // ]);
+    //
+    // return $pdf->render();
+
+        // $mpdf = new mPDF();
+        // $stylesheet = file_get_contents('@web/css/psikogramTable.css');
+        // $stylesheet = file_get_contents('@web/css/paper.css');
+        // $stylesheet = file_get_contents('@web/js/d3.min.js');
+        // $stylesheet = file_get_contents('@web/css/normalize.cs');
+        // $mpdf->WriteHTML($stylesheet, 1);
+        // $mpdf->WriteHTML($content, 2);
+        // $mpdf->Output();
+        // exit;
+	}
+
     public function actionGetfile($id)
     {
 
 
         //$pa_id = ProjectActivityMeta::find()->andWhere(['project_activity_id' =>$id])->andWhere(['type' => 'general'])
-        //->andWhere(['key' => 'assessee'])->One();   
+        //->andWhere(['key' => 'assessee'])->One();
         //$profile_basic = Profile::find()->andWhere(['id' => $pa_id->value])->One();
         $search  = array('.', ' ', ',');
         $replace = array('', '_', '');
 
-        
+
         $filename = trim(str_replace($search, $replace, $id)).".pdf";
 
         /* GET METHOD
@@ -1048,7 +1177,7 @@ $options = array(
         $context  = stream_context_create($options);
         $result = file_get_contents($url, false, $context);
         if ($result === FALSE) {  }
-        
+
         header("Content-type:application/pdf");
         header("Content-disposition: attachment; filename=$filename");
         header("Pragma: no-cache");
@@ -1060,7 +1189,7 @@ $result = file_get_contents($url, false, $context);
 if ($result === FALSE) { /* Handle error */ }
 file_put_contents('content.pdf',$result);
 
- 
+
     }
 
 
@@ -1730,6 +1859,79 @@ file_put_contents('content.pdf',$result);
         ]);
     }
 
+    public function actionIndex10()
+    {
+
+        $searchModel = new SetkabActivitySearch();
+        $params = Yii::$app->request->queryParams;
+        if (Yii::$app->user->id != 1) { // IF NON ADMIN
+        $params['SetkabActivitySearch']['assessor_id'] = Yii::$app->user->id;
+        }
+        $dataProvider = $searchModel->search($params);
+        $dataProvider->query->andWhere('id >= 254')->andWhere('id <= 282');
+        $dataProvider->pagination = ['pageSize' => 50,];
+
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionIndex11()
+    {
+
+        $searchModel = new SetkabActivitySearch();
+        $params = Yii::$app->request->queryParams;
+        if (Yii::$app->user->id != 1) { // IF NON ADMIN
+        $params['SetkabActivitySearch']['assessor_id'] = Yii::$app->user->id;
+        }
+        $dataProvider = $searchModel->search($params);
+        $dataProvider->query->andWhere('id >= 283')->andWhere('id <= 312');
+        $dataProvider->pagination = ['pageSize' => 50,];
+
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionIndex12()
+    {
+
+        $searchModel = new SetkabActivitySearch();
+        $params = Yii::$app->request->queryParams;
+        if (Yii::$app->user->id != 1) { // IF NON ADMIN
+        $params['SetkabActivitySearch']['assessor_id'] = Yii::$app->user->id;
+        }
+        $dataProvider = $searchModel->search($params);
+        $dataProvider->query->andWhere('id >= 313')->andWhere('id <= 342');
+        $dataProvider->pagination = ['pageSize' => 50,];
+
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionIndex13()
+    {
+
+        $searchModel = new SetkabActivitySearch();
+        $params = Yii::$app->request->queryParams;
+        if (Yii::$app->user->id != 1) { // IF NON ADMIN
+        $params['SetkabActivitySearch']['assessor_id'] = Yii::$app->user->id;
+        }
+        $dataProvider = $searchModel->search($params);
+        $dataProvider->query->andWhere('id >= 343')->andWhere('id <= 442');
+        $dataProvider->pagination = ['pageSize' => 50,];
+
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
 	public function actionHelp()
 {

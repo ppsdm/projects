@@ -1,4 +1,4 @@
-2250<?php
+<?php
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
@@ -17,6 +17,9 @@ $month = date("m",strtotime($date_test));
 $dayTest = date("d", strtotime($date_test));
 $monthTest = $monthID[(int)$month];
 $yearTest = date("Y",strtotime($date_test));
+
+$htmltag = array('<ul>','<ul></ul>');
+$htmlesc   = array('<ul>','</ul>');
 
 $dateActivityAssesse = $dayTest." ".$monthTest." ".$yearTest;
 $dom = new DOMDocument();
@@ -197,12 +200,12 @@ $pagebreak = $footerReport.'</b></p></article>
         <div class="headerReport">
           <h2>RAHASIA</h2>
         </div>
-    
-        <article style="font-size: 18px; font-family: cambria;">      <div class="left">
+
+        <article style="font-size: 18px; font-family: cambria;text-align: justify;">      <div class="left">
         <h6>
         <b>'.$assesseeModel->nama_lengkap.'</b><br/>
         '.$assesseeModel->jabatan_saat_ini.'</h6>
-      </div><br/><table width="100%" class="rekomendasi" style="font-family: cambria;"><tbody><tr><td>';
+      </div><br/><table width="100%" class="rekomendasi" style="font-family: cambria; text-align: justify;"><tbody><tr><td>';
 
   $pagebreakResume = $footerReport.'</b></p></article>
     </section>
@@ -282,7 +285,7 @@ function SplitStringToParts($sourceInput, &$first, &$rest, $countWordsInFirst = 
       <div style="font-size: 14pt; position:absolute; right: 65px; top: 1045px;"><b>2018</b></div>
     </div>
   </section>
-
+  </b>
   <section class="sheet padding-25mm" style= "font-family:cambria;');
 background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
     <div class="headerReport">
@@ -353,7 +356,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
       <?php echo $footerReport;?>
     </article>
   </section>
-
+  </b>
   <section class="sheet padding-25mm">
       <div class="headerReport">
         <h2>RAHASIA</h2>
@@ -522,8 +525,9 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
                   <td style="padding: 2px; border: 2px solid #000;height:15px;" colspan="12";>Orientasi pada Hasil</td>
                   <td style="padding: 2px; border: 2px solid #000;" colspan="3">M-04</td>
                   <td class="td-kompetensi" colspan="3"><?php echo $lkjModel->kompetensigram_orientasihasil; ?></td>
-                  <td class="td-kompetensi" colspan="2"><?php echo $lkjModel->kompetensigram_orientasihasil - $activityModel->orientasihasil_lki < 0 ? 0 : $lkjModel->kompetensigram_orientasihasil - $activityModel->orientasihasil_lki; ?></td>
                   <td class="td-kompetensi" colspan="2"><?php echo $activityModel->orientasihasil_lki; ?></td>
+                  <td class="td-kompetensi" colspan="2"><?php echo $lkjModel->kompetensigram_orientasihasil - $activityModel->orientasihasil_lki < 0 ? 0 : $lkjModel->kompetensigram_orientasihasil - $activityModel->orientasihasil_lki; ?></td>
+
                   <td class="td-kompetensi" colspan="2"><?php echo $lkjModel->kompetensigram_orientasihasil == 0 ? "" : round($activityModel->orientasihasil_lki / $lkjModel->kompetensigram_orientasihasil, 2) * 100; ?>%</td>
                   <td style="width: 20px; background-color: #fff; border-top: 1px solid #ffffff; border-bottom: 1px solid #ffffff; border-right: 1px solid #ffffff;"></td>
               </tr>
@@ -656,8 +660,8 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
                 <td colspan="8" class="td-sumbu-y">SKALA</td>
               </tr>
               <?php
-                // $hasilSumbuY = round($PArk / $sumC, 2) * 100;
-                $hasilSumbuY = 70;
+                $hasilSumbuY = round($PArk / $sumC, 2) * 100;
+                // $hasilSumbuY = 70;
                 if ($hasilSumbuY >=100) {
                   $backgroundK1 = '#6495ED';
                   $backgroundK2 = '#d6dce5';
@@ -704,7 +708,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
     <?=$footerReport;?>
     </article>
   </section>
-
+  </b>
   <section class="sheet padding-25mm">
     <div class="headerReport">
       <h2>RAHASIA</h2>
@@ -1091,7 +1095,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
   <?=$footerReport;?>
   </article>
 </section>
-
+</b>
 <section class="sheet padding-25mm">
   <div class="headerReport">
     <h2>RAHASIA</h2>
@@ -1181,7 +1185,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
                     $ninecellScore = 2;
                   } else if ($sumbuX >= 80 && $sumbuX < 100 && $sumbuY < 80) {
                     $ninecellScore = 3;
-                  } else if ($sumbuX < 80 && $sumbuY < 99) {
+                  } else if ($sumbuX < 80 && $sumbuY >= 100) {
                     $ninecellScore = 4;
                   } else if ($sumbuX >= 80 && $sumbuX < 100 && $sumbuY > 79 && $sumbuY < 100) {
                     $ninecellScore = 5;
@@ -1292,7 +1296,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
     <?php echo $footerReport;?>
   </article>
 </section>
-
+</b>
 <section class="sheet padding-25mm">
   <div class="headerReport">
     <h2>RAHASIA</h2>
@@ -1308,10 +1312,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
       <div style="width:100%; height:0%; border: 2px solid #000; margin-top: 5px;"></div>
       <div style="width:100%; height:0%; border: 1px solid #000; margin-top: 2px;"></div>
     </div>
-    <?php
-      $htmltag = array('<ul>','<ul></ul>');
-      $htmlesc   = array('<ul>','</ul>');
-    ?>
+
     <div class="exsum";>
       <?php echo wordwrap(str_replace($htmltag, $htmlesc, $activityModel->executive_summary), 2600,  $pagebreak, true);?>
     </div>
@@ -1326,7 +1327,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
     <?php echo $footerReport;?>
   </article>
 </section>
-
+</b>
 <section class="sheet padding-25mm">
   <div class="headerReport rahasia">
     <h2>RAHASIA</h2>
@@ -1425,10 +1426,10 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td ><center><?php echo $resultIntegritasFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7" class="uraian">
-        <?php 
-             echo wordwrap(str_replace($htmltag, $htmlesc, $resultIntegritasUraian), 1450,  $pagebreak_perekatbangsa, true);
-      //  echo $resultIntegritasUraian; 
+        <td colspan="7" class="uraian"></b>
+        <?php
+             echo wordwrap(str_replace($htmltag, $htmlesc, $resultIntegritasUraian), 1000,  $pagebreak_perekatbangsa, true);
+      //  echo $resultIntegritasUraian;
         ?></td>
       </tr>
       </tbody>
@@ -1515,7 +1516,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td><center><?php echo $resultKerjasamaFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7" class="uraian"><?php echo $resultKerjasamaUraian; ?></td>
+        <td colspan="7" class="uraian"></b><?php echo $resultKerjasamaUraian; ?></td>
       </tr>
       </tbody>
     </table>
@@ -1601,7 +1602,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td><center><?php echo $resultKomunikasiFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7" class="uraian"><?php echo $resultKomunikasiUraian; ?></td>
+        <td colspan="7" class="uraian"></b><?php echo $resultKomunikasiUraian; ?></td>
       </tr>
       </tbody>
     </table>
@@ -1687,7 +1688,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td><center><?php echo $resultOrientasiHasilFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7" class="uraian"><?php echo $resultOrientasiHasilUraian; ?></td>
+        <td colspan="7" class="uraian"></b><?php echo $resultOrientasiHasilUraian; ?></td>
       </tr>
       </tbody>
     </table>
@@ -1773,7 +1774,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td><center><?php echo $resultPelayananPublikFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7" class="uraian"><?php echo $resultPelayananPublikUraian; ?></td>
+        <td colspan="7" class="uraian"></b><?php echo $resultPelayananPublikUraian; ?></td>
       </tr>
       </tbody>
     </table>
@@ -1861,7 +1862,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td><center><?php echo $resultPengembanganDiriFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7" class="uraian"><?php echo $resultPengembanganDiriUraian; ?></td>
+        <td colspan="7" class="uraian"></b><?php echo $resultPengembanganDiriUraian; ?></td>
       </tr>
       </tbody>
     </table>
@@ -1948,7 +1949,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td><center><?php echo $resultPengelolaanPerubahanFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7" class="uraian"><?php echo $resultPengelolaanPerubahanUraian; ?></td>
+        <td colspan="7" class="uraian"></b><?php echo $resultPengelolaanPerubahanUraian; ?></td>
       </tr>
       </tbody>
     </table>
@@ -2035,7 +2036,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td><center><?php echo $resultPengambilanKeputusanFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7" class="uraian"><?php echo $resultPengambilanKeputusanUraian; ?></td>
+        <td colspan="7" class="uraian"></b><?php echo $resultPengambilanKeputusanUraian; ?></td>
       </tr>
       </tbody>
     </table>
@@ -2127,10 +2128,10 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td><center><?php echo $resultPerekatBangsaFit; ?></center></td>
       </tr>
       <tr>
-        <td colspan="7" class="uraian">
+        <td colspan="7" class="uraian"></b>
         <?php
         //echo $resultPerekatBangsaUraian;
-         echo wordwrap(str_replace($htmltag, $htmlesc, $resultPerekatBangsaUraian), 1250,  $pagebreak_perekatbangsa, true);
+         echo wordwrap(str_replace($htmltag, $htmlesc, $resultPerekatBangsaUraian), 1200,  $pagebreak_perekatbangsa, true);
 
         ?>
 
@@ -2140,7 +2141,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
     </table>
     <?php echo $footerReport;?>
   </article>
-</section>
+</section></b>
 <section class="sheet padding-25mm">
 
 <?php
@@ -2181,31 +2182,88 @@ $header_print_cont = '</p>
     $kekuatan_items = getListitem($dom, HtmlPurifier::process($activityModel->kekuatan));
     $total_len = 0;
     $break_1 = 0;
-
+    $break_2 = 0;
+          $printed_kekuatan = false;
+          $printed_kelemahan = false;
     foreach ($kekuatan_items as $kekuatan_item){
 
+      //untuk tiap li akan ditambah 50 karakter antisipasi banyak li tapi karakter dikit
+      $total_len = $total_len + 50;
+
+
+
+
       $total_len = $total_len + strlen($kekuatan_item);
-      echo '<li>' . $kekuatan_item. '</li>';
+      if (($total_len > 2300) && $printed_kekuatan == false)
+      {
+        echo '</ul>';
+        echo $pagebreakResume;
+        $break_1 = 1;
+        $printed_kekuatan = true;
+        echo '<ul>';
+      }
+      echo '<li>' . $kekuatan_item.'</li>';
     }
   echo '</ul>';
 
-  if ($total_len > 1450)
+  if (($total_len > 2300) && $printed_kekuatan == false)
   {
     echo $pagebreakResume;
     $break_1 = 1;
+    $printed_kekuatan = true;
   }
 
-  echo $header_print_cont;
+
   echo '<ul>';
     $kelemahan_items = getListitem($dom,HtmlPurifier::process($activityModel->kelemahan));
 
     foreach ($kelemahan_items as $kelemahan_item){
+      $total_len = $total_len + 50;
+
       $total_len = $total_len + strlen($kelemahan_item);
+      if (in_array($_GET['id'], ['185'])) {
       if (($total_len > 2100) && ($break_1 == 0))
         {
+
+
           echo $pagebreakResume;
           $break_1 = 1;
+          if ($printed_kelemahan == false) {
+            echo '</ul>' . $header_print_cont;
+            $printed_kelemahan = true;
+                  }
           echo '<ul>';
+        }
+      } else {
+        if (($total_len > 2300) && ($break_1 == 0))
+        {
+
+
+          echo $pagebreakResume;
+          $break_1 = 1;
+          if ($printed_kelemahan == false) {
+            echo '</ul>' . $header_print_cont;
+            $printed_kelemahan = true;
+                  }
+          echo '<ul>';
+        }
+      }
+
+        //if (($_GET['id'] == '114') || ($_GET['id'] == '115')){
+          if (in_array($_GET['id'], ['114', '115'])) {
+        if (($total_len > 4800) && ($break_2 == 0))
+        {
+
+
+          echo $pagebreakResume;
+          $break_2 = 1;
+
+          echo '<ul>';
+        }
+      }
+        if ($printed_kelemahan == false) {
+          echo '</ul>' . $header_print_cont . '<ul>';
+          $printed_kelemahan = true;
         }
         echo '<li>' . $kelemahan_item. '</li>';
     }
@@ -2221,7 +2279,7 @@ $header_print_cont = '</p>
 
     <?php echo $footerReport;?>
   </article>
-</section>
+</section></b>
 <section class="sheet padding-25mm">
 
 <?php
@@ -2266,6 +2324,8 @@ $pagebreak_saran = $footerReport.'</b></p></article>
   $total_len_saran = 0;
   $k = 0;
   $break_2 = 0;
+  $printed_1 = false;
+  $printed_2 = false;
   /*
     echo '<pre>';
   print_r($uls[0]->nodeValue);
@@ -2276,14 +2336,31 @@ $pagebreak_saran = $footerReport.'</b></p></article>
 
     if ($k == 0) {
       echo '<h3>UNTUK PENUGASAN</h3>';
-    } else {
-      echo '<h3>UNTUK PENGEMBANGAN DIRI</h3>';
     }
+
     echo '<ul>';
      $lis = $ul->getElementsByTagName('li');
      foreach ($lis as $li){
+      $total_len_saran = $total_len_saran + 50;
+
+
       $total_len_saran = $total_len_saran + strlen($li->textContent);
-      if (($total_len_saran > 1800) && ($break_2 == 0))
+
+      if (($total_len_saran > 2150) && ($break_2 == 0))
+        {
+          echo '</ul>';
+          echo $pagebreak_saran;
+          $break_2 = 1;
+          echo '<ul>';
+        }
+
+      if (($k > 0) && ($printed_2 == false)){
+        echo '</ul><h3>UNTUK PENGEMBANGAN DIRI</h3><ul>';
+        $printed_2 = true;
+      }
+
+
+      if (($total_len_saran > 2150) && ($break_2 == 0))
         {
           echo '</ul>';
           echo $pagebreak_saran;
@@ -2292,7 +2369,7 @@ $pagebreak_saran = $footerReport.'</b></p></article>
 
         }
 
-      if (($total_len_saran > 3800) && ($break_2 == 1))
+      if (($total_len_saran > 4000) && ($break_2 == 1))
       {
         echo '</ul>';
         echo $pagebreak_saran;
@@ -2301,7 +2378,7 @@ $pagebreak_saran = $footerReport.'</b></p></article>
 
       }
 
-      echo '<li>' . $li->textContent . '</li>';
+      echo '<li>' . $li->textContent .'</li>';
    }
 
    echo '</ul>';

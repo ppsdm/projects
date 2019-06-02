@@ -26,6 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
         echo Html::a(Yii::t('app', 'Batch 7'), ['index7'], ['class' => 'btn btn-primary']);
         echo Html::a(Yii::t('app', 'Batch 8'), ['index8'], ['class' => 'btn btn-primary']);
         echo Html::a(Yii::t('app', 'Batch 9'), ['index9'], ['class' => 'btn btn-primary']);
+        echo Html::a(Yii::t('app', 'Batch 10'), ['index10'], ['class' => 'btn btn-primary']);
+        echo Html::a(Yii::t('app', 'Batch 11'), ['index11'], ['class' => 'btn btn-primary']);
+        echo Html::a(Yii::t('app', 'Batch 12'), ['index12'], ['class' => 'btn btn-primary']);
+        echo Html::a(Yii::t('app', 'Batch 13'), ['index13'], ['class' => 'btn btn-primary']);     
 		?>
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
