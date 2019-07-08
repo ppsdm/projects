@@ -14,9 +14,9 @@ return [
            
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=ppsdm_paodb',
+            'dsn' => 'mysql:host=aws.ppsdm.com;dbname=ppsdm_sekab_paodb',
             'username' => 'ppsdm',
-            'password' => 'ppsdM2014',
+            'password' => 'ppsdm-mysql',
             'charset' => 'utf8',
         ], 
 
