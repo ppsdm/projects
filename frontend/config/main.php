@@ -7,6 +7,13 @@ $params = array_merge(
 );
 
 return [
+	        'aliases' => [
+			    
+			            '@bower' => '@vendor/bower-asset',
+
+				                '@npm'   => '@vendor/npm-asset',
+
+						        ],
     'id' => 'app-frontend',
 	//'defaultRoute' => 'Site/login',
     'basePath' => dirname(__DIR__),
