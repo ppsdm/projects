@@ -5,7 +5,7 @@ namespace app\config;
 use Yii;
 use yii\base\BootstrapInterface;
 
-use common\modules\ref\models\RefConfig;
+use app\models\RefConfig;
 
 /*
 /* The base class that you use to retrieve the settings from the database

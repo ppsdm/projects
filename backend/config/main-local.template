@@ -1,0 +1,73 @@
+<?php
+
+
+
+
+if (!YII_ENV_TEST) {
+    // configuration adjustments for 'dev' environment
+    $config['bootstrap'][] = 'debug';
+    $config['modules']['debug'] = [
+        'class' => 'yii\debug\Module',
+    ];
+    $config['bootstrap'][] = 'gii';
+    $config['modules']['gii'] = [
+        'class' => 'yii\gii\Module',
+    ];
+
+    $config['components']['view']['theme'] = [
+                'basePath' => '@app/themes/ppsdm',
+                'baseUrl' => '@web/themes/ppsdm',
+                'pathMap' => [
+                    '@app/views' => '@app/themes/ppsdm',
+                ],
+    ];
+$config['components']['request'] = [
+            'csrfParam' => '_csrf-frontend',
+       'csrfCookie' => [
+            'name' => '_csrf',
+            'path' => '/',
+<<<<<<< HEAD
+            'domain' => '.siapngampus.com',
+=======
+            'domain' => 'localhost',
+<<<<<<< HEAD:backend/config/New folder/main-local.template
+                            //'domain' => '.ppsdm.com'
+=======
+>>>>>>> ca54f70f72695536389f74304f73186d4c362065
+<<<<<<< HEAD
+>>>>>>> c7d3e64abd17f3194f1adc827d394f8134daa61b:frontend/config/main-local.php
+=======
+>>>>>>> origin/zennner-baru:frontend/config/main-local.php
+>>>>>>> origin/zennner-baru
+        ],
+           'enableCookieValidation' => false,
+    'enableCsrfValidation' => false,
+    'cookieValidationKey' => 'xWZ35QUMzAprRApQdNFjcHkc87gwHhZV',
+        ];
+        $config['components']['user'] = [
+            'identityClass' => 'common\models\User',
+            'enableAutoLogin' => true,
+                        'identityCookie' => [ // <---- here!
+                'name' => '_identity',
+                'httpOnly' => true,
+<<<<<<< HEAD
+                'domain' => '.siapngampus.com',
+=======
+                'domain' => 'localhost',
+<<<<<<< HEAD:backend/config/New folder/main-local.template
+                //'domain' => '.ppsdm.com'
+=======
+>>>>>>> ca54f70f72695536389f74304f73186d4c362065
+<<<<<<< HEAD
+>>>>>>> c7d3e64abd17f3194f1adc827d394f8134daa61b:frontend/config/main-local.php
+=======
+>>>>>>> origin/zennner-baru:frontend/config/main-local.php
+>>>>>>> origin/zennner-baru
+            ],
+        ];
+
+
+
+}
+
+return $config;
