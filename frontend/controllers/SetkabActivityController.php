@@ -1356,8 +1356,9 @@ file_put_contents('content.pdf',$result);
         $model = $this->findModel($id);
 		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
 		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
-		if (sizeof($lkj) == 0) {
-			$lkj = new SetkabLkj;
+		if (is_null($lkj)) {
+            $lkj = new SetkabLkj;
+            //echo 'sa';
 		}
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			if (Yii::$app->request->post('submit2') == 'refresh') {
@@ -1374,7 +1375,8 @@ file_put_contents('content.pdf',$result);
                 'lkj' => $lkj,
                 'model' => $model,  'role' => $role,
             ]);
-        }    } else {
+        }   
+     } else {
             echo 'not allowed';
         }
 
@@ -1391,7 +1393,7 @@ file_put_contents('content.pdf',$result);
         $model = $this->findModel($id);
 		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
 		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
-		if (sizeof($lkj) == 0) {
+		if (is_null($lkj)) {
 			$lkj = new SetkabLkj;
 		}
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -1424,7 +1426,7 @@ file_put_contents('content.pdf',$result);
         $model = $this->findModel($id);
 		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
 		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
-		if (sizeof($lkj) == 0) {
+		if (is_null($lkj)) {
 			$lkj = new SetkabLkj;
 		}
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -1455,7 +1457,7 @@ file_put_contents('content.pdf',$result);
         $model = $this->findModel($id);
 		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
 		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
-		if (sizeof($lkj) == 0) {
+		if (is_null($lkj)) {
 			$lkj = new SetkabLkj;
 		}
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -1486,7 +1488,7 @@ file_put_contents('content.pdf',$result);
         $model = $this->findModel($id);
 		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
 		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
-		if (sizeof($lkj) == 0) {
+		if (is_null($lkj)) {
 			$lkj = new SetkabLkj;
 		}
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -1518,7 +1520,7 @@ file_put_contents('content.pdf',$result);
         $model = $this->findModel($id);
 		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
 		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
-		if (sizeof($lkj) == 0) {
+		if (is_null($lkj)) {
 			$lkj = new SetkabLkj;
 		}
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -1549,7 +1551,7 @@ file_put_contents('content.pdf',$result);
         $model = $this->findModel($id);
 		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
 		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
-		if (sizeof($lkj) == 0) {
+		if (is_null($lkj)) {
 			$lkj = new SetkabLkj;
 		}
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -1581,7 +1583,7 @@ file_put_contents('content.pdf',$result);
         $model = $this->findModel($id);
 		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
 		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
-		if (sizeof($lkj) == 0) {
+		if (is_null($lkj)) {
 			$lkj = new SetkabLkj;
 		}
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -1648,7 +1650,7 @@ file_put_contents('content.pdf',$result);
         $model = $this->findModel($id);
 		$assessee_model = SetkabAssessee::findOne($model->assessee_id);
 		$lkj = SetkabLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
-		if (sizeof($lkj) == 0) {
+		if (is_null($lkj) == 0) {
 			$lkj = new SetkabLkj;
 		}
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

@@ -52,6 +52,9 @@ class ProjectController extends \yii\web\Controller
                 if ($id == 5) {
 				
                     $this->redirect(['../setkab-activity/index']);
+                } else if ($id == 6) {
+				
+                    $this->redirect(['../kemenkes-activity/index']);
                 }
                 
                 if (isset(Yii::$app->user->identity->profile->id)) {
