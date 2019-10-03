@@ -119,7 +119,8 @@ $new_element = $dom->createElement('test', ' ');
 
 
 
-       $replaced_dom = preg_replace('#\<(.+?)\>#', ' ', $dom->saveHTML());
+	   $replaced_dom = preg_replace('#\<(.+?)\>#', ' ', $dom->saveHTML());
+	   $word_count = preg_match_all("/[\w]+/i", html_entity_decode(strip_tags($replaced_dom), ENT_QUOTES));
         $word_count = str_word_count(strip_tags($replaced_dom));
 }
 		$total_count = $word_count;

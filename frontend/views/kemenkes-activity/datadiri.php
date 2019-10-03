@@ -23,7 +23,7 @@ echo $form->field($model, 'nama_lengkap')->textInput();
 echo $form->field($model, 'tanggal_lahir')->textInput();
 echo $form->field($model, 'tempat_lahir')->textInput();
 echo $form->field($model, 'jabatan_saat_ini')->textInput();
-//echo $form->field($model, 'prospek_jabatan')->textInput();
+echo $form->field($model, 'satuan_kerja')->textInput();
 echo $form->field($model, 'golongan')->textInput();
 echo $form->field($model, 'jabatan')->textInput();
 echo $form->field($model, 'level')->textInput();

@@ -79,7 +79,7 @@ $this->registerCss("
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 5 - 1) {
+                            if ($index == 3 - 1) {
                                 return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
                                 return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
@@ -95,7 +95,7 @@ $this->registerCss("
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 5 - 1) {
+                            if ($index == 4 - 1) {
                                 return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
                                 return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
@@ -111,7 +111,7 @@ $this->registerCss("
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 5 - 1) {
+                            if ($index == 4 - 1) {
                                 return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
                                 return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
@@ -128,7 +128,7 @@ $this->registerCss("
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 5 - 1) {
+                            if ($index == 3 - 1) {
                                 return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
                                 return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
@@ -159,7 +159,7 @@ $this->registerCss("
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 5 - 1) {
+                            if ($index == 3 - 1) {
                                 return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
                                 return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
@@ -175,7 +175,7 @@ $this->registerCss("
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 4 - 1) {
+                            if ($index == 3 - 1) {
                                 return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
                                 return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
@@ -191,7 +191,7 @@ $this->registerCss("
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 5 - 1) {
+                            if ($index == 4 - 1) {
                                 return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
                                 return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
@@ -207,7 +207,7 @@ $this->registerCss("
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 4 - 1) {
+                            if ($index == 3 - 1) {
                                 return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
                                 return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
@@ -223,7 +223,7 @@ $this->registerCss("
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 5 - 1) {
+                            if ($index == 4 - 1) {
                                 return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
                                 return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
@@ -234,12 +234,12 @@ $this->registerCss("
         </tr>
         <tr>
             <td>Inisiatif</td>
-            <td>---------------------</td>
+            <td>Keinginan individu untuk mau melaksanakan tugasnya sesuai dengan kewenangannya tanpa diminta oleh orang lain.</td>
             <td><?= $form->field($model, 'psikogram_inisiatif')->radioList(
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 5 - 1) {
+                            if ($index == 3 - 1) {
                                 return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
                                 return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
@@ -273,7 +273,7 @@ $this->registerCss("
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 5 - 1) {
+                            if ($index == 3 - 1) {
                                 return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
                                 return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
@@ -289,7 +289,7 @@ $this->registerCss("
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 4 - 1) {
+                            if ($index == 3 - 1) {
                                 return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
                                 return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
@@ -305,7 +305,7 @@ $this->registerCss("
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 5 - 1) {
+                            if ($index == 4 - 1) {
                                 return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
                                 return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
@@ -321,7 +321,7 @@ $this->registerCss("
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 5 - 1) {
+                            if ($index == 4 - 1) {
                                 return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
                                 return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
@@ -333,12 +333,12 @@ $this->registerCss("
 
         <tr>
             <td>Kematangan Emosi</td>
-            <td>---------------------  </td>
+            <td>Keluasan pengetahuan dan kemampuan mengelola emosi secara optimal. </td>
             <td><?= $form->field($model, 'psikogram_kematanganemosi')->radioList(
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 5 - 1) {
+                            if ($index == 3 - 1) {
                                 return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
                                 return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
@@ -350,12 +350,12 @@ $this->registerCss("
 
         <tr>
             <td>Adaptif</td>
-            <td>----------------------------  </td>
+            <td>Kemampuan menyesuaikan diri dengan lingkungan.</td>
             <td><?= $form->field($model, 'psikogram_adaptif')->radioList(
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 5 - 1) {
+                            if ($index == 3 - 1) {
                                 return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
                                 return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";

@@ -48,8 +48,8 @@ $this->params['breadcrumbs'][] = $this->title;
 				'format' => 'raw',
 				           'content'=>function($data){
 							   //$setkab_assessment = SetkabAssessment::find()->andWhere(['activity_id' => $data->id])->One();
-                //return $data->assessee->nama_lengkap;
-                return $data->assessee_id;
+                return $data->assessee->nama_lengkap;
+                //return $data->assessee_id;
 				//        return Html::a(Yii::t('app', $data->id), ['view', 'id' => $data->id], ['class' => '']);
             }
 			],

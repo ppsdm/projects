@@ -26,7 +26,7 @@ $dom = new DOMDocument();
 /**
 * Psikogram ( Potensi )
 */
-$psikogramPengaturanDiri = $activityModel->psikogram_pengaturandiri;
+//$psikogramPengaturanDiri = $activityModel->psikogram_pengaturandiri;
 $psikogramPemahamanSosial = $activityModel->psikogram_pemahamansosial;
 $psikogramEmpati = $activityModel->psikogram_empati;
 $psikogramKonsepDiri = $activityModel->psikogram_konsepdiri;
@@ -37,12 +37,16 @@ $psikogramKetelitian = $activityModel->psikogram_ketelitian;
 $psikogramTempoKerja = $activityModel->psikogram_tempokerja;
 $psikogramSistematikakerja = $activityModel->psikogram_sistematikakerja;
 $psikogramKemampuanBelajar = $activityModel->psikogram_kemampuanbelajar;
-$psikogramFleksibilitasBerpikir = $activityModel->psikogram_fleksibilitasberpikir;
+//$psikogramFleksibilitasBerpikir = $activityModel->psikogram_fleksibilitasberpikir;
 $psikogramLogikaBerpikir = $activityModel->psikogram_logikaberpikir;
-$psikogramBerpikirAnalitis = $activityModel->psikogram_berpikiranalitis;
-$psikogramInteligensiUmum = $activityModel->psikogram_inteligensiumum;
+$psikogramKemampuanAnalisa = $activityModel->psikogram_kemampuananalisa;
+$psikogramKemampuanUmum = $activityModel->psikogram_kemampuanumum;
 
-$psikogramTotalSkor = $psikogramPengaturanDiri +
+$psikogramAdaptif = $activityModel->psikogram_adaptif;
+$psikogramInisiatif = $activityModel->psikogram_inisiatif;
+$psikogramKematanganEmosi = $activityModel->psikogram_kematanganemosi;
+
+$psikogramTotalSkor = $psikogramAdaptif +
                       $psikogramPemahamanSosial +
                       $psikogramEmpati +
                       $psikogramKonsepDiri +
@@ -53,10 +57,11 @@ $psikogramTotalSkor = $psikogramPengaturanDiri +
                       $psikogramTempoKerja +
                       $psikogramSistematikakerja +
                       $psikogramKemampuanBelajar +
-                      $psikogramFleksibilitasBerpikir +
+                      $psikogramKematanganEmosi +
                       $psikogramLogikaBerpikir +
-                      $psikogramBerpikirAnalitis +
-                      $psikogramInteligensiUmum;
+                      $psikogramKemampuanAnalisa +
+                      $psikogramInisiatif +
+                      $psikogramKemampuanUmum;
 
 $pembagiPsikogram = 105;
 /**
@@ -155,15 +160,15 @@ $footerReport='
         <div style="font-weight: bold; padding-bottom: -10px;" id="pageFooter" class="totalPage"></div>
       </td>
       <td style="padding-left:5px; text-align:left; font-size: 12px font-weight: 700; padding-bottom: 2px; font-family: cambria; ">
-        <i>Laporan Uji Kompetensi</i>
+        <i>Laporan Assessment Center</i>
       </td>
     </tr>
     <tr style="border-top: solid  3px #000; font-size: 12px">
       <td  style="text-align:left; border-right: solid  1px #000000; padding-left:10px;" valign="top">
       </td>
       <td style="padding-left:5px; text-align:left; padding-top: 2px; font-family:cambria; font-size: 12px ">
-        <i>Sekretariat Kabinet</i> <br/>
-        <i>Republik Indonesia, Tahun 2018</i></div>
+        <i>Kementerian Kesehataan</i> <br/>
+        <i>Republik Indonesia, Tahun 2019</i></div>
       </td>
     </tr>
   </table></div>';
@@ -257,12 +262,14 @@ function SplitStringToParts($sourceInput, &$first, &$rest, $countWordsInFirst = 
   <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
   <section class="sheet padding-0mm" style="font-family: cambria;">
     <div>
-      <?php echo Html::img('@web/images/setkab.png', ['alt' => '--missing image--','style'=> 'max-width:200px; max-height:180px; position:absolute; right: 65px; top: 50px;' ]);?>
+      <?php echo Html::img('@web/project-uploads/kemenkes2019/kemenkes2019.png', ['alt' => '--missing image--','style'=> 'max-width:300px; max-height:200px; position:absolute; right: 65px; top: 70px;' ]);?>
     </div>
     <div style="margin-top: 300px; margin-right: 65px; font-size: 26px; font-weight: 700; color: #2e2e2e; float: right; text-align: right; font-family: cambria;">
-        LAPORAN UJI KOMPETENSI<br>
-        DI LINGKUNGAN SEKRETARIAT KABINET<br>
-        REPUBLIK INDONESIA
+        LAPORAN ASSESSMENT CENTER<br>
+        BAGI JABATAN PIMPINAN TINGGI PRATAMA, <br>
+        JABATAN ADMINISTRASI DAN JABATAN PENGAWAS<br>
+        KEMENTERIAN KESEHATAN REPUBLIK INDONESIA<br>
+             
     </div>
     <div style= "width: 210mm; height: 296mm; margin-top:30px; color: #2e2e2e;" >
       <div style="font-size: 14pt; position:absolute; right: 65px; top: 460px;"><b>NAMA</b></div>
@@ -282,7 +289,7 @@ function SplitStringToParts($sourceInput, &$first, &$rest, $countWordsInFirst = 
       <?php echo Html::img('@web/images/setkab/logo-ppsdm.png', ['alt' => '--missing image--','style'=> 'max-width:130px; max-height:130px; position:absolute; right: 65px; top: 830px;' ]);?>
       <div style="font-size: 12pt; position:absolute; right: 65px; top: 920px;"><b>PT. PRIMA PERSONA SUMBER DAYA MANDIRI</b></div>
       <div style="font-size: 14pt; position:absolute; right: 65px; top: 1025px;"><b>JAKARTA</b></div>
-      <div style="font-size: 14pt; position:absolute; right: 65px; top: 1045px;"><b>2018</b></div>
+      <div style="font-size: 14pt; position:absolute; right: 65px; top: 1045px;"><b>2019</b></div>
     </div>
   </section>
   </b>
@@ -299,9 +306,10 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
       </div>
       <div class='center' style="margin-top: 20px; font-size: 18px;">
         <h3>
-        LAPORAN UJI KOMPETENSI<br/>
-        DI LINGKUNGAN SEKRETARIAT KABINET<br/>
-        REPUBLIK INDONESIA</h3>
+        LAPORAN ASSESSMENT CENTER<br/>
+        BAGI JABATAN PIMPINAN TINGGI PRATAMA,<br/>
+        JABATAN ADMINISTRASI DAN JABATAN PENGAWAS <br/>
+        KEMENTERIAN KESEHATAN REPUBLIK INDONESIA</h3>
       </div>
       <br/>
       <!-- <div style="position:absolute; right: 95px; top: 290px;">
@@ -316,12 +324,12 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         <td colspan="2" rowspan="3" style="padding:2px 0px 0px 0px; text-align: right;"> <?php echo Html::img('@web/project-uploads/setkab/photos/'.$assesseeModel->id.'.JPG', ['alt' => '--missing image--','style'=> 'width:120px; height:150px' ]);?> </td>
       </tr>
       <tr><td>Nama Lengkap</td><td>:</td><td colspan="2"><b><?php echo upperCase($assesseeModel->nama_lengkap); ?></b></td></tr>
-      <tr><td>Tempat / Tgl. Lahir</td><td>:</td><td colspan="2"><?php echo upperCase($assesseeModel->tempat_lahir. ", ". $assesseeModel->tanggal_lahir); ?></td></tr>
+      <tr><td>Tempat/Tgl. Lahir</td><td>:</td><td colspan="2"><?php echo upperCase($assesseeModel->tempat_lahir. ", ". $assesseeModel->tanggal_lahir); ?></td></tr>
       <tr><td>Jabatan Saat ini</td><td>:</td><td colspan="3"><b><?php echo upperCase($assesseeModel->jabatan_saat_ini); ?></b></td></tr>
       <tr><td>Pendidikan Terakhir</td><td>:</td><td colspan="2"> <?php echo upperCase($assesseeModel->pendidikan_terakhir); ?></td><td></td></tr>
       <tr><td>Alamat</td><td>:</td><td colspan="3"><?php echo upperCase($assesseeModel->alamat); ?></td></tr>
-      <tr><td>Tujuan Pemeriksaan</td><td>:</td><td colspan="2">PROFILE ASSESSMENT COMPETENCY</td><td></td></tr>
-      <tr><td>Tempat / Tgl Test</td><td>:</td><td colspan="2"><?php echo upperCase($activityModel->tempat_test).", ".upperCase($dateTest); ?> </td><td></td></tr>
+      <tr><td>Tujuan Pemeriksaan</td><td>:</td><td colspan="2">PROFILE ASSESSMENT POTENSI DAN KOMPETENSI</td><td></td></tr>
+      <tr><td>Tempat/Tgl Test</td><td>:</td><td colspan="2"><?php echo upperCase($activityModel->tempat_test).", ".upperCase($dateTest); ?> </td><td></td></tr>
       </tbody>
       </table>
       <div class='center' style="font-size: 16px;">
@@ -768,7 +776,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
            <?php
               for($i = 0; $i < 7; $i++){
                 $class = 5-1 == $i ? "psikogramtable13" : "psikogramtable12";
-                if($i == $psikogramInteligensiUmum-1){
+                if($i == $psikogramKemampuanUmum-1){
                   echo "<td class='".$class."'>"."X"."</td>";
                 }else{
                   echo "<td class='".$class."'>"." "."</td>";
@@ -785,7 +793,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
            <?php
               for($i = 0; $i < 7; $i++){
                 $class = 5-1 == $i ? "psikogramtable13" : "psikogramtable12";
-                if($i == $psikogramBerpikirAnalitis-1){
+                if($i == $psikogramKemampuanAnalisa-1){
                   echo "<td class='".$class."'>"."X"."</td>";
                 }else{
                   echo "<td class='".$class."'>"." "."</td>";
@@ -803,23 +811,6 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
               for($i = 0; $i < 7; $i++){
                 $class = 5-1 == $i ? "psikogramtable13" : "psikogramtable12";
                 if($i == $psikogramLogikaBerpikir-1){
-                  echo "<td class='".$class."'>"."X"."</td>";
-                }else{
-                  echo "<td class='".$class."'>"." "."</td>";
-                }
-              }
-           ?>
-         </tr>
-         <tr>
-           <td class="psikogramtable9" >4</td>
-           <td class="psikogramtable10" colspan="3">Fleksibilitas Berfikir</td>
-           <td class="psikogramtable11" colspan="6">
-             Kemapuan mengalihkan perhatian dengan cepat dari satu masalah ke masalah lain
-           </td>
-           <?php
-              for($i = 0; $i < 7; $i++){
-                $class = 4-1 == $i ? "psikogramtable13" : "psikogramtable12";
-                if($i == $psikogramFleksibilitasBerpikir-1){
                   echo "<td class='".$class."'>"."X"."</td>";
                 }else{
                   echo "<td class='".$class."'>"." "."</td>";
@@ -1012,19 +1003,12 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
          </tr>
          <tr>
            <td class="psikogramtable9" >5</td>
-           <td class="psikogramtable10" colspan="3">Pengaturan Diri</td>
+           <td class="psikogramtable10" colspan="3">INISIATIF</td>
            <td class="psikogramtable11" colspan="6" >
              Kemampuan mengendalikan diri dalam situasi-situasi sulit dan kemampuan melakukan perencanaan sebelum bertindak
            </td>
            <?php
-              for($i = 0; $i < 7; $i++){
-                $class = 4-1 == $i ? "psikogramtable13" : "psikogramtable12";
-                if($i == $psikogramPengaturanDiri-1){
-                  echo "<td class='".$class."'>"."X"."</td>";
-                }else{
-                  echo "<td class='".$class."'>"." "."</td>";
-                }
-              }
+
            ?>
          </tr>
          <tr bgcolor="#B8CCE4">
@@ -2407,6 +2391,7 @@ echo '</div>';
 function getListitem($dom, $string)
 {
 
+  $return = [];
   $dom->loadHTML('<?xml encoding="utf-8" ?>' . $string);
   //$return
   $listItems = $dom->getElementsByTagName('li');

@@ -11,9 +11,9 @@ use yii\helpers\HtmlPurifier;
 /* @var $model frontend\models\SetkabActivity */
 
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
-    'modelClass' => 'Setkab Activity',
+    'modelClass' => Yii::$app->params['projectName'] . ' Activity',
 ]) . $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Setkab Activities'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::$app->params['projectName'] . Yii::t('app', ' Activities'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
@@ -119,7 +119,8 @@ $new_element = $dom->createElement('test', ' ');
 
 
 
-       $replaced_dom = preg_replace('#\<(.+?)\>#', ' ', $dom->saveHTML());
+	   $replaced_dom = preg_replace('#\<(.+?)\>#', ' ', $dom->saveHTML());
+	   $word_count = preg_match_all("/[\w]+/i", html_entity_decode(strip_tags($replaced_dom), ENT_QUOTES));
         $word_count = str_word_count(strip_tags($replaced_dom));
 	}
 	

@@ -65,8 +65,12 @@ foreach($dom->getElementsByTagName('li') as $li) {
 */
 
    $replaced_dom = preg_replace('#\<(.+?)\>#', ' ', $dom->saveHTML());
-    $word_count = str_word_count(strip_tags($replaced_dom));
+
+   //$word_count = preg_match_all("/[0-9]+/i", html_entity_decode(strip_tags($replaced_dom), ENT_QUOTES));
+      $word_count = preg_match_all("/[\w]+/i", html_entity_decode(strip_tags($replaced_dom), ENT_QUOTES));
+   //$word_count += str_word_count(strip_tags($replaced_dom));
     
+
     
 }
 //unset($dom);

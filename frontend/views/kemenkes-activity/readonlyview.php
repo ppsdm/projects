@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model frontend\models\SetkabActivity */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Setkab Activities'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::$app->params['projectName'] . Yii::t('app', ' Activities'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 /*
 global $min;
@@ -31,7 +31,7 @@ $exsum_max = 500;
     <h1><span>
         <?php
         
-        echo Html::img('@web/project-uploads/setkab/photos/'.$model->assessee->id.'.JPG', ['alt' => '--missing image--','style'=> 'max-width:200px;max-height:200px'
+        echo Html::img('@web/project-uploads/kemenkes2019/photos/'.$model->assessee->id.'.JPG', ['alt' => '--missing image--','style'=> 'max-width:200px;max-height:200px'
             ]);
         ?>
     </span><?= Html::encode($model->assessee->nama_lengkap) ?></h1>

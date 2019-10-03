@@ -17,6 +17,7 @@ use Yii;
  * @property string $golongan
  * @property string $jabatan
  * @property string $level
+ * @property string $satuan_kerja
  * @property string $nip
  * @property string $pendidikan_terakhir
  * @property string $alamat
@@ -50,7 +51,7 @@ class KemenkesAssessee extends \yii\db\ActiveRecord
     {
         return [
             [['profile_id'], 'integer'],
-            [['nama_lengkap', 'tanggal_lahir', 'tempat_lahir', 'jabatan_saat_ini', 'prospek_jabatan', 'golongan', 'jabatan', 'level', 'nip', 'pendidikan_terakhir', 'alamat', 'avatar', 'facebook', 'twitter', 'instagram'], 'string', 'max' => 255],
+            [['nama_lengkap', 'tanggal_lahir', 'tempat_lahir', 'jabatan_saat_ini', 'prospek_jabatan', 'golongan', 'jabatan', 'level', 'satuan_kerja', 'nip', 'pendidikan_terakhir', 'alamat', 'avatar', 'facebook', 'twitter', 'instagram'], 'string', 'max' => 255],
         ];
     }
 
@@ -70,6 +71,7 @@ class KemenkesAssessee extends \yii\db\ActiveRecord
             'golongan' => Yii::t('app', 'Golongan'),
             'jabatan' => Yii::t('app', 'Jabatan'),
             'level' => Yii::t('app', 'Level'),
+            'satuan_kerja' => Yii::t('app', 'Satuan Kerja'),
             'nip' => Yii::t('app', 'Nip'),
             'pendidikan_terakhir' => Yii::t('app', 'Pendidikan Terakhir'),
             'alamat' => Yii::t('app', 'Alamat'),
