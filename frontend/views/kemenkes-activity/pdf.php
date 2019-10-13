@@ -175,7 +175,7 @@ $footerReport='
 
 $pagebreak = $footerReport.'</b></p></article>
   </section>
-    <section class="sheet padding-25mm" style="background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
+    <section class="sheet padding-15mm" style="background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
       <div class="headerReport">
         <h2>RAHASIA</h2>
       </div>
@@ -188,7 +188,7 @@ $pagebreak = $footerReport.'</b></p></article>
 
     $pagebreak_1 = $footerReport.'</b></p></article>
   </section>
-    <section class="sheet padding-25mm" style="background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
+    <section class="sheet padding-15mm" style="background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
       <div class="headerReport">
         <h2>RAHASIA</h2>
       </div>
@@ -201,7 +201,7 @@ $pagebreak = $footerReport.'</b></p></article>
 
 
     $pagebreak_perekatbangsa = '</td></tr></tbody></table></article>' .$footerReport.'</section>
-      <section class="sheet padding-25mm" style="background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
+      <section class="sheet padding-15mm" style="background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
         <div class="headerReport">
           <h2>RAHASIA</h2>
         </div>
@@ -214,7 +214,7 @@ $pagebreak = $footerReport.'</b></p></article>
 
   $pagebreakResume = $footerReport.'</b></p></article>
     </section>
-      <section class="sheet padding-25mm" style="background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
+      <section class="sheet padding-15mm" style="background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
         <div class="headerReport">
           <h2>RAHASIA</h2>
         </div>
@@ -293,7 +293,7 @@ function SplitStringToParts($sourceInput, &$first, &$rest, $countWordsInFirst = 
     </div>
   </section>
   </b>
-  <section class="sheet padding-25mm" style= "font-family:cambria;');
+  <section class="sheet padding-15mm" style= "font-family:cambria;');
 background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
     <div class="headerReport">
       <h2>RAHASIA</h2>
@@ -313,19 +313,20 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
       </div>
       <br/>
       <!-- <div style="position:absolute; right: 95px; top: 290px;">
-        <?php  Html::img('@web/project-uploads/setkab/photos/'.$assesseeModel->id.'.JPG', ['alt' => '--missing image--','style'=> 'width:120px; height:140px' ]);?>
+        <?php  Html::img('@web/project-uploads/kemenkes2019/photos/'.$assesseeModel->id.'.JPG', ['alt' => '--missing image--','style'=> 'width:120px; height:140px' ]);?>
       </div> -->
       <table class='cover'>
       <tbody>
       <tr>
         <td style="width: 120px;">Nomor Test</td>
         <td>:</td>
-        <td><b></b><?php echo upperCase($noTest); ?></b></td>
-        <td colspan="2" rowspan="3" style="padding:2px 0px 0px 0px; text-align: right;"> <?php echo Html::img('@web/project-uploads/setkab/photos/'.$assesseeModel->id.'.JPG', ['alt' => '--missing image--','style'=> 'width:120px; height:150px' ]);?> </td>
+        <td><b></b><?php echo upperCase($noTest); ?> (<?php echo $batchNumber; ?>)</b></td>
+        <td colspan="2" rowspan="3" style="padding:2px 0px 0px 0px; text-align: right;"> <?php echo Html::img('@web/project-uploads/kemenkes2019/photos/'.$assesseeModel->id.'.JPG', ['alt' => '--missing image--','style'=> 'width:120px; height:150px' ]);?> </td>
       </tr>
       <tr><td>Nama Lengkap</td><td>:</td><td colspan="2"><b><?php echo upperCase($assesseeModel->nama_lengkap); ?></b></td></tr>
       <tr><td>Tempat/Tgl. Lahir</td><td>:</td><td colspan="2"><?php echo upperCase($assesseeModel->tempat_lahir. ", ". $assesseeModel->tanggal_lahir); ?></td></tr>
       <tr><td>Jabatan Saat ini</td><td>:</td><td colspan="3"><b><?php echo upperCase($assesseeModel->jabatan_saat_ini); ?></b></td></tr>
+      <tr><td>Satuan Kerja</td><td>:</td><td colspan="3"><b><?php echo upperCase($assesseeModel->satuan_kerja); ?></b></td></tr>
       <tr><td>Pendidikan Terakhir</td><td>:</td><td colspan="2"> <?php echo upperCase($assesseeModel->pendidikan_terakhir); ?></td><td></td></tr>
       <tr><td>Alamat</td><td>:</td><td colspan="3"><?php echo upperCase($assesseeModel->alamat); ?></td></tr>
       <tr><td>Tujuan Pemeriksaan</td><td>:</td><td colspan="2">PROFILE ASSESSMENT POTENSI DAN KOMPETENSI</td><td></td></tr>
@@ -335,7 +336,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
       <div class='center' style="font-size: 16px;">
         <br/>
         <br/>
-            <?php echo $activityModel->tempat_test.", 5 November 2018"; ?><br/><b>PPSDM Consultant</b>
+            <?php echo $activityModel->tempat_test.", " . $dateReport; ?><br/><b>PPSDM Consultant</b>
       </div>
       <br/>
       <table>
@@ -343,7 +344,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
           <td>
             <div class='kananTandaTangan'>
               <div class='center'>
-      	           Asessor<br/><b> <?php echo upperCase($asessorName); ?>
+      	           Asessor<br/><b> <?php echo ($asessorName); ?>
               </div>
             </div>
           </td>
@@ -353,9 +354,9 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
             <div class='kiriTandaTangan'>
               <div class='center'>
       	         Penanggung jawab<br/>
-      	         <strong>DRS. BUDIMAN SANUSI, M.Psi.
+      	         <strong>Drs. BUDIMAN SANUSI, M.Psi.
       	         <br/>
-      	         PSIKOLOG</strong>
+      	         Psikolog</strong>
               </div>
             </div>
           </td>
@@ -365,7 +366,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
     </article>
   </section>
   </b>
-  <section class="sheet padding-25mm">
+  <section class="sheet padding-15mm">
       <div class="headerReport">
         <h2>RAHASIA</h2>
       </div>
@@ -717,7 +718,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
     </article>
   </section>
   </b>
-  <section class="sheet padding-25mm">
+  <section class="sheet padding-15mm">
     <div class="headerReport">
       <h2>RAHASIA</h2>
     </div>
@@ -742,15 +743,14 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
            <col  width="22">
            <col  width="22">
            <col width="22">
-           <col  width="22">
-           <col  width="22">
+  
          </colgroup>
          <tr bgcolor="yellow">
            <td class="psikogramtable1" colspan="5" rowspan="2"  >
            ASPEK PSIKOLOGIS</td>
            <td class="psikogramtable2" colspan="6" rowspan="2" >
            KETERANGAN</td>
-           <td class="psikogramtable3" colspan="7" >P E N I L A I A N</td>
+           <td class="psikogramtable3" colspan="5" >P E N I L A I A N</td>
          </tr>
          <tr bgcolor="yellow">
            <td class="psikogramtable4" >1</td>
@@ -758,8 +758,6 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
            <td class="psikogramtable4" >3</td>
            <td class="psikogramtable4" >4</td>
            <td class="psikogramtable4" >5</td>
-           <td class="psikogramtable4" >6</td>
-           <td class="psikogramtable5" >7</td>
          </tr>
          <tr bgcolor="#B8CCE4">
            <td class="psikogramtable6"  style="height: 20pt;; width: 25px;">
@@ -767,15 +765,15 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
            <td class="psikogramtable7" colspan="17">ASPEK INTELEKTUAL</td>
          </tr>
          <tr>
-           <td class="psikogramtable8" rowspan="5" >&nbsp;</td>
+           <td class="psikogramtable8" rowspan="4" >&nbsp;</td>
            <td class="psikogramtable9" >1</td>
-           <td class="psikogramtable10" colspan="3">Intelegensi Umum</td>
+           <td class="psikogramtable10" colspan="3">Kemampuan Umum</td>
            <td class="psikogramtable11" colspan="6" >
              Gabungan keseluruhan potensi kecerdasan sebagai perpaduan dari aspek-aspek pembentukan intelektualitas
            </td>
            <?php
-              for($i = 0; $i < 7; $i++){
-                $class = 5-1 == $i ? "psikogramtable13" : "psikogramtable12";
+              for($i = 0; $i < 5; $i++){
+                $class = 3-1 == $i ? "psikogramtable13" : "psikogramtable12";
                 if($i == $psikogramKemampuanUmum-1){
                   echo "<td class='".$class."'>"."X"."</td>";
                 }else{
@@ -786,13 +784,13 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
          </tr>
          <tr>
            <td class="psikogramtable9" >2</td>
-           <td class="psikogramtable10" colspan="3">Berpikir Analitis</td>
+           <td class="psikogramtable10" colspan="3">Kemampuan Analisa / Berpikir Analitis</td>
            <td class="psikogramtable11" colspan="6">
              Kemampuan menguraikan masalah menjadi bagian-bagian dan menemukan hubungan sebab akibat dari suatu situasi
            </td>
            <?php
-              for($i = 0; $i < 7; $i++){
-                $class = 5-1 == $i ? "psikogramtable13" : "psikogramtable12";
+              for($i = 0; $i < 5; $i++){
+                $class = 4-1 == $i ? "psikogramtable13" : "psikogramtable12";
                 if($i == $psikogramKemampuanAnalisa-1){
                   echo "<td class='".$class."'>"."X"."</td>";
                 }else{
@@ -803,13 +801,13 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
          </tr>
          <tr>
            <td class="psikogramtable9" >3</td>
-           <td class="psikogramtable10" colspan="3">Logika Berifikir</td>
+           <td class="psikogramtable10" colspan="3">Logika Berpikir</td>
            <td class="psikogramtable11" colspan="6" >
              Kemampuan untuk mengorganisir proses berfikir yang menunjukkan adanya alur berfikir yang sistematis dan logis
            </td>
            <?php
-              for($i = 0; $i < 7; $i++){
-                $class = 5-1 == $i ? "psikogramtable13" : "psikogramtable12";
+              for($i = 0; $i < 5; $i++){
+                $class = 4-1 == $i ? "psikogramtable13" : "psikogramtable12";
                 if($i == $psikogramLogikaBerpikir-1){
                   echo "<td class='".$class."'>"."X"."</td>";
                 }else{
@@ -819,14 +817,14 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
            ?>
          </tr>
          <tr>
-           <td class="psikogramtable9"  > 5</td>
+           <td class="psikogramtable9"  > 4</td>
            <td class="psikogramtable10" colspan="3"> Kemampuan Belajar </td>
            <td class="psikogramtable11" colspan="6" >
              Kemampuan menguasai dan meningkatkan pengetahuan dan keterampilan kerja yang baru maupun yang telah dimiliki
            </td>
            <?php
-              for($i = 0; $i < 7; $i++){
-                $class = 5-1 == $i ? "psikogramtable13" : "psikogramtable12";
+              for($i = 0; $i < 5; $i++){
+                $class = 3-1 == $i ? "psikogramtable13" : "psikogramtable12";
                 if($i == $psikogramKemampuanBelajar-1){
                   echo "<td class='".$class."'>"."X"."</td>";
                 }else{
@@ -841,50 +839,16 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
            <td class="psikogramtable7" colspan="17">ASPEK SIKAP KERJA</td>
          </tr>
          <tr>
-           <td class="psikogramtable8"  rowspan="5" >
+         <td class="psikogramtable8"  rowspan="6" >
            &nbsp;</td>
            <td class="psikogramtable9" >1</td>
-           <td class="psikogramtable10" colspan="3"> Sistematika Kerja</td>
-           <td class="psikogramtable11" colspan="6" >
-             Kemampuan dan keterampilan menyelesaikan suatu tugas secara runut proposional, sesuai dengan skala prioritas tertentu
-           </td>
-           <?php
-              for($i = 0; $i < 7; $i++){
-                $class = 5-1 == $i ? "psikogramtable13" : "psikogramtable12";
-                if($i == $psikogramSistematikakerja-1){
-                  echo "<td class='".$class."'>"."X"."</td>";
-                }else{
-                  echo "<td class='".$class."'>"." "."</td>";
-                }
-              }
-           ?>
-         </tr>
-         <tr>
-           <td class="psikogramtable9" >2</td>
-           <td class="psikogramtable10" colspan="3">Tempo Kerja</td>
-           <td class="psikogramtable11" colspan="6" >
-             Kecepatan dan kecelakaan kerja yang menunjukan kemampuan menyelesaikan sejumlah tugas dalam batas waktu tertentu
-           </td>
-           <?php
-              for($i = 0; $i < 7; $i++){
-                $class = 4-1 == $i ? "psikogramtable13" : "psikogramtable12";
-                if($i == $psikogramTempoKerja-1){
-                  echo "<td class='".$class."'>"."X"."</td>";
-                }else{
-                  echo "<td class='".$class."'>"." "."</td>";
-                }
-              }
-           ?>
-         </tr>
-         <tr>
-           <td class="psikogramtable9" >3</td>
            <td class="psikogramtable10" colspan="3"> Ketelitian</td>
            <td class="psikogramtable11" colspan="6" >
              Kemampuan bekerja dengan sedikit mungkin melakukan kesalahan atau kekeliruan
            </td>
            <?php
-              for($i = 0; $i < 7; $i++){
-                $class = 5-1 == $i ? "psikogramtable13" : "psikogramtable12";
+              for($i = 0; $i < 5; $i++){
+                $class = 4-1 == $i ? "psikogramtable13" : "psikogramtable12";
                 if($i == $psikogramKetelitian-1){
                   echo "<td class='".$class."'>"."X"."</td>";
                 }else{
@@ -894,14 +858,14 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
            ?>
          </tr>
          <tr>
-           <td class="psikogramtable9" >4</td>
+           <td class="psikogramtable9" >2</td>
            <td class="psikogramtable10" colspan="3" >Ketekunan</td>
            <td class="psikogramtable11" colspan="6" width="332">
              Daya tahan menghadapi dan menyelesaikan tugas sampai tuntas dalam waktu relatif lama dengan mencapai hasil yang optimal
            </td>
            <?php
-              for($i = 0; $i < 7; $i++){
-                $class = 4-1 == $i ? "psikogramtable13" : "psikogramtable12";
+              for($i = 0; $i < 5; $i++){
+                $class = 3-1 == $i ? "psikogramtable13" : "psikogramtable12";
                 if($i == $psikogramKetekunan-1){
                   echo "<td class='".$class."'>"."X"."</td>";
                 }else{
@@ -911,14 +875,69 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
            ?>
          </tr>
          <tr>
+           <td class="psikogramtable9" >3</td>
+           <td class="psikogramtable10" colspan="3">Tempo Kerja</td>
+           <td class="psikogramtable11" colspan="6" >
+             Kecepatan dan kecelakaan kerja yang menunjukan kemampuan menyelesaikan sejumlah tugas dalam batas waktu tertentu
+           </td>
+           <?php
+              for($i = 0; $i < 5; $i++){
+                $class = 3-1 == $i ? "psikogramtable13" : "psikogramtable12";
+                if($i == $psikogramTempoKerja-1){
+                  echo "<td class='".$class."'>"."X"."</td>";
+                }else{
+                  echo "<td class='".$class."'>"." "."</td>";
+                }
+              }
+           ?>
+         </tr>
+         <tr>
+           <td class="psikogramtable9" >4</td>
+           <td class="psikogramtable10" colspan="3">Inisiatif</td>
+           <td class="psikogramtable11" colspan="6" >
+             Kemampuan mengendalikan diri dalam situasi-situasi sulit dan kemampuan melakukan perencanaan sebelum bertindak
+           </td>
+           <?php
+              for($i = 0; $i < 5; $i++){
+                $class = 3-1 == $i ? "psikogramtable13" : "psikogramtable12";
+                if($i == $psikogramInisiatif-1){
+                  echo "<td class='".$class."'>"."X"."</td>";
+                }else{
+                  echo "<td class='".$class."'>"." "."</td>";
+                }
+              }
+           ?>
+         </tr>
+
+         <tr>
+
+           <td class="psikogramtable9" >5</td>
+           <td class="psikogramtable10" colspan="3"> Sistematika Kerja</td>
+           <td class="psikogramtable11" colspan="6" >
+             Kemampuan dan keterampilan menyelesaikan suatu tugas secara runut proposional, sesuai dengan skala prioritas tertentu
+           </td>
+           <?php
+              for($i = 0; $i < 5; $i++){
+                $class = 3-1 == $i ? "psikogramtable13" : "psikogramtable12";
+                if($i == $psikogramSistematikakerja-1){
+                  echo "<td class='".$class."'>"."X"."</td>";
+                }else{
+                  echo "<td class='".$class."'>"." "."</td>";
+                }
+              }
+           ?>
+         </tr>
+
+
+         <tr>
            <td class="psikogramtable9">5</td>
            <td class="psikogramtable10" colspan="3">Komunikasi Efektif</td>
            <td class="psikogramtable11" colspan="6" >
              Kemampuan menyampaikan pendapat secara lancar, sehingga pendengar paham dan bersedia mengikuti pendapatnya
            </td>
            <?php
-              for($i = 0; $i < 7; $i++){
-                $class = 5-1 == $i ? "psikogramtable13" : "psikogramtable12";
+              for($i = 0; $i < 5; $i++){
+                $class = 4-1 == $i ? "psikogramtable13" : "psikogramtable12";
                 if($i == $psikogramKomunikasiEfektif-1){
                   echo "<td class='".$class."'>"."X"."</td>";
                 }else{
@@ -927,21 +946,24 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
               }
            ?>
          </tr>
+
+
+         
          <tr bgcolor="#00b050">
            <td class="psikogramtable6"  style="height: 20pt;; width: 25px;">
            C</td>
            <td class="psikogramtable7" colspan="17">ASPEK KEPRIBADIAN</td>
          </tr>
          <tr>
-           <td class="psikogramtable8" rowspan="5" &nbsp;</td>
+           <td class="psikogramtable8" rowspan="6" &nbsp;</td>
            <td class="psikogramtable9" >1</td>
            <td class="psikogramtable10" colspan="3">Motivasi</td>
            <td class="psikogramtable11" colspan="6" >
              Keinginan meningkatkan hasil kerja dan selalu berfokus pada profit opportunities
            </td>
            <?php
-              for($i = 0; $i < 7; $i++){
-                $class = 5-1 == $i ? "psikogramtable13" : "psikogramtable12";
+              for($i = 0; $i < 5; $i++){
+                $class = 3-1 == $i ? "psikogramtable13" : "psikogramtable12";
                 if($i == $psikogramMotivasi-1){
                   echo "<td class='".$class."'>"."X"."</td>";
                 }else{
@@ -957,8 +979,8 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
              Pemahaman atas kelebihan dan kekurangan diri sendiri
            </td>
            <?php
-              for($i = 0; $i < 7; $i++){
-                $class = 4-1 == $i ? "psikogramtable13" : "psikogramtable12";
+              for($i = 0; $i < 5; $i++){
+                $class = 3-1 == $i ? "psikogramtable13" : "psikogramtable12";
                 if($i == $psikogramKonsepDiri-1){
                   echo "<td class='".$class."'>"."X"."</td>";
                 }else{
@@ -974,8 +996,8 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
              Kemampuan memahami dan merasakan adanya permasalahan dan kondisi emosional orang lain
            </td>
            <?php
-              for($i = 0; $i < 7; $i++){
-                $class = 5-1 == $i ? "psikogramtable13" : "psikogramtable12";
+              for($i = 0; $i < 5; $i++){
+                $class = 4-1 == $i ? "psikogramtable13" : "psikogramtable12";
                 if($i == $psikogramEmpati-1){
                   echo "<td class='".$class."'>"."X"."</td>";
                 }else{
@@ -991,8 +1013,8 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
              Kemampuan bereaksi dengan cepat terhadap kebutuhan orang lain atau tuntutan lingkungan, serta memahami norma sosial yang berlaku
            </td>
            <?php
-              for($i = 0; $i < 7; $i++){
-                $class = 5-1 == $i ? "psikogramtable13" : "psikogramtable12";
+              for($i = 0; $i < 5; $i++){
+                $class = 4-1 == $i ? "psikogramtable13" : "psikogramtable12";
                 if($i == $psikogramPemahamanSosial-1){
                   echo "<td class='".$class."'>"."X"."</td>";
                 }else{
@@ -1003,12 +1025,36 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
          </tr>
          <tr>
            <td class="psikogramtable9" >5</td>
-           <td class="psikogramtable10" colspan="3">INISIATIF</td>
+           <td class="psikogramtable10" colspan="3">Kematangan Emosi</td>
            <td class="psikogramtable11" colspan="6" >
-             Kemampuan mengendalikan diri dalam situasi-situasi sulit dan kemampuan melakukan perencanaan sebelum bertindak
+           Keluasan pengetahuan dan kemampuan mengelola emosi secara optimal
            </td>
            <?php
-
+              for($i = 0; $i < 5; $i++){
+                $class = 3-1 == $i ? "psikogramtable13" : "psikogramtable12";
+                if($i == $psikogramKematanganEmosi-1){
+                  echo "<td class='".$class."'>"."X"."</td>";
+                }else{
+                  echo "<td class='".$class."'>"." "."</td>";
+                }
+              }
+           ?>
+         </tr>
+         <tr>
+           <td class="psikogramtable9" >6</td>
+           <td class="psikogramtable10" colspan="3">Adaptif</td>
+           <td class="psikogramtable11" colspan="6" >
+           Kemampuan menyesuaikan diri dengan lingkungan
+           </td>
+           <?php
+              for($i = 0; $i < 5; $i++){
+                $class = 3-1 == $i ? "psikogramtable13" : "psikogramtable12";
+                if($i == $psikogramAdaptif-1){
+                  echo "<td class='".$class."'>"."X"."</td>";
+                }else{
+                  echo "<td class='".$class."'>"." "."</td>";
+                }
+              }
            ?>
          </tr>
          <tr bgcolor="#B8CCE4">
@@ -1080,7 +1126,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
   </article>
 </section>
 </b>
-<section class="sheet padding-25mm">
+<section class="sheet padding-15mm">
   <div class="headerReport">
     <h2>RAHASIA</h2>
   </div>
@@ -1218,7 +1264,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
         </tr>
        </table>
        <!-- 9 Cell -->
-       <div id="chart_div" style="position: absolute; bottom: 32.2%; left:17%; width: 696px; height: 709px; background-image: url('<?=Url::base()?>/images/setkab/bg-color-9-cell.png'); background-repeat: no-repeat; background-position: 50% 50%; background-size: 430px 435px; "></div>
+       <div id="chart_div" style="position: absolute; bottom: 37.0%; left:12%; width: 696px; height: 709px; background-image: url('<?=Url::base()?>/images/setkab/bg-color-9-cell.png'); background-repeat: no-repeat; background-position: 50% 50%; background-size: 430px 435px; "></div>
        <br/>
        <table>
 
@@ -1281,7 +1327,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
   </article>
 </section>
 </b>
-<section class="sheet padding-25mm">
+<section class="sheet padding-15mm">
   <div class="headerReport">
     <h2>RAHASIA</h2>
   </div>
@@ -1302,17 +1348,17 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
     </div>
     <div class="pemeriksa">
       <div class='center' style="font-size: 18px;"><b>
-        <?php echo $activityModel->tempat_test.", 5 November 2018"; ?></br>
+        <?php echo $activityModel->tempat_test.", " . $dateReport; ?></br>
          a.n Psikolog Pemeriksa,</b><br/>
          <?php echo Html::img('@web/images/setkab/ttd.png', ['alt' => '--missing image--','style'=> 'max-width:200px; max-height:200px; text-align: right;' ]);?></br>
-         <strong>( DRS. BUDIMAN SANUSI, M.Psi. PSIKOLOG )</strong>
+         <strong>( Drs. BUDIMAN SANUSI, M.Psi. Psikolog )</strong>
       </div>
     </div>
     <?php echo $footerReport;?>
   </article>
 </section>
 </b>
-<section class="sheet padding-25mm">
+<section class="sheet padding-15mm">
   <div class="headerReport rahasia">
     <h2>RAHASIA</h2>
   </div>
@@ -1394,7 +1440,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
                 }else{
                   echo "<td bgcolor='#fff'></td>";
                 }
-              } elseif ($resultIntegritasFit <= 100){
+              } elseif ($resultIntegritasFit >= 100){
                 if($i <= 4){
                   echo "<td bgcolor='#44b2ef'></td>";
                 }else{
@@ -1412,7 +1458,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
       <tr>
         <td colspan="7" class="uraian"></b>
         <?php
-             echo wordwrap(str_replace($htmltag, $htmlesc, $resultIntegritasUraian), 1000,  $pagebreak_perekatbangsa, true);
+             echo wordwrap(str_replace($htmltag, $htmlesc, $resultIntegritasUraian), 1500,  $pagebreak_perekatbangsa, true);
       //  echo $resultIntegritasUraian;
         ?></td>
       </tr>
@@ -1484,7 +1530,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
                 }else{
                   echo "<td bgcolor='#fff'></td>";
                 }
-              } elseif ($resultKerjasamaFit <= 100){
+              } elseif ($resultKerjasamaFit >= 100){
                 if($i <= 4){
                   echo "<td bgcolor='#44b2ef'></td>";
                 }else{
@@ -1571,7 +1617,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
                 }else{
                   echo "<td bgcolor='#fff'></td>";
                 }
-              } elseif ($resultKomunikasiFit <= 100){
+              } elseif ($resultKomunikasiFit >= 100){
                 if($i <= 4){
                   echo "<td bgcolor='#44b2ef'></td>";
                 }else{
@@ -1657,7 +1703,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
                 }else{
                   echo "<td bgcolor='#fff'></td>";
                 }
-              } elseif ($resultOrientasiHasilFit <= 100){
+              } elseif ($resultOrientasiHasilFit >= 100){
                 if($i <= 4){
                   echo "<td bgcolor='#44b2ef'></td>";
                 }else{
@@ -1743,7 +1789,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
                 }else{
                   echo "<td bgcolor='#fff'></td>";
                 }
-              } else{
+              }  elseif ($resultPelayananPublikFit >= 100){
                 if($i <= 4){
                   echo "<td bgcolor='#44b2ef'></td>";
                 }else{
@@ -1831,7 +1877,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
                 }else{
                   echo "<td bgcolor='#fff'></td>";
                 }
-              } elseif ($resultPengembanganDiriFit <= 100){
+              } elseif ($resultPengembanganDiriFit >= 100){
                 if($i <= 4){
                   echo "<td bgcolor='#44b2ef'></td>";
                 }else{
@@ -1918,7 +1964,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
                 }else{
                   echo "<td bgcolor='#fff'></td>";
                 }
-              } elseif ($resultPengelolaanPerubahanFit <= 100){
+              } elseif ($resultPengelolaanPerubahanFit >= 100){
                 if($i <= 4){
                   echo "<td bgcolor='#44b2ef'></td>";
                 }else{
@@ -2005,7 +2051,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
                 }else{
                   echo "<td bgcolor='#fff'></td>";
                 }
-              } elseif ($resultPengambilanKeputusanFit <= 100){
+              } elseif ($resultPengambilanKeputusanFit >= 100){
                 if($i <= 4){
                   echo "<td bgcolor='#44b2ef'></td>";
                 }else{
@@ -2096,7 +2142,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
                 }else{
                   echo "<td bgcolor='#fff'></td>";
                 }
-              } elseif ($resultPerekatBangsaFit <= 100){
+              } elseif ($resultPerekatBangsaFit >= 100){
                 if($i <= 4){
                   echo "<td bgcolor='#44b2ef'></td>";
                 }else{
@@ -2126,7 +2172,7 @@ background-position: center; background-repeat: no-repeat;background-size: 210mm
     <?php echo $footerReport;?>
   </article>
 </section></b>
-<section class="sheet padding-25mm">
+<section class="sheet padding-15mm">
 
 <?php
 
@@ -2264,7 +2310,7 @@ $header_print_cont = '</p>
     <?php echo $footerReport;?>
   </article>
 </section></b>
-<section class="sheet padding-25mm">
+<section class="sheet padding-15mm">
 
 <?php
 
@@ -2291,7 +2337,7 @@ echo $header_print_saran = '<div class="center" style="font-family: cambria;">
 
 $pagebreak_saran = $footerReport.'</b></p></article>
 </section>
-  <section class="sheet padding-25mm" style="background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
+  <section class="sheet padding-15mm" style="background-position: center; background-repeat: no-repeat;background-size: 210mm 296mm">
     <div class="headerReport">
       <h2>RAHASIA</h2>
     </div>

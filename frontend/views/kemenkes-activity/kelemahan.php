@@ -9,9 +9,9 @@ use yii\helpers\HtmlPurifier;
 /* @var $model frontend\models\SetkabActivity */
 
 $this->title = Yii::t('app', 'Kelemahan {modelClass}: ', [
-    'modelClass' => 'Setkab Activity',
+    'modelClass' => Yii::$app->params['projectName'] . ' Activity',
 ]) . $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Kemenkes Activities'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', Yii::$app->params['projectName'] . ' Activities'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
@@ -49,6 +49,9 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
     //$PArp += $model->psikogram_pengaturandiri;
     $PArp += $model->psikogram_sistematikakerja;
     $PArp += $model->psikogram_tempokerja;
+    $PArp += $model->psikogram_adaptif;
+    $PArp += $model->psikogram_kematanganemosi;
+    $PArp += $model->psikogram_inisiatif;
 
     $sumC = 0;
     $sumC += $lkjmodel->kompetensigram_integritas;
@@ -257,7 +260,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                 function drawChart() {
                     var data = google.visualization.arrayToDataTable([
                         ['Potensi', 'Kompetensi'],
-                        [ <?=round($PArp/70*100); ?>,  <?=round($PArk/$sumC*100); ?>], //ini harus diisi
+                        [ <?=round($PArp/54*100); ?>,  <?=round($PArk/$sumC*100); ?>], //ini harus diisi
                     ]);
 
                     var options = {
@@ -287,7 +290,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                     <td align="left">
                         <?php
                         $sumbuY = round($PArk/$sumC*100);
-                        $sumbuX = round($PArp/70*100);
+                        $sumbuX = round($PArp/54*100);
 
                         if ($sumbuY >=100) {
                             echo "<img height='450' width='130' src=".Url::base()."/images/setkab-sumbuYtop.PNG>";

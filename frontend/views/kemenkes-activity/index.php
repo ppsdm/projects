@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		<?php
         echo Html::a(Yii::t('app', 'Batch 1'), ['index1'], ['class' => 'btn btn-primary']);
         echo Html::a(Yii::t('app', 'Batch 2'), ['index2'], ['class' => 'btn btn-primary']);
-        echo Html::a(Yii::t('app', 'Batch 3'), ['index3'], ['class' => 'btn btn-primary']);
+        /*echo Html::a(Yii::t('app', 'Batch 3'), ['index3'], ['class' => 'btn btn-primary']);
         echo Html::a(Yii::t('app', 'Batch 4'), ['index4'], ['class' => 'btn btn-primary']);
         echo Html::a(Yii::t('app', 'Batch 5'), ['index5'], ['class' => 'btn btn-primary']);
         echo Html::a(Yii::t('app', 'Batch 6'), ['index6'], ['class' => 'btn btn-primary']);
@@ -29,7 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
         echo Html::a(Yii::t('app', 'Batch 10'), ['index10'], ['class' => 'btn btn-primary']);
         echo Html::a(Yii::t('app', 'Batch 11'), ['index11'], ['class' => 'btn btn-primary']);
         echo Html::a(Yii::t('app', 'Batch 12'), ['index12'], ['class' => 'btn btn-primary']);
-        echo Html::a(Yii::t('app', 'Batch 13'), ['index13'], ['class' => 'btn btn-primary']);     
+        echo Html::a(Yii::t('app', 'Batch 13'), ['index13'], ['class' => 'btn btn-primary']);   
+        */  
 		?>
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([

@@ -86,6 +86,33 @@ class KemenkesActivityController extends Controller
 
     }
 
+    public function actionSoindex()
+    {
+        $searchModel = new KemenkesActivitySearch();
+		$params = Yii::$app->request->queryParams;
+		$params['KemenkesActivitySearch']['second_opinion_id'] = Yii::$app->user->id;
+        $dataProvider = $searchModel->search($params);
+
+        $dataProvider->pagination = ['pageSize' => 200,];
+
+        return $this->render('soindex', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+
+		//echo Yii::$app->user->id;
+		//echo '<pre>';
+		//print_r($params);
+
+    }
+
+    public function actionHelp()
+    {
+    
+        return $this->render('help');
+    }
+
     /**
      * Displays a single KemenkesActivity model.
      * @param integer $id
@@ -240,13 +267,35 @@ class KemenkesActivityController extends Controller
         $params['KemenkesActivitySearch']['assessor_id'] = Yii::$app->user->id;
         }
         $dataProvider = $searchModel->search($params);
-        $dataProvider->query->andWhere('id >= 4')->andWhere('id <= 17');
+        $dataProvider->query->andWhere('id >= 378')->andWhere('id <= 412')->orderBy(['id' => SORT_ASC]);
         $dataProvider->pagination = ['pageSize' => 50,];
 
-
+        $batchNumber = 'B-1';
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'batchNumber' => $batchNumber
+        ]);
+    }
+
+    public function actionIndex2()
+    {
+        //untuk batch 2
+
+        $searchModel = new KemenkesActivitySearch();
+        $params = Yii::$app->request->queryParams;
+        if (Yii::$app->user->id != 1) { // IF NON ADMIN
+        $params['KemenkesActivitySearch']['assessor_id'] = Yii::$app->user->id;
+        }
+        $dataProvider = $searchModel->search($params);
+        $dataProvider->query->andWhere('id >= 413')->andWhere('id <= 449')->orderBy(['id' => SORT_ASC]);
+        $dataProvider->pagination = ['pageSize' => 50,];
+
+        $batchNumber = 'B-2';
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'batchNumber' => $batchNumber
         ]);
     }
 
@@ -997,7 +1046,7 @@ class KemenkesActivityController extends Controller
         }
 
 
-        if($kekuatan >= $minmax['saran_max']) {
+        if($kekuatan > $minmax['saran_max']) {
             $message = $message . ' uraian kekuatan diatas MAX; <br/>';
             $valid = false;
         }
@@ -1005,7 +1054,7 @@ class KemenkesActivityController extends Controller
             $message = $message . ' uraian kekuatan dibawah MIN; <br/>';
             $valid = false;
         }
-        if($kelemahan >= $minmax['saran_max']) {
+        if($kelemahan > $minmax['saran_max']) {
             $message = $message . ' uraian kelemahan diatas MAX; <br/>';
             $valid = false;
         }
@@ -1013,7 +1062,7 @@ class KemenkesActivityController extends Controller
             $message = $message . ' uraian kelemahan dibawah MIN; <br/>';
             $valid = false;
         }
-        if($saran >= $minmax['saran_max']) {
+        if($saran > $minmax['saran_max']) {
             $message = $message . ' uraian saran diatas MAX; <br/>';
             $valid = false;
         }
@@ -1021,7 +1070,7 @@ class KemenkesActivityController extends Controller
             $message = $message . ' uraian saran dibawah MIN; <br/>';
             $valid = false;
         }
-        if($exsum >= $minmax['exsum_max']) {
+        if($exsum > $minmax['exsum_max']) {
             $message = $message . ' uraian executive summary diatas MAX; <br/>';
             $valid = false;
         }
@@ -1030,7 +1079,7 @@ class KemenkesActivityController extends Controller
             $valid = false;
         }
 
-            if($integritas_uraian >= $minmax['kompetensi_max']) {
+            if($integritas_uraian > $minmax['kompetensi_max']) {
                 $message = $message . ' uraian integritas diatas MAX; <br/>';
                 $valid = false;
             }
@@ -1039,7 +1088,7 @@ class KemenkesActivityController extends Controller
                 $valid = false;
             }
 
-            if($kerjasama_uraian >= $minmax['kompetensi_max']) {
+            if($kerjasama_uraian > $minmax['kompetensi_max']) {
                 $message = $message . ' uraian kerjasama diatas MAX; <br/>';
                 $valid = false;
             }
@@ -1048,7 +1097,7 @@ class KemenkesActivityController extends Controller
                 $valid = false;
             }
 
-            if($komunikasi_uraian >= $minmax['kompetensi_max']) {
+            if($komunikasi_uraian > $minmax['kompetensi_max']) {
                 $message = $message . ' uraian komunikasi diatas MAX; <br/>';
                 $valid = false;
             }
@@ -1056,7 +1105,7 @@ class KemenkesActivityController extends Controller
                 $message = $message . ' uraian komunikasi dibawah MIN; <br/>';
                 $valid = false;
             }
-            if($orientasihasil_uraian >= $minmax['kompetensi_max']) {
+            if($orientasihasil_uraian > $minmax['kompetensi_max']) {
                 $message = $message . ' uraian orientasi hasil diatas MAX; <br/>';
                 $valid = false;
             }
@@ -1065,7 +1114,7 @@ class KemenkesActivityController extends Controller
                 $valid = false;
             }
 
-            if($pelayananpublik_uraian >= $minmax['kompetensi_max']) {
+            if($pelayananpublik_uraian > $minmax['kompetensi_max']) {
                 $message = $message . ' uraian pelayanan publik diatas MAX; <br/>';
                 $valid = false;
             }
@@ -1074,15 +1123,15 @@ class KemenkesActivityController extends Controller
                 $valid = false;
             }
 
-            if($pengembangandiri_uraian >= $minmax['kompetensi_max']) {
+            if($pengembangandiri_uraian > $minmax['kompetensi_max']) {
                 $message = $message . ' uraian pengembangan diri diatas MAX; <br/>';
                 $valid = false;
             }
             if($pengembangandiri_uraian < $minmax['kompetensi_min']) {
-                $message = $message . ' uraian pengembangan diri dibawah MIN; <br/>';
+                $message = $message . ' uraian pengembangan diri dibawah MIN; ' .$pengembangandiri_uraian. '<br/>';
                 $valid = false;
             }
-            if($pengelolaanperubahan_uraian >= $minmax['kompetensi_max']) {
+            if($pengelolaanperubahan_uraian > $minmax['kompetensi_max']) {
                 $message = $message . ' uraian pengelolaan perubahan diatas MAX; <br/>';
                 $valid = false;
             }
@@ -1091,7 +1140,7 @@ class KemenkesActivityController extends Controller
                 $valid = false;
             }
 
-            if($pengambilankeputusan_uraian >= $minmax['kompetensi_max']) {
+            if($pengambilankeputusan_uraian > $minmax['kompetensi_max']) {
                 $message = $message . ' uraian pengambilan keputusan diatas MAX; <br/>';
                 $valid = false;
             }
@@ -1100,7 +1149,7 @@ class KemenkesActivityController extends Controller
                 $valid = false;
             }
 
-            if($perekatbangsa_uraian >= $minmax['kompetensi_max']) {
+            if($perekatbangsa_uraian > $minmax['kompetensi_max']) {
                 $message = $message . ' uraian perekat bangsa diatas MAX; <br/>';
                 $valid = false;
             }
@@ -1150,7 +1199,7 @@ $new_element = $dom->createElement('test', ' ');
 
        $replaced_dom = preg_replace('#\<(.+?)\>#', ' ', $dom->saveHTML());
        $word_count = preg_match_all("/[\w]+/i", html_entity_decode(strip_tags($replaced_dom), ENT_QUOTES));
-        $word_count = str_word_count(strip_tags($replaced_dom));
+        //$word_count = str_word_count(strip_tags($replaced_dom));
 }
 		$total_count = $word_count + $li_count;
 
@@ -1222,7 +1271,7 @@ $new_element = $dom->createElement('test', ' ');
     $sumbuX = $sumbuX + $activityModel->psikogram_inisiatif;
     $sumbuX = $sumbuX + $activityModel->psikogram_adaptif;
 
-    $pembagiSumbuX = 70;
+    $pembagiSumbuX = 54;
 
     $date =  date_create($activityModel->tanggal_test);
 
@@ -1255,10 +1304,12 @@ $new_element = $dom->createElement('test', ' ');
             $level_jabatan = '';
     }
 
-    $notest = $activityModel->no_test . '/EVA/' . $level_jabatan.'/SETKAB/'.$romawi.'/18';
+    $notest = $activityModel->no_test . '/EVAL/' . $level_jabatan.'/KEMENKES/'.$romawi.'/19';
 
-    $dateTest =  $day . ' - ' . ($day + 2) . ' ' . date_format($date,"F") . ' 2018';
+    $dateTest =  $day . ' - ' . ($day + 2) . ' ' . date_format($date,"F") . ' ' . date_format($date,"Y");
+    $dateReport = ($day + 21) . ' ' . date_format($date,"F") . ' ' . date_format($date,"Y");
 
+    $batchNumber = 'B-1';
 		$content =  $this->renderPartial('pdf',[
             'activityModel' => $activityModel,
             'assesseeModel' => $assesseeModel,
@@ -1270,6 +1321,9 @@ $new_element = $dom->createElement('test', ' ');
             'asessorName' => $activityModel->assessor->first_name,
             'noTest' => $notest,
             'dateTest' => $dateTest,
+            'dateReport' => $dateReport,
+            'dateSign' => $day . ' ' . date_format($date,"F") . ' ' . date_format($date,"Y"), 
+            'batchNumber' => $batchNumber,
             ]);
 
     return $content;
@@ -1316,7 +1370,10 @@ $new_element = $dom->createElement('test', ' ');
     
 
 
-
+public function findBatch(){
+    
+    return $batchNumber;
+}
     
   public function numberToRomawi($number)
   {

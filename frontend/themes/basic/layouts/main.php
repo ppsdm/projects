@@ -79,8 +79,8 @@ NotificationsWidget::widget([
     } else {
         $isso = true;
         if ($isso) {
-            $menuItems[] = ['label' => 'Panduan', 'url' => ['/setkab-activity/help']];
-            $menuItems[] = ['label' => 'Second Opinion', 'url' => ['/setkab-activity/soindex']];
+            $menuItems[] = ['label' => 'Panduan', 'url' => ['/'.strtolower(Yii::$app->params['projectName']).'-activity/help']];
+            $menuItems[] = ['label' => 'Second Opinion', 'url' => ['/'.strtolower(Yii::$app->params['projectName']).'-activity/soindex']];
         }
 
         if (isset(Yii::$app->user->identity->profile->id)) {

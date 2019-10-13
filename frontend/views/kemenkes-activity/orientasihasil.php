@@ -11,9 +11,9 @@ use yii\helpers\HtmlPurifier;
 /* @var $model frontend\models\SetkabActivity */
 
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
-    'modelClass' => 'Kemenkes Activity',
+    'modelClass' => Yii::$app->params['projectName'] . ' Activity',
 ]) . $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Kemenkes Activities'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', Yii::$app->params['projectName'] . ' Activities'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>

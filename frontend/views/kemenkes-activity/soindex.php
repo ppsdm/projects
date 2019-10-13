@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel frontend\models\SetkabActivitySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Setkab Activities');
+$this->title = Yii::t('app', Yii::$app->params['projectName'].' Activities');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="setkab-activity-index">
@@ -83,7 +83,7 @@ $this->registerJs("
     }).click(function (e) {
         var id = $(this).closest('tr').data('id');
         if(e.target == this)
-            location.href = 'http://projects.ppsdm.com/index.php/setkab-activity/view?id=' + id;
+            location.href = 'http://projects.ppsdm.com/index.php/" . strtolower(Yii::$app->params['projectName']) ."-activity/view?id=' + id;
     });
 
 ");

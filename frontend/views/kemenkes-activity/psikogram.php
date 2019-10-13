@@ -89,7 +89,7 @@ $this->registerCss("
                 )->label(false); ?></td>
         </tr>
         <tr>
-            <td>Kemampuan Analisa</td>
+            <td>Kemampuan Analisa / Berpikir Analitis</td>
             <td>Kemampuan menguraikan masalah & melihat kaitan antara satu hal dg hal lainnya hingga menemukan kesimpulan</td>
             <td><?= $form->field($model, 'psikogram_kemampuananalisa')->radioList(
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
@@ -152,39 +152,7 @@ $this->registerCss("
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>Sistematika Kerja</td>
-            <td>Kemampuan dan ketrampilan menyelesaikan suatu tugas secara runut, proporsional, sesuai dengan skala prioritas tertentu  </td>
-            <td><?= $form->field($model, 'psikogram_sistematikakerja')->radioList(
-                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
-                    [
-                        'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 3 - 1) {
-                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
-                            } else {
-                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
-                            }
-                        },
-                    ]
-                )->label(false); ?></td>
-        </tr>
-        <tr>
-            <td>Tempo Kerja</td>
-            <td>Kecepatan dan kecekatan kerja, yang menunjukkan kemampuan menyelesaikan sejumlah tugas dalam batas waktu tertentu</td>
-            <td><?= $form->field($model, 'psikogram_tempokerja')->radioList(
-                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
-                    [
-                        'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 3 - 1) {
-                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
-                            } else {
-                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
-                            }
-                        },
-                    ]
-                )->label(false); ?></td>
-        </tr>
-        <tr>
+    <tr>
             <td>Ketelitian</td>
             <td>Kemampuan bekerja dengan sesedikit mungkin melakukan kesalahan atau kekeliruan  </td>
             <td><?= $form->field($model, 'psikogram_ketelitian')->radioList(
@@ -217,13 +185,13 @@ $this->registerCss("
                 )->label(false); ?></td>
         </tr>
         <tr>
-            <td>Komunikasi Efektif</td>
-            <td>Kemampuan menyampaikan pendapat secara lancar, sehingga pendengar paham dan bersedia mengikuti pendapatnya</td>
-            <td><?= $form->field($model, 'psikogram_komunikasiefektif')->radioList(
+            <td>Tempo Kerja</td>
+            <td>Kecepatan dan kecekatan kerja, yang menunjukkan kemampuan menyelesaikan sejumlah tugas dalam batas waktu tertentu</td>
+            <td><?= $form->field($model, 'psikogram_tempokerja')->radioList(
                     [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
                     [
                         'item' => function($index, $label, $name, $checked, $value) {
-                            if ($index == 4 - 1) {
+                            if ($index == 3 - 1) {
                                 return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
                             } else {
                                 return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
@@ -248,6 +216,40 @@ $this->registerCss("
                     ]
                 )->label(false); ?></td>
         </tr>
+        <tr>
+            <td>Sistematika Kerja</td>
+            <td>Kemampuan dan ketrampilan menyelesaikan suatu tugas secara runut, proporsional, sesuai dengan skala prioritas tertentu  </td>
+            <td><?= $form->field($model, 'psikogram_sistematikakerja')->radioList(
+                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
+                    [
+                        'item' => function($index, $label, $name, $checked, $value) {
+                            if ($index == 3 - 1) {
+                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
+                            } else {
+                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
+                            }
+                        },
+                    ]
+                )->label(false); ?></td>
+        </tr>
+
+        <tr>
+            <td>Komunikasi Efektif</td>
+            <td>Kemampuan menyampaikan pendapat secara lancar, sehingga pendengar paham dan bersedia mengikuti pendapatnya</td>
+            <td><?= $form->field($model, 'psikogram_komunikasiefektif')->radioList(
+                    [1=>'1',2=>'2',3=>'3',4=>'4',5=>'5'],
+                    [
+                        'item' => function($index, $label, $name, $checked, $value) {
+                            if ($index == 4 - 1) {
+                                return "<div class='RadioBox2'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
+                            } else {
+                                return "<div class='RadioBox'><label><input type='radio' name='$name' value='$value' " . ($checked == $value ? 'checked' : '') . " class='RadioBox'>$label</label></div>";
+                            }
+                        },
+                    ]
+                )->label(false); ?></td>
+        </tr>
+
 
 
 
@@ -389,7 +391,7 @@ $psikogram_total += $model->psikogram_kematanganemosi;
 $psikogram_total += $model->psikogram_sistematikakerja;
 $psikogram_total += $model->psikogram_tempokerja;
 
-$psikogram_total_persen = round($psikogram_total / 70 * 100);
+$psikogram_total_persen = round($psikogram_total / 54 * 100);
 
 ?>
 
