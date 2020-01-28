@@ -41,11 +41,11 @@ class KemenkesActivityController extends Controller
         }*/
 
         $return[] = [];
-        $return['kompetensi_min'] = 100;
+        $return['kompetensi_min'] = 50;
         $return['kompetensi_max'] = 200;
-        $return['saran_min'] = 100;
-        $return['saran_max'] = 700;
-        $return['exsum_min'] = 600;
+        $return['saran_min'] = 50;
+        $return['saran_max'] = 500;
+        $return['exsum_min'] = 350;
         $return['exsum_max'] = 700;
 
         return $return;
@@ -267,7 +267,7 @@ class KemenkesActivityController extends Controller
         $params['KemenkesActivitySearch']['assessor_id'] = Yii::$app->user->id;
         }
         $dataProvider = $searchModel->search($params);
-        $dataProvider->query->andWhere('id >= 378')->andWhere('id <= 412')->orderBy(['id' => SORT_ASC]);
+        $dataProvider->query->andWhere('id >= 2')->andWhere('id <= 18')->orderBy(['id' => SORT_ASC]);
         $dataProvider->pagination = ['pageSize' => 50,];
 
         $batchNumber = 'B-1';
@@ -288,7 +288,28 @@ class KemenkesActivityController extends Controller
         $params['KemenkesActivitySearch']['assessor_id'] = Yii::$app->user->id;
         }
         $dataProvider = $searchModel->search($params);
-        $dataProvider->query->andWhere('id >= 413')->andWhere('id <= 449')->orderBy(['id' => SORT_ASC]);
+        $dataProvider->query->andWhere('id >= 19')->andWhere('id <= 39')->orderBy(['id' => SORT_ASC]);
+        $dataProvider->pagination = ['pageSize' => 50,];
+
+        $batchNumber = 'B-2';
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'batchNumber' => $batchNumber
+        ]);
+    }
+
+    public function actionIndex3()
+    {
+        //untuk batch 3
+
+        $searchModel = new KemenkesActivitySearch();
+        $params = Yii::$app->request->queryParams;
+        if (Yii::$app->user->id != 1) { // IF NON ADMIN
+        $params['KemenkesActivitySearch']['assessor_id'] = Yii::$app->user->id;
+        }
+        $dataProvider = $searchModel->search($params);
+        $dataProvider->query->andWhere('id >= 40')->andWhere('id <= 50')->orderBy(['id' => SORT_ASC]);
         $dataProvider->pagination = ['pageSize' => 50,];
 
         $batchNumber = 'B-2';
@@ -300,17 +321,20 @@ class KemenkesActivityController extends Controller
     }
 
 
+
     function checkRole($id)
     {
         $hasright = false;
         $model = $this->findModel($id);
         $userid = Yii::$app->user->id;
-        if($model->second_opinion_id == $userid) {
-            $hasright = 'secondopinion';
-        } elseif ($model->assessor_id == $userid) {
-            $hasright = 'assessor';
-        } elseif ($userid == '1') {
-            $hasright = 'admin';
+        if(!Yii::$app->user->isGuest){
+            if($model->second_opinion_id == $userid) {
+                $hasright = 'secondopinion';
+            } elseif ($model->assessor_id == $userid) {
+                $hasright = 'assessor';
+            } elseif ($userid == '1') {
+                $hasright = 'admin';
+            }
         }
 
 
@@ -320,6 +344,12 @@ class KemenkesActivityController extends Controller
 
 
 
+    public function beforeAction($action) {
+
+        Yii::$app->params['projectName'] = 'Kemenkes';
+       
+           return parent::beforeAction($action);
+       }
 
 
 
@@ -416,7 +446,7 @@ class KemenkesActivityController extends Controller
         if ($role = $this->checkRole($id)) {
         $model = $this->findModel($id);
 
-        $lkjmodel = KemenkesLkj::find()->andWhere(['level' => $model->assessee->level])->One();
+        $lkjmodel = KemenkesLkj::find()->andWhere(['golongan' => $model->assessee->golongan])->One();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -434,7 +464,7 @@ class KemenkesActivityController extends Controller
         if ($role = $this->checkRole($id)) {
 
         $model = $this->findModel($id);
-        $lkjmodel = KemenkesLkj::find()->andWhere(['level' => $model->assessee->level])->One();
+        $lkjmodel = KemenkesLkj::find()->andWhere(['golongan' => $model->assessee->golongan])->One();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -454,7 +484,7 @@ class KemenkesActivityController extends Controller
     {
         if ($role = $this->checkRole($id)) {
         $model = $this->findModel($id);
-        $lkjmodel = KemenkesLkj::find()->andWhere(['level' => $model->assessee->level])->One();
+        $lkjmodel = KemenkesLkj::find()->andWhere(['golongan' => $model->assessee->golongan])->One();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -558,7 +588,7 @@ class KemenkesActivityController extends Controller
         if ($role = $this->checkRole($id)) {
         $model = $this->findModel($id);
 		$assessee_model = KemenkesAssessee::findOne($model->assessee_id);
-		$lkj = KemenkesLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
+		$lkj = KemenkesLkj::find()->andWhere(['golongan' => strtolower($assessee_model->golongan)])->One();
 		if (is_null($lkj)) {
             $lkj = new KemenkesLkj;
             //echo 'sa';
@@ -590,7 +620,7 @@ class KemenkesActivityController extends Controller
         if ($role = $this->checkRole($id)) {
         $model = $this->findModel($id);
 		$assessee_model = KemenkesAssessee::findOne($model->assessee_id);
-		$lkj = KemenkesLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
+		$lkj = KemenkesLkj::find()->andWhere(['golongan' => strtolower($assessee_model->golongan)])->One();
 		if (is_null($lkj)) {
             //echo 'nada';
 			$lkj = new KemenkesLkj;
@@ -626,7 +656,7 @@ class KemenkesActivityController extends Controller
         if ($role = $this->checkRole($id)) {
         $model = $this->findModel($id);
 		$assessee_model = KemenkesAssessee::findOne($model->assessee_id);
-		$lkj = KemenkesLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
+		$lkj = KemenkesLkj::find()->andWhere(['golongan' => strtolower($assessee_model->golongan)])->One();
 		if (is_null($lkj)) {
 			$lkj = new KemenkesLkj;
 		}
@@ -658,7 +688,7 @@ class KemenkesActivityController extends Controller
 
         $model = $this->findModel($id);
 		$assessee_model = KemenkesAssessee::findOne($model->assessee_id);
-		$lkj = KemenkesLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
+		$lkj = KemenkesLkj::find()->andWhere(['golongan' => strtolower($assessee_model->golongan)])->One();
 		if (is_null($lkj)) {
 			$lkj = new KemenkesLkj;
 		}
@@ -689,7 +719,7 @@ class KemenkesActivityController extends Controller
 
         $model = $this->findModel($id);
 		$assessee_model = KemenkesAssessee::findOne($model->assessee_id);
-		$lkj = KemenkesLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
+		$lkj = KemenkesLkj::find()->andWhere(['golongan' => strtolower($assessee_model->golongan)])->One();
 		if (is_null($lkj)) {
 			$lkj = new KemenkesLkj;
 		}
@@ -721,7 +751,7 @@ class KemenkesActivityController extends Controller
 
         $model = $this->findModel($id);
 		$assessee_model = KemenkesAssessee::findOne($model->assessee_id);
-		$lkj = KemenkesLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
+		$lkj = KemenkesLkj::find()->andWhere(['golongan' => strtolower($assessee_model->golongan)])->One();
 		if (is_null($lkj)) {
 			$lkj = new KemenkesLkj;
 		}
@@ -752,7 +782,7 @@ class KemenkesActivityController extends Controller
 
         $model = $this->findModel($id);
 		$assessee_model = KemenkesAssessee::findOne($model->assessee_id);
-		$lkj = KemenkesLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
+		$lkj = KemenkesLkj::find()->andWhere(['golongan' => strtolower($assessee_model->golongan)])->One();
 		if (is_null($lkj)) {
 			$lkj = new KemenkesLkj;
 		}
@@ -784,7 +814,7 @@ class KemenkesActivityController extends Controller
 
         $model = $this->findModel($id);
 		$assessee_model = KemenkesAssessee::findOne($model->assessee_id);
-		$lkj = KemenkesLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
+		$lkj = KemenkesLkj::find()->andWhere(['golongan' => strtolower($assessee_model->golongan)])->One();
 		if (is_null($lkj)) {
 			$lkj = new KemenkesLkj;
 		}
@@ -815,7 +845,7 @@ class KemenkesActivityController extends Controller
 
         $model = $this->findModel($id);
 		$assessee_model = KemenkesAssessee::findOne($model->assessee_id);
-		$lkj = KemenkesLkj::find()->andWhere(['level' => strtolower($assessee_model->level)])->One();
+		$lkj = KemenkesLkj::find()->andWhere(['golongan' => strtolower($assessee_model->golongan)])->One();
 		if (is_null($lkj)) {
 			$lkj = new KemenkesLkj;
 		}
@@ -1235,7 +1265,7 @@ $new_element = $dom->createElement('test', ' ');
 	{
     $activityModel = $this->findModel($id);
     $assesseeModel = KemenkesAssessee::findOne($activityModel->assessee_id);
-    $lkjModel = KemenkesLkj::find()->andWhere(['level' => $activityModel->assessee->level])->One();
+    $lkjModel = KemenkesLkj::find()->andWhere(['golongan' => $activityModel->assessee->golongan])->One();
     $sumbuY = 0;
     $sumbuY = $sumbuY + $activityModel->integritas_lki; #1
     $sumbuY = $sumbuY + $activityModel->kerjasama_lki; #2
@@ -1281,33 +1311,36 @@ $new_element = $dom->createElement('test', ' ');
     $romawi  = $this->numberToRomawi($month);
 
     $level_jabatan = '';
-    switch (strtolower($assesseeModel->level)) {
-        case "iia":
-        $level_jabatan = 'es 2';;
-            break;
-        case "iiia":
-        $level_jabatan = 'es 3';
-            break;
-        case "iva":
-            $level_jabatan = 'es 4';
-            break;
-        case "jft3":
-            $level_jabatan = 'jft';
-            break;
-        case "jft4":
-            $level_jabatan = 'jft';
-            break;
-        case "pelaksana":
-            $level_jabatan = 'pelaksana';
-            break;
-        default:
-            $level_jabatan = '';
-    }
+    // switch (strtolower($assesseeModel->level)) {
+    //     case "iia":
+    //     $level_jabatan = 'es 2';;
+    //         break;
+    //     case "iiia":
+    //     $level_jabatan = 'es 3';
+    //         break;
+    //     case "iva":
+    //         $level_jabatan = 'es 4';
+    //         break;
+    //     case "jft3":
+    //         $level_jabatan = 'jft';
+    //         break;
+    //     case "jft4":
+    //         $level_jabatan = 'jft';
+    //         break;
+    //     case "pelaksana":
+    //         $level_jabatan = 'pelaksana';
+    //         break;
+    //     default:
+    //         $level_jabatan = '';
+    // }
 
-    $notest = $activityModel->no_test . '/EVAL/' . $level_jabatan.'/KEMENKES/'.$romawi.'/19';
+    $level_jabatan = $assesseeModel->level;
+    $notest = $activityModel->no_test . '/EVAL/' . $level_jabatan.'/KEMENKES/'.$romawi.'/20';
 
-    $dateTest =  $day . ' - ' . ($day + 2) . ' ' . date_format($date,"F") . ' ' . date_format($date,"Y");
-    $dateReport = ($day + 21) . ' ' . date_format($date,"F") . ' ' . date_format($date,"Y");
+    $dateTest =  $day . ' - ' . ($day + 1) . ' ' . date_format($date,"F") . ' ' . date_format($date,"Y");
+    $daterep = $date->modify('+13 day');
+    //$date->modify('-1 day');
+    $dateReport = date_format($daterep,"j") . ' ' . date_format($daterep,"F") . ' ' . date_format($daterep,"Y");
 
     $batchNumber = 'B-1';
 		$content =  $this->renderPartial('pdf',[

@@ -5,6 +5,22 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=aws.ppsdm.com;dbname=ppsdm_paodb',
+            'username' => 'ppsdm',
+            'password' => 'ppsdm-mysql',
+            'charset' => 'utf8',
+        ], 
+
+        'projectsdb' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=aws.ppsdm.com;dbname=projectsdb',
+            'username' => 'ppsdm',
+            'password' => 'ppsdm-mysql',
+            'charset' => 'utf8',
+        ],         
+
         /*
         'db' => [
             'class' => 'yii\db\Connection',
@@ -20,6 +36,7 @@ return [
             'password' => '',
             'charset' => 'utf8',
         ],
+        */
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'viewPath' => '@common/mail',
@@ -32,11 +49,11 @@ return [
               'host' => 'smtp.gmail.com',
               'username' => 'gamantha.adhiguna@gmail.com',
               'password' => 'gamantha123!',
-              'port' => '465',
-              'encryption' => 'ssl',
+              'port' => '587',
+              'encryption' => 'tls',
           ],
         ],
-        */
+        
         
     ],
 ];

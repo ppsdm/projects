@@ -66,6 +66,8 @@ NotificationsWidget::widget([
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
+      //  ['label' => 'Panduan', 'url' => ['/kemenkes-activity/help']],
+       // ['label' => 'Second Opinion', 'url' => ['/kemenkes-activity/soindex']],
       //  ['label' => 'About', 'url' => ['/site/about']],
       //  ['label' => 'Contact', 'url' => ['/site/contact']],
        //'linkOptions' => ['style' => 'background-color: #F86D18;color: #ffffff;']]

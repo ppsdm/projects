@@ -326,7 +326,7 @@ public function actionTest()
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
         
 
-            Yii::$app->runAction('tao/tao/changepassword', ['userid' => $user->id, 'password' => $model->password]);
+            //Yii::$app->runAction('tao/tao/changepassword', ['userid' => $user->id, 'password' => $model->password]);
             Yii::$app->session->setFlash('success', '<br/><br/><br/><br/>New password was saved.');
             
 

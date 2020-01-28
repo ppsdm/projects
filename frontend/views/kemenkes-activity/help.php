@@ -41,23 +41,23 @@ use yii\helpers\Html;
 
 <h3  id="data-diri"><b>Panduan Asesor</b></h3>
 <ul>
-<li>Pengisian data diri<p><?= Html::img('@web/project-uploads/kemenkes2019/help/datadiri-awal.png', ['alt' => 'datadiri', 'width' => 600]) ?></p></li>
+<li>Pengisian data diri<p><?= Html::img('@web/images/setkab/help/datadiri.png', ['alt' => 'datadiri', 'width' => 600]) ?></p></li>
 <ul>
-<li>Tekan tombol <b>Edit</b> pada bagian <b>Data Diri</b> <p><?= Html::img('@web/project-uploads/kemenkes2019/help/edit.png', ['alt' => 'datadiri-edit', 'width' => 600]) ?></p></li>
+<li>Tekan tombol <b>Edit</b> pada bagian <b>Data Diri</b> <p><?= Html::img('@web/images/setkab/help/datadiri-edit.png', ['alt' => 'datadiri-edit', 'width' => 600]) ?></p></li>
 <li>Data diri sesuaikan dengan yang tercantum dalam Lembar Kehidupan <i>assessee</i></li>
 <li>Menggunakan huruf capital (huruf besar)</li>
 <li>Jika ada data yang kosong, silahkan bubuhkan tanda (-) pada kotak yang dimaksud</li>
 <li>Data yang sudah terisi dalam aplikasi terdiri dari Nama, Jabatan Saat ini, Golongan, Jabatan, Level, NIP, yang lainnya masih kosong. Silagkan diisi sesuai data assessee tersebut</li>
-<li>Jika data telah lengkap diisi silahkan tekan tombol <b>UPDATE</b> <p><?= Html::img('@web/project-uploads/kemenkes2019/help/datadiri.png', ['alt' => 'datadiri-update', 'width' => 600]) ?></p>di bagian paling bawah laman</li>
+<li>Jika data telah lengkap diisi silahkan tekan tombol <b>UPDATE</b> <p><?= Html::img('@web/images/setkab/help/datadiri-update.png', ['alt' => 'datadiri-update', 'width' => 600]) ?></p>di bagian paling bawah laman</li>
     </ul>
 
 <h5>▼ ---------------------------------------------------------------------------------------------------------------- ▼ <a href="#atas"> ▲ Ke Atas ▲ </a></h5>
 
 
-<li id="psikogram"><b>Pengisian Psikogram</b><p><?= Html::img('@web/project-uploads/kemenkes2019/help/psikogram-kemenkes.png', ['alt' => 'psikogram', 'width' => 600]) ?></p></li>
+<li id="psikogram"><b>Pengisian Psikogram</b><p><?= Html::img('@web/images/project-uploads/kemenkes2019/help/psikogram5.png', ['alt' => 'psikogram', 'width' => 600]) ?></p></li>
 <ul>
 <li>Tekan tombol <b>Edit</b> pada bagian psikogram <p><?= Html::img('@web/images/setkab/help/psikogram-edit.png', ['alt' => 'psikogram', 'width' => 600]) ?></p>
-<li>Anda hanya memilih radio button yang berisi nilai - nilai dari aspek psikologis yang ada, antara 1 - 5<p><?= Html::img('@web/project-uploads/kemenkes2019/help/skala-5.png', ['alt' => 'psikogram-radio', 'width' => 600]) ?></p></li>
+<li>Anda hanya memilih radio button yang berisi nilai - nilai dari aspek psikologis yang ada, antara 1 - 5<p><?= Html::img('@web/images/project-uploads/kemenkes2019/help/psikogram-radio.png', ['alt' => 'psikogram-radio', 'width' => 600]) ?></p></li>
 <li>Jika sudah terisi semua sesuai nilai psikologisnya silahkan tekan tombol <b>UPDATE</b></li>
 <li>Total skor, persentase dan kualifikasi (K2, K2, K3) akan terupdate otomatis setelah Anda menekan tombol <b>UPDATE</b></li>
     </ul>

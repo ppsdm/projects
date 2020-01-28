@@ -3,7 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\redactor\widgets\Redactor as Redactor;
-
+//use yii\jui\DatePicker;
+use kartik\date\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\SetkabActivity */
 
@@ -20,7 +21,57 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
     <?php $form = ActiveForm::begin(); ?>
 <?php
 echo $form->field($model, 'nama_lengkap')->textInput();
-echo $form->field($model, 'tanggal_lahir')->textInput();
+//echo $form->field($model, 'tanggal_lahir')->textInput();
+
+// echo $form->field($model, 'tanggal_lahir')->widget(
+//     DatePicker::class, 
+//     ['dateFormat' => 'yyyy-MM-dd',
+//     'options' => ['class' => 'form-control',
+//                     'readonly' => true
+//         ],
+//         //'convertFormat' => true,
+//     ]
+//     );
+
+
+echo $form->field($model, 'tanggal_lahir')->widget(DatePicker::classname(), [
+   // 'dateFormat' => 'yyyy-MM-dd',
+      // 'value' => date('dd-MM-yyyy', strtotime('+2 days')),   
+
+    'options' => ['placeholder' => 'Enter birth date ...'],
+    'pluginOptions' => [
+        'autoclose'=>true,
+        'orientation' => 'bottom center',
+        'format' => 'dd-mm-yyyy',
+    ]
+]);
+
+
+//     echo '<label>Check Issue Date</label>';
+// echo DatePicker::widget([
+// 	'name' => 'check_issue_date', 
+// 	'value' => date('d-M-Y', strtotime('+2 days')),
+// 	'options' => ['placeholder' => 'Select issue date ...'],
+// 	'pluginOptions' => [
+// 		'format' => 'dd-M-yyyy',
+//         'todayHighlight' => true,
+        
+//         // 'autoclose' => true,
+//         // 'startView'=>'year',
+//         // 'minViewMode'=>'months',
+//         // 'format' => 'mm-yyyy'
+
+        
+// 	]
+// ]);
+
+
+// echo DatePicker::widget([
+//     'model' => $model,
+//     'attribute' => 'tanggal_lahir',
+//     //'language' => 'ru',
+//     'dateFormat' => 'yyyy-MM-dd',
+// ]);
 echo $form->field($model, 'tempat_lahir')->textInput();
 echo $form->field($model, 'jabatan_saat_ini')->textInput();
 echo $form->field($model, 'satuan_kerja')->textInput();

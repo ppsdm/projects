@@ -51,7 +51,8 @@ class KemenkesAssessee extends \yii\db\ActiveRecord
     {
         return [
             [['profile_id'], 'integer'],
-            [['nama_lengkap', 'tanggal_lahir', 'tempat_lahir', 'jabatan_saat_ini', 'prospek_jabatan', 'golongan', 'jabatan', 'level', 'satuan_kerja', 'nip', 'pendidikan_terakhir', 'alamat', 'avatar', 'facebook', 'twitter', 'instagram'], 'string', 'max' => 255],
+            [['tanggal_lahir'], 'date', 'format' => 'php:d-m-Y'],
+            [['nama_lengkap', 'tempat_lahir', 'jabatan_saat_ini', 'prospek_jabatan', 'golongan', 'jabatan', 'level', 'satuan_kerja', 'nip', 'pendidikan_terakhir', 'alamat', 'avatar', 'facebook', 'twitter', 'instagram'], 'string', 'max' => 255],
         ];
     }
 
@@ -90,4 +91,29 @@ class KemenkesAssessee extends \yii\db\ActiveRecord
     {
         return new KemenkesAssesseeQuery(get_called_class());
     }
+
+    public function beforeSave($insert)
+
+    {
+
+        $this->tanggal_lahir = Yii::$app->formatter->asDate($this->tanggal_lahir, 'yyyy-MM-dd');
+        parent::beforeSave($insert);
+
+        return true;
+
+    }
+
+    public function afterFind()
+
+    {
+
+        $this->tanggal_lahir = Yii::$app->formatter->asDate($this->tanggal_lahir, 'dd-MM-yyyy');
+
+        parent::afterFind();
+
+        return true;
+
+    }
+
+
 }

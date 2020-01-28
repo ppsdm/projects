@@ -35,13 +35,13 @@
         "kartik-v/yii2-helpers": "dev-master",
         "bizley/podium": "^0.7.0",
         "ircmaxell/random-lib": "^1.2",
-        "phpoffice/phpspreadsheet": "dev-develop",
         "kartik-v/yii2-editable": "*",
         "kartik-v/yii2-detail-view": "^1.7",
         "yiidoc/yii2-redactor": "*",
         "yii2tech/html2pdf": "*",
         "mikehaertl/phpwkhtmltopdf": "^2.2",
-        "mpdf/mpdf": "^7.1"
+        "mpdf/mpdf": "^7.1",
+        "phpoffice/phpspreadsheet": "^1.10"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",

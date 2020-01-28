@@ -91,7 +91,7 @@ foreach($dom->getElementsByTagName('li') as $li) {
     <h1><span>
         <?php
         
-        echo Html::img('@web/project-uploads/kemenkes2019/photos/'.$model->assessee->id.'.JPG', ['alt' => '--missing image--','style'=> 'max-width:200px;max-height:200px'
+        echo Html::img('@web/images/project-uploads/kemenkes2019/photos/'.$model->assessee->id.'.JPG', ['alt' => '--missing image--','style'=> 'max-width:200px;max-height:200px'
             ]);
         ?>
     </span><?= Html::encode($model->assessee->nama_lengkap) ?></h1>
